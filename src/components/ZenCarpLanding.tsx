@@ -248,11 +248,11 @@ export default function ZenCarpLanding() {
         <div className={`min-h-screen bg-[#060a06] ${fontBody} text-[#e8e8e8] selection:bg-[#c9a227] selection:text-black`}>
             <header className="fixed top-0 z-50 w-full border-b border-[#1a2e1a]/60 bg-[#060a06]/80 backdrop-blur-md">
                 <div className="mx-auto flex max-w-6xl items-center justify-between px-5 py-3">
-                    <a href="#" className="flex items-center"><img src="/zencarp_logo.png" alt="ZenCarp" className="h-11 w-auto" /></a>
+                    <a href="#" className="flex items-center"><img src={`${import.meta.env.BASE_URL}zencarp_logo.png`} alt="ZenCarp" className="h-11 w-auto" /></a>
                     <nav className="hidden items-center gap-1 md:flex">
                         {navLinks.map(l => <a key={l.href} href={l.href} className="rounded-lg px-3 py-1.5 text-sm font-medium text-[#aaa] transition-colors hover:bg-[#111a11] hover:text-[#f0f0f0]">{l.label}</a>)}
-                        <a href="/results" className={`rounded-lg px-3 py-1.5 text-sm font-bold text-[#c9a227] transition-colors hover:bg-[#c9a227]/10 ${fontHeading}`}>Rezultati</a>
-                        <a href="/pravilnik" className="rounded-lg px-3 py-1.5 text-sm font-medium text-[#aaa] transition-colors hover:bg-[#111a11] hover:text-[#f0f0f0]">Pravilnik</a>
+                        <a href={`${import.meta.env.BASE_URL}results`} className={`rounded-lg px-3 py-1.5 text-sm font-bold text-[#c9a227] transition-colors hover:bg-[#c9a227]/10 ${fontHeading}`}>Rezultati</a>
+                        <a href={`${import.meta.env.BASE_URL}pravilnik`} className="rounded-lg px-3 py-1.5 text-sm font-medium text-[#aaa] transition-colors hover:bg-[#111a11] hover:text-[#f0f0f0]">Pravilnik</a>
                         <a href="#prijava" className={`ml-3 rounded-full bg-[#c9a227] px-4 py-1.5 text-sm font-bold text-[#0a0f0a] transition-transform hover:scale-105 ${fontHeading}`}>Prijavi ekipu</a>
                     </nav>
                     <button className="flex h-9 w-9 items-center justify-center rounded-lg border border-[#1a2e1a] text-[#aaa] md:hidden" onClick={() => setMobileMenuOpen(!mobileMenuOpen)} aria-label="Meni">
@@ -262,8 +262,8 @@ export default function ZenCarpLanding() {
                 {mobileMenuOpen && (
                     <div className="border-t border-[#1a2e1a] bg-[#060a06]/95 px-5 pb-4 pt-2 md:hidden">
                         {navLinks.map(l => <a key={l.href} href={l.href} onClick={() => setMobileMenuOpen(false)} className="block rounded-lg px-3 py-2 text-sm font-medium text-[#aaa] hover:bg-[#111a11] hover:text-[#f0f0f0]">{l.label}</a>)}
-                        <a href="/results" onClick={() => setMobileMenuOpen(false)} className={`block rounded-lg px-3 py-2 text-sm font-bold text-[#c9a227] hover:bg-[#c9a227]/10 ${fontHeading}`}>Rezultati</a>
-                        <a href="/pravilnik" onClick={() => setMobileMenuOpen(false)} className="block rounded-lg px-3 py-2 text-sm font-medium text-[#aaa] hover:bg-[#111a11] hover:text-[#f0f0f0]">Pravilnik</a>
+                        <a href={`${import.meta.env.BASE_URL}results`} onClick={() => setMobileMenuOpen(false)} className={`block rounded-lg px-3 py-2 text-sm font-bold text-[#c9a227] hover:bg-[#c9a227]/10 ${fontHeading}`}>Rezultati</a>
+                        <a href={`${import.meta.env.BASE_URL}pravilnik`} onClick={() => setMobileMenuOpen(false)} className="block rounded-lg px-3 py-2 text-sm font-medium text-[#aaa] hover:bg-[#111a11] hover:text-[#f0f0f0]">Pravilnik</a>
                     </div>
                 )}
             </header>
@@ -286,7 +286,7 @@ export default function ZenCarpLanding() {
                             <FadeIn>
                                 <div className="flex flex-col items-start justify-between gap-4 mb-6 sm:flex-row sm:items-center">
                                     <div className="flex items-center gap-4">
-                                        <img src="/zencarp_logo.png" alt="ZenCarp" className="h-12 w-auto" />
+                                        <img src={`${import.meta.env.BASE_URL}zencarp_logo.png`} alt="ZenCarp" className="h-12 w-auto" />
                                         <div>
                                             <div className="mb-1 flex items-center gap-2">
                                                 <span className="inline-block h-2 w-2 animate-pulse rounded-full bg-[#c9a227]" />
@@ -340,7 +340,7 @@ export default function ZenCarpLanding() {
 
                             <FadeIn delay={0.4}>
                                 <div className="mt-6 text-center">
-                                    <a href="/results" className={`inline-flex items-center gap-2 rounded-full bg-[#c9a227] px-8 py-3.5 text-sm font-extrabold uppercase tracking-wider text-[#0a0f0a] shadow-lg shadow-[#c9a227]/20 transition-transform hover:scale-105 ${fontHeading}`}>
+                                    <a href={`${import.meta.env.BASE_URL}results`} className={`inline-flex items-center gap-2 rounded-full bg-[#c9a227] px-8 py-3.5 text-sm font-extrabold uppercase tracking-wider text-[#0a0f0a] shadow-lg shadow-[#c9a227]/20 transition-transform hover:scale-105 ${fontHeading}`}>
                                         <EyeIcon className="h-4 w-4" /> Pogledaj sve rezultate
                                     </a>
                                 </div>
@@ -359,7 +359,7 @@ export default function ZenCarpLanding() {
                                 </div>
                             </FadeIn>
                             <FadeIn delay={0.05}>
-                                <img src="/zencarp_logo.png" alt="ZenCarp" className="mx-auto mb-6 h-40 w-auto drop-shadow-[0_4px_40px_rgba(201,162,39,0.3)] sm:h-52" />
+                                <img src={`${import.meta.env.BASE_URL}zencarp_logo.png`} alt="ZenCarp" className="mx-auto mb-6 h-40 w-auto drop-shadow-[0_4px_40px_rgba(201,162,39,0.3)] sm:h-52" />
                             </FadeIn>
                             <FadeIn delay={0.2}>
                                 <p className="mx-auto mb-8 max-w-2xl text-lg leading-relaxed text-[#ddd] sm:text-xl">Četiri ekipe. Četiri sata. Jedno jezero. <br className="hidden sm:block" /> Prenos uživo i rezultati u realnom vremenu — probamo prvi put.</p>
@@ -399,7 +399,7 @@ export default function ZenCarpLanding() {
                                 <div className="relative">
                                     <div className="absolute -inset-3 rounded-4xl bg-linear-to-br from-[#c9a227]/10 via-transparent to-[#7cb87c]/10 blur-xl" />
                                     <div className="relative overflow-hidden rounded-2xl border border-[#1a2e1a] bg-[#0d140d]/90 p-3 shadow-2xl">
-                                        <img src="/mapa_jezera.png" alt="Mapa jezera sa pozicijama ekipa i ulazom za publiku" className="h-auto w-full rounded-xl" style={{ objectFit: "contain" }} />
+                                        <img src={`${import.meta.env.BASE_URL}mapa_jezera.png`} alt="Mapa jezera sa pozicijama ekipa i ulazom za publiku" className="h-auto w-full rounded-xl" style={{ objectFit: "contain" }} />
                                     </div>
                                 </div>
                             </FadeIn>
@@ -468,7 +468,7 @@ export default function ZenCarpLanding() {
                                 <div className="relative">
                                     <div className="absolute -inset-3 rounded-4xl bg-linear-to-br from-[#c9a227]/10 via-transparent to-[#7cb87c]/10 blur-xl" />
                                     <div className="relative overflow-hidden rounded-2xl border border-[#1a2e1a] bg-[#0d140d]/90 shadow-2xl">
-                                        <video autoPlay loop muted playsInline className="h-auto w-full" style={{ aspectRatio: "16/9", objectFit: "cover" }}><source src="/rendered_overlay.mp4" type="video/mp4" /></video>
+                                        <video autoPlay loop muted playsInline className="h-auto w-full" style={{ aspectRatio: "16/9", objectFit: "cover" }}><source src={`${import.meta.env.BASE_URL}rendered_overlay.mp4`} type="video/mp4" /></video>
                                     </div>
                                 </div>
                             </FadeIn>
@@ -484,7 +484,7 @@ export default function ZenCarpLanding() {
                                 <div className="relative order-2 lg:order-1">
                                     <div className="absolute -inset-3 rounded-4xl bg-linear-to-br from-[#7cb87c]/10 via-transparent to-[#c9a227]/10 blur-xl" />
                                     <div className="relative overflow-hidden rounded-2xl border border-[#1a2e1a] bg-[#0d140d]/90 p-4 shadow-2xl">
-                                        <img src="/results_mobile.png" alt="ZenCarp web aplikacija" className="h-auto w-full rounded-xl" style={{ objectFit: "contain" }} />
+                                        <img src={`${import.meta.env.BASE_URL}results_mobile.png`} alt="ZenCarp web aplikacija" className="h-auto w-full rounded-xl" style={{ objectFit: "contain" }} />
                                     </div>
                                 </div>
                             </FadeIn>
@@ -587,7 +587,7 @@ export default function ZenCarpLanding() {
                             <p className="mb-8 text-[15px] leading-relaxed text-[#aaa]">Detaljan pravilnik je dostupan ispod.</p>
                             <div className="flex flex-col items-center justify-center gap-4 sm:flex-row">
                                 <a href="mailto:prijava@zencarp.rs" className={`inline-flex items-center gap-2 rounded-full bg-[#c9a227] px-8 py-3.5 text-sm font-extrabold uppercase tracking-wider text-[#0a0f0a] shadow-lg shadow-[#c9a227]/20 transition-transform hover:scale-105 ${fontHeading}`}><TrophyIcon className="h-4 w-4" /> Prijavi ekipu</a>
-                                <a href="/pravilnik" className={`inline-flex items-center gap-2 rounded-full border border-[#1a2e1a] bg-[#0d140d]/60 px-8 py-3.5 text-sm font-bold uppercase tracking-wider text-[#e0e0e0] backdrop-blur-sm transition-colors hover:border-[#c9a227]/40 hover:text-[#c9a227] ${fontHeading}`}><FileTextIcon className="h-4 w-4" /> Pravilnik</a>
+                                <a href={`${import.meta.env.BASE_URL}pravilnik`} className={`inline-flex items-center gap-2 rounded-full border border-[#1a2e1a] bg-[#0d140d]/60 px-8 py-3.5 text-sm font-bold uppercase tracking-wider text-[#e0e0e0] backdrop-blur-sm transition-colors hover:border-[#c9a227]/40 hover:text-[#c9a227] ${fontHeading}`}><FileTextIcon className="h-4 w-4" /> Pravilnik</a>
                             </div>
                         </FadeIn>
                     </div>
@@ -596,12 +596,12 @@ export default function ZenCarpLanding() {
 
             <footer className="border-t border-[#1a2e1a]/60 bg-[#060a06] px-5 py-10">
                 <div className="mx-auto flex max-w-6xl flex-col items-center justify-between gap-4 sm:flex-row">
-                    <div className="flex items-center gap-2"><img src="/zencarp_logo.png" alt="ZenCarp" className="h-8 w-auto" /></div>
+                    <div className="flex items-center gap-2"><img src={`${import.meta.env.BASE_URL}zencarp_logo.png`} alt="ZenCarp" className="h-8 w-auto" /></div>
                     <p className="text-xs text-[#444]">© 2026 ZenCarp. Sva prava zadržana.</p>
                     <div className="flex gap-4">
                         <a href="#" className="text-xs text-[#555] transition-colors hover:text-[#c9a227]">Instagram</a>
                         <a href="#" className="text-xs text-[#555] transition-colors hover:text-[#c9a227]">YouTube</a>
-                        <a href="/pravilnik" className="text-xs text-[#555] transition-colors hover:text-[#c9a227]">Pravilnik</a>
+                        <a href={`${import.meta.env.BASE_URL}pravilnik`} className="text-xs text-[#555] transition-colors hover:text-[#c9a227]">Pravilnik</a>
                     </div>
                 </div>
             </footer>
