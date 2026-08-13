@@ -7,7 +7,7 @@ import react from "@astrojs/react"
 // https://astro.build/config
 export default defineConfig({
   site: 'https://stefanradosavljevic.github.io',
-  base: '/zencarp',
+  base: '/zencarp/',
   vite: {
     plugins: [tailwindcss()],
   },
