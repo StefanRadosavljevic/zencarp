@@ -1,17 +1,335 @@
 ---
-import Layout from "@/layouts/main.astro"
-import { Button } from "@/components/ui/button"
+import Layout from "@/layouts/main.astro";
+import LiveTournamentHero from "@/components/LiveTournamentHero";
+
+const fontHeading = "font-[family-name:var(--font-poppins)]";
+const fontBody = "font-[family-name:var(--font-inter)]";
+
+const navLinks = [
+  { label: "O turniru", href: "#o-turniru" },
+  { label: "Format", href: "#format" },
+  { label: "Zašto ZenCarp", href: "#zasto" },
+  { label: "Prenos", href: "#prenos" },
+  { label: "Aplikacija", href: "#aplikacija" },
+  { label: "Partnerstvo", href: "#partnerstvo" },
+  { label: "Prijava", href: "#prijava" },
+];
 ---
 
-<Layout>
-  <div class="flex min-h-svh p-6">
-    <div class="flex max-w-md min-w-0 flex-col gap-4 text-sm leading-loose">
-      <div>
-        <h1 class="font-medium">Project ready!</h1>
-        <p>You may now add components and start building.</p>
-        <p>We've already added the button component for you.</p>
-        <Button client:load className="mt-2">Button</Button>
+<Layout title="ZenCarp — 6. septembar" description="4 tima. 4 sata. Jedan pobednik nosi sve. Šaranski ribolov turnir — Vojvoda Stepa, Banat.">
+  <div class={`min-h-screen bg-[#060a06] ${fontBody} text-[#e8e8e8] selection:bg-[#c9a227] selection:text-black`}>
+    
+    {/* HEADER */}
+    <header class="fixed top-0 z-50 w-full border-b border-[#1a2e1a]/60 bg-[#060a06]/80 backdrop-blur-md">
+      <div class="mx-auto flex max-w-6xl items-center justify-between px-5 py-3">
+        <a href="#" class="flex items-center">
+          <img src="/zencarp_logo.png" alt="ZenCarp" class="h-11 w-auto" />
+        </a>
+        <nav class="hidden items-center gap-1 md:flex">
+          {navLinks.map(l => (
+            <a href={l.href} class="rounded-lg px-3 py-1.5 text-sm font-medium text-[#aaa] transition-colors hover:bg-[#111a11] hover:text-[#f0f0f0]">{l.label}</a>
+          ))}
+          <a href="/results" class={`rounded-lg px-3 py-1.5 text-sm font-bold text-[#c9a227] transition-colors hover:bg-[#c9a227]/10 ${fontHeading}`}>Rezultati</a>
+          <a href="/pravilnik" class="rounded-lg px-3 py-1.5 text-sm font-medium text-[#aaa] transition-colors hover:bg-[#111a11] hover:text-[#f0f0f0]">Pravilnik</a>
+          <a href="#prijava" class={`ml-3 rounded-full bg-[#c9a227] px-4 py-1.5 text-sm font-bold text-[#0a0f0a] transition-transform hover:scale-105 ${fontHeading}`}>Prijavi ekipu</a>
+        </nav>
+        <button id="mobile-menu-btn" class="flex h-9 w-9 items-center justify-center rounded-lg border border-[#1a2e1a] text-[#aaa] md:hidden" aria-label="Meni">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+            <path d="M4 8h16M4 16h16" />
+          </svg>
+        </button>
       </div>
-    </div>
+      <div id="mobile-menu" class="hidden border-t border-[#1a2e1a] bg-[#060a06]/95 px-5 pb-4 pt-2 md:hidden">
+        {navLinks.map(l => (
+          <a href={l.href} class="block rounded-lg px-3 py-2 text-sm font-medium text-[#aaa] hover:bg-[#111a11] hover:text-[#f0f0f0]">{l.label}</a>
+        ))}
+        <a href="/results" class={`block rounded-lg px-3 py-2 text-sm font-bold text-[#c9a227] hover:bg-[#c9a227]/10 ${fontHeading}`}>Rezultati</a>
+        <a href="/pravilnik" class="block rounded-lg px-3 py-2 text-sm font-medium text-[#aaa] hover:bg-[#111a11] hover:text-[#f0f0f0]">Pravilnik</a>
+      </div>
+    </header>
+
+    <main class="pt-16">
+      {/* HERO — JEDINI REACT ISLAND */}
+      <LiveTournamentHero client:load />
+
+      {/* O TURNIRU */}
+      <section id="o-turniru" class="px-5 py-24">
+        <div class="mx-auto max-w-6xl">
+          <div class="grid items-center gap-12 lg:grid-cols-2">
+            <div>
+              <div class={`mb-3 text-xs font-bold uppercase tracking-widest text-[#7cb87c] ${fontHeading}`}>O turniru</div>
+              <h2 class={`mb-6 text-3xl font-extrabold leading-tight text-[#f0f0f0] sm:text-4xl ${fontHeading}`}>Ideja koju prvi put probamo. <br /><span class="text-[#c9a227]">Bez velikih obećanja.</span></h2>
+              <div class="space-y-4 text-[15px] leading-relaxed text-[#aaa]">
+                <p>ZenCarp je pokušaj da se pecanje šarana prikaže drugačije — sa prenosom uživo i rezultatima koji se ažuriraju u realnom vremenu, umesto pasivnog čekanja.</p>
+                <p>Format: četiri ekipe, četiri sata, snimanje iz vazduha i plasman koji se prati uživo. Ovo nam je prvi pokušaj, pa ćemo tokom dana verovatno učiti i prilagođavati se.</p>
+                <p>Ako te zanima da vidiš kako to izgleda u praksi — pridruži se ili prati prenos.</p>
+              </div>
+            </div>
+            <div class="relative">
+              <div class="absolute -inset-3 rounded-4xl bg-linear-to-br from-[#c9a227]/10 via-transparent to-[#7cb87c]/10 blur-xl"></div>
+              <div class="relative overflow-hidden rounded-2xl border border-[#1a2e1a] bg-[#0d140d]/90 p-3 shadow-2xl">
+                <img src="/mapa_jezera.png" alt="Mapa jezera sa pozicijama ekipa i ulazom za publiku" class="h-auto w-full rounded-xl" style="object-fit: contain;" />
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* FORMAT */}
+      <section id="format" class="border-y border-[#1a2e1a]/40 bg-[#080c08] px-5 py-24">
+        <div class="mx-auto max-w-4xl">
+          <div class="mb-12 text-center">
+            <div class={`mb-3 text-xs font-bold uppercase tracking-widest text-[#7cb87c] ${fontHeading}`}>Format takmičenja</div>
+            <h2 class={`text-3xl font-extrabold text-[#f0f0f0] sm:text-4xl ${fontHeading}`}>Pravila ukratko</h2>
+          </div>
+          <div class="grid gap-x-16 gap-y-8 md:grid-cols-2">
+            {[
+              { title: "4 ekipe", text: "Dva takmičara po ekipi. Žreb određuje pozicije na dan turnira." },
+              { title: "4 pozicije", text: "Svaka ekipa dobija peg na jezeru — pozicije se određuju žrebom." },
+              { title: "Trajanje: 4 sata", text: "17:00 — 21:00." },
+              { title: "Oprema", text: "2 rodpoda (4 štapa) po takmičaru. Isti uslovi za sve." },
+              { title: "Ciljane vrste", text: "Šaran i amur. Ostale vrste se ne računaju u ukupan ulov." },
+              { title: "Catch & Release", text: "Svaka riba se izmeri, fotografiše i vrati u jezero." },
+              { title: "Plasman", text: "Odlučuje ukupna težina ulova (kg)." },
+              { title: "Nagrada", text: "Nagradni fond je 200 EUR i ide isključivo prvoplasiranoj ekipi. Pobednik nosi sve." },
+            ].map((item, i) => (
+              <div class="group flex gap-4 border-b border-[#1a2e1a]/30 pb-3">
+                <span class={`mt-0.5 text-lg font-extrabold text-[#c9a227]/60 transition-colors group-hover:text-[#c9a227] ${fontHeading}`}>{String(i + 1).padStart(2, "0")}</span>
+                <div>
+                  <h3 class={`mb-1 text-sm font-bold text-[#e0e0e0] ${fontHeading}`}>{item.title}</h3>
+                  <p class="text-sm leading-relaxed text-[#777]">{item.text}</p>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* ZAŠTO ZENCARP */}
+      <section id="zasto" class="px-5 py-24">
+        <div class="mx-auto max-w-6xl">
+          <div class="mb-12 text-center">
+            <div class={`mb-3 text-xs font-bold uppercase tracking-widest text-[#7cb87c] ${fontHeading}`}>Zašto je ZenCarp drugačiji</div>
+            <h2 class={`text-3xl font-extrabold text-[#f0f0f0] sm:text-4xl ${fontHeading}`}>Šta smo dodali u odnosu na klasičan turnir</h2>
+          </div>
+          <div class="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+            {[
+              { icon: "play", title: "Prenos uživo sa više uglova", desc: "Dve statične kamere za stabilan pregled i dron za snimke iz vazduha." },
+              { icon: "phone", title: "Rezultati u realnom vremenu", desc: "Plasman se ažurira tokom turnira, bez čekanja na kraj." },
+              { icon: "cloud", title: "Dron pri svakom ulovu", desc: "Pogled iz vazduha kada ekipa izvlači ribu." },
+              { icon: "trophy", title: "Kompaktan format", desc: "4 sata — lako za ispraćaj od početka do kraja." },
+              { icon: "map", title: "Besplatan ulaz", desc: "Dođi na Vojvodu Stepu i prisustvuj turniru uživo. Parking obezbeđen." },
+              { icon: "eye", title: "Web aplikacija za praćenje", desc: "Prati rezultate na telefonu u realnom vremenu." },
+            ].map((f, i) => (
+              <div class="group border-b border-[#1a2e1a]/30 pb-4 hover:border-[#c9a227]/30 transition-colors">
+                <div class="mb-2 inline-flex rounded-full bg-[#c9a227]/10 p-2 text-[#c9a227] group-hover:bg-[#c9a227]/20">
+                  {f.icon === "play" && <svg viewBox="0 0 24 24" fill="currentColor" class="h-6 w-6"><path d="M8 5v14l11-7z" /></svg>}
+                  {f.icon === "phone" && <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" class="h-6 w-6"><rect x="5" y="2" width="14" height="20" rx="2" /><path d="M12 18h.01" /></svg>}
+                  {f.icon === "cloud" && <svg viewBox="0 0 24 24" fill="none" class="h-6 w-6"><path d="M7 18h10a4 4 0 0 0 .5-7.97A5.5 5.5 0 0 0 7.1 9.06 4 4 0 0 0 7 18Z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round" /></svg>}
+                  {f.icon === "trophy" && <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" class="h-6 w-6"><path d="M6 9H4.5a2.5 2.5 0 0 1 0-5H6m12 5h1.5a2.5 2.5 0 0 0 0-5H18M6 9v6a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2V9M6 9h12" /><path d="M12 17v3m-3 0h6" /></svg>}
+                  {f.icon === "map" && <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" class="h-6 w-6"><path d="M20 10c0 6-8 12-8 12S4 16 4 10a8 8 0 0 1 16 0Z" /><circle cx="12" cy="10" r="3" /></svg>}
+                  {f.icon === "eye" && <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" class="h-6 w-6"><path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7Z" /><circle cx="12" cy="12" r="3" /></svg>}
+                </div>
+                <h3 class={`mb-1 text-base font-extrabold text-[#f0f0f0] ${fontHeading}`}>{f.title}</h3>
+                <p class="text-sm leading-relaxed text-[#888]">{f.desc}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* VIZUELNI IDENTITET */}
+      <section class="border-y border-[#1a2e1a]/40 bg-[#080c08] px-5 py-24">
+        <div class="mx-auto max-w-6xl">
+          <div class="grid items-center gap-12 lg:grid-cols-2">
+            <div>
+              <div class={`mb-3 text-xs font-bold uppercase tracking-widest text-[#7cb87c] ${fontHeading}`}>Grafika prenosa</div>
+              <h2 class={`mb-6 text-3xl font-extrabold leading-tight text-[#f0f0f0] sm:text-4xl ${fontHeading}`}>Šta se vidi na ekranu tokom prenosa</h2>
+              <p class="mb-4 text-[15px] leading-relaxed text-[#aaa]">Tokom prenosa je vidljiv overlay sa tabelom plasmana, preostalim vremenom, vremenskim prilikama i animacijom pri svakom novom ulovu.</p>
+              <p class="text-[15px] leading-relaxed text-[#aaa]">Uz to, prikazana je mapa jezera sa pozicijama ekipa, timeline ulova i podaci o najvećoj ulovljenoj ribi.</p>
+            </div>
+            <div class="relative">
+              <div class="absolute -inset-3 rounded-4xl bg-linear-to-br from-[#c9a227]/10 via-transparent to-[#7cb87c]/10 blur-xl"></div>
+              <div class="relative overflow-hidden rounded-2xl border border-[#1a2e1a] bg-[#0d140d]/90 shadow-2xl">
+                <video autoplay loop muted playsinline class="h-auto w-full" style="aspect-ratio: 16/9; object-fit: cover;">
+                  <source src="/rendered_overlay.mp4" type="video/mp4" />
+                </video>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* WEB APLIKACIJA */}
+      <section id="aplikacija" class="px-5 py-24">
+        <div class="mx-auto max-w-6xl">
+          <div class="grid items-center gap-12 lg:grid-cols-2">
+            <div class="relative order-2 lg:order-1">
+              <div class="absolute -inset-3 rounded-4xl bg-linear-to-br from-[#7cb87c]/10 via-transparent to-[#c9a227]/10 blur-xl"></div>
+              <div class="relative overflow-hidden rounded-2xl border border-[#1a2e1a] bg-[#0d140d]/90 p-4 shadow-2xl">
+                <img src="/results_mobile.png" alt="ZenCarp web aplikacija" class="h-auto w-full rounded-xl" style="object-fit: contain;" />
+              </div>
+            </div>
+            <div class="order-1 lg:order-2">
+              <div class={`mb-3 text-xs font-bold uppercase tracking-widest text-[#7cb87c] ${fontHeading}`}>Web aplikacija</div>
+              <h2 class={`mb-6 text-3xl font-extrabold leading-tight text-[#f0f0f0] sm:text-4xl ${fontHeading}`}>Rezultati na telefonu</h2>
+              <div class="space-y-4 text-[15px] leading-relaxed text-[#aaa]">
+                <p>Pored prenosa, napravili smo web aplikaciju koja prati plasman ekipa, statistiku i istoriju ulova u realnom vremenu.</p>
+                <p>Otvara se u pretraživaču na telefonu ili računaru, ažurira se automatski, bez potrebe za refresh.</p>
+                <p>Napravljena je isključivo za ovaj turnir — bez dodatnih funkcija koje ne trebaju.</p>
+              </div>
+              <div class="mt-8 flex flex-wrap gap-3">
+                <span class="inline-flex items-center gap-1.5 rounded-full border border-[#1a2e1a] bg-[#111a11] px-3 py-1.5 text-xs font-medium text-[#999]">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" class="h-3.5 w-3.5 text-[#7cb87c]"><rect x="5" y="2" width="14" height="20" rx="2" /><path d="M12 18h.01" /></svg>
+                  Mobile-first
+                </span>
+                <span class="inline-flex items-center gap-1.5 rounded-full border border-[#1a2e1a] bg-[#111a11] px-3 py-1.5 text-xs font-medium text-[#999]">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" class="h-3.5 w-3.5 text-[#7cb87c]"><path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7Z" /><circle cx="12" cy="12" r="3" /></svg>
+                  Live rezultati
+                </span>
+                <span class="inline-flex items-center gap-1.5 rounded-full border border-[#1a2e1a] bg-[#111a11] px-3 py-1.5 text-xs font-medium text-[#999]">
+                  <svg viewBox="0 0 24 24" fill="none" class="h-3.5 w-3.5 text-[#7cb87c]"><path d="M7 18h10a4 4 0 0 0 .5-7.97A5.5 5.5 0 0 0 7.1 9.06 4 4 0 0 0 7 18Z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round" /></svg>
+                  Bez refresha
+                </span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* PRATITE TURNIR */}
+      <section id="prenos" class="border-y border-[#1a2e1a]/40 bg-[#080c08] px-5 py-24">
+        <div class="mx-auto max-w-6xl">
+          <div class="mb-12 text-center">
+            <div class={`mb-3 text-xs font-bold uppercase tracking-widest text-[#7cb87c] ${fontHeading}`}>Pratite turnir</div>
+            <h2 class={`text-3xl font-extrabold text-[#f0f0f0] sm:text-4xl ${fontHeading}`}>Tri načina da pratite dešavanja</h2>
+          </div>
+          <div class="grid gap-6 md:grid-cols-3">
+            {[
+              { icon: "play", title: "YouTube prenos uživo", desc: "Ceo turnir sa grafikom i tabelom plasmana. Gledaj sa televizora, telefona ili laptopa.", color: "text-red-500", bg: "bg-red-500/10", dot: "bg-red-500", label: "Link uskoro" },
+              { icon: "phone", title: "Web aplikacija", desc: "Plasman ekipa uživo na telefonu ili računaru, sa automatskim osvežavanjem.", color: "text-[#c9a227]", bg: "bg-[#c9a227]/10", dot: "bg-[#c9a227]", label: "Uskoro dostupno" },
+              { icon: "map", title: "Uživo na jezeru", desc: "Dođi na Vojvodu Stepu i prisustvuj turniru. Ulaz besplatan, parking obezbeđen.", color: "text-[#7cb87c]", bg: "bg-[#7cb87c]/10", dot: "bg-[#7cb87c]", label: "Slobodan ulaz" },
+            ].map(item => (
+              <div class="border-b border-[#1a2e1a]/30 pb-4 hover:border-[#c9a227]/30 transition-colors">
+                <div class={`mb-2 inline-flex rounded-full ${item.bg} p-2 ${item.color}`}>
+                  {item.icon === "play" && <svg viewBox="0 0 24 24" fill="currentColor" class="h-6 w-6"><path d="M8 5v14l11-7z" /></svg>}
+                  {item.icon === "phone" && <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" class="h-6 w-6"><rect x="5" y="2" width="14" height="20" rx="2" /><path d="M12 18h.01" /></svg>}
+                  {item.icon === "map" && <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" class="h-6 w-6"><path d="M20 10c0 6-8 12-8 12S4 16 4 10a8 8 0 0 1 16 0Z" /><circle cx="12" cy="10" r="3" /></svg>}
+                </div>
+                <h3 class={`mb-1 text-lg font-extrabold text-[#f0f0f0] ${fontHeading}`}>{item.title}</h3>
+                <p class="mb-3 text-sm leading-relaxed text-[#888]">{item.desc}</p>
+                <span class={`inline-flex items-center gap-1.5 text-xs font-bold uppercase tracking-wider text-[#555] ${fontHeading}`}>
+                  <span class={`inline-block h-1.5 w-1.5 rounded-full ${item.dot}`}></span> {item.label}
+                </span>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* PARTNERSTVO */}
+      <section id="partnerstvo" class="border-y border-[#1a2e1a]/40 bg-[#080c08] px-5 py-24">
+        <div class="mx-auto max-w-4xl text-center">
+          <div class={`mb-3 text-xs font-bold uppercase tracking-widest text-[#7cb87c] ${fontHeading}`}>Partnerstvo</div>
+          <h2 class={`mb-6 text-3xl font-extrabold text-[#f0f0f0] sm:text-4xl ${fontHeading}`}>Tražimo lokalne biznise za prvi ZenCarp turnir</h2>
+          <p class="mx-auto mb-10 max-w-2xl text-[15px] leading-relaxed text-[#aaa]">Ovo nam je prvi put da ovo organizujemo, pa nam znači svaka podrška. Bez velikih sponzorskih paketa — poštena saradnja i konkretna vrednost zauzvrat.</p>
+          <div class="relative mx-auto max-w-lg overflow-hidden rounded-3xl border border-[#c9a227]/30 bg-linear-to-b from-[#c9a227]/10 to-[#0d140d]/90 p-8 backdrop-blur-md">
+            <div class="absolute -right-8 -top-8 h-32 w-32 rounded-full bg-[#c9a227]/10 blur-2xl"></div>
+            <div class="relative">
+              <div class={`mb-6 text-xs font-bold uppercase tracking-widest text-[#c9a227] ${fontHeading}`}>Šta dobijaš kao partner</div>
+              <ul class="mb-8 space-y-3 text-left">
+                {[
+                  "Logo na sponzorskoj traci koja je prikazana tokom celog live prenosa",
+                  "Logo na sponzorskoj traci u web aplikaciji sa rezultatima uživo",
+                  "Kratak video (10–15s) snimljen dronom, sa vašim logom",
+                  "Pomen u završnoj objavi zahvalnica",
+                ].map(item => (
+                  <li class="flex items-start gap-3 text-sm text-[#ccc]">
+                    <span class="mt-0.5 inline-block h-1.5 w-1.5 shrink-0 rounded-full bg-[#c9a227]"></span> {item}
+                  </li>
+                ))}
+              </ul>
+              <a href="mailto:partnerstvo@zencarp.rs" class={`inline-flex w-full items-center justify-center gap-2 rounded-full bg-[#c9a227] px-6 py-3 text-sm font-extrabold uppercase tracking-wider text-[#0a0f0a] transition-transform hover:scale-105 ${fontHeading}`}>Kontaktiraj nas</a>
+              <p class="mt-3 text-xs text-[#555]">partnerstvo@zencarp.rs</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* PRIJAVA */}
+      <section id="prijava" class="relative overflow-hidden px-5 py-24">
+        <div class="pointer-events-none absolute inset-0">
+          <div class="absolute left-1/2 top-1/2 h-125 w-125 -translate-x-1/2 -translate-y-1/2 rounded-full bg-[#c9a227]/5 blur-[120px]"></div>
+        </div>
+        <div class="relative mx-auto max-w-3xl text-center">
+          <div class={`mb-3 text-xs font-bold uppercase tracking-widest text-[#7cb87c] ${fontHeading}`}>Prijava ekipa</div>
+          <h2 class={`mb-6 text-3xl font-extrabold text-[#f0f0f0] sm:text-4xl ${fontHeading}`}>Prijava ekipa</h2>
+          <div class="mb-10 grid gap-4 sm:grid-cols-2">
+            <div class="border border-[#1a2e1a] bg-[#0d140d]/70 p-4 rounded-xl backdrop-blur-sm">
+              <div class={`mb-1 text-xs uppercase tracking-wider text-[#555] ${fontHeading}`}>Kotizacija</div>
+              <div class={`text-sm font-extrabold text-[#f0f0f0] ${fontHeading}`}>50 EUR / ekipa</div>
+            </div>
+            <div class="border border-[#1a2e1a] bg-[#0d140d]/70 p-4 rounded-xl backdrop-blur-sm">
+              <div class={`mb-1 text-xs uppercase tracking-wider text-[#555] ${fontHeading}`}>Nagrada</div>
+              <div class={`text-sm font-extrabold text-[#f0f0f0] ${fontHeading}`}>200 EUR — pobednik nosi sve</div>
+            </div>
+          </div>
+          <p class="mb-8 text-[15px] leading-relaxed text-[#aaa]">Detaljan pravilnik je dostupan ispod.</p>
+          <div class="flex flex-col items-center justify-center gap-4 sm:flex-row">
+            <a href="mailto:prijava@zencarp.rs" class={`inline-flex items-center gap-2 rounded-full bg-[#c9a227] px-8 py-3.5 text-sm font-extrabold uppercase tracking-wider text-[#0a0f0a] shadow-lg shadow-[#c9a227]/20 transition-transform hover:scale-105 ${fontHeading}`}>
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" class="h-4 w-4"><path d="M6 9H4.5a2.5 2.5 0 0 1 0-5H6m12 5h1.5a2.5 2.5 0 0 0 0-5H18M6 9v6a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2V9M6 9h12" /><path d="M12 17v3m-3 0h6" /></svg>
+              Prijavi ekipu
+            </a>
+            <a href="/pravilnik" class={`inline-flex items-center gap-2 rounded-full border border-[#1a2e1a] bg-[#0d140d]/60 px-8 py-3.5 text-sm font-bold uppercase tracking-wider text-[#e0e0e0] backdrop-blur-sm transition-colors hover:border-[#c9a227]/40 hover:text-[#c9a227] ${fontHeading}`}>
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" class="h-4 w-4"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" /><path d="M14 2v6h6" /><path d="M16 13H8" /><path d="M16 17H8" /><path d="M16 17H8" /><path d="M10 9H8" /></svg>
+              Pravilnik
+            </a>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    {/* FOOTER */}
+    <footer class="border-t border-[#1a2e1a]/60 bg-[#060a06] px-5 py-10">
+      <div class="mx-auto flex max-w-6xl flex-col items-center justify-between gap-4 sm:flex-row">
+        <div class="flex items-center gap-2">
+          <img src="/zencarp_logo.png" alt="ZenCarp" class="h-8 w-auto" />
+        </div>
+        <p class="text-xs text-[#444]">© 2026 ZenCarp. Sva prava zadržana.</p>
+        <div class="flex gap-4">
+          <a href="#" class="text-xs text-[#555] transition-colors hover:text-[#c9a227]">Instagram</a>
+          <a href="#" class="text-xs text-[#555] transition-colors hover:text-[#c9a227]">YouTube</a>
+          <a href="/pravilnik" class="text-xs text-[#555] transition-colors hover:text-[#c9a227]">Pravilnik</a>
+        </div>
+      </div>
+    </footer>
   </div>
+
+  {/* Mobile menu — vanilla JS jer je header sada statican HTML */}
+  <script>
+    (function() {
+      const btn = document.getElementById('mobile-menu-btn');
+      const menu = document.getElementById('mobile-menu');
+      if (!btn || !menu) return;
+      
+      btn.addEventListener('click', () => {
+        const isHidden = menu.classList.contains('hidden');
+        menu.classList.toggle('hidden', !isHidden);
+        const svg = btn.querySelector('svg');
+        if (svg) {
+          svg.innerHTML = isHidden
+            ? '<path d="M18 6 6 18M6 6l12 12" />'
+            : '<path d="M4 8h16M4 16h16" />';
+        }
+      });
+
+      menu.querySelectorAll('a').forEach(link => {
+        link.addEventListener('click', () => {
+          menu.classList.add('hidden');
+          const svg = btn.querySelector('svg');
+          if (svg) svg.innerHTML = '<path d="M4 8h16M4 16h16" />';
+        });
+      });
+    })();
+  </script>
 </Layout>

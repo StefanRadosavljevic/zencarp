@@ -1,0 +1,173 @@
+---
+// src/pages/pravilnik.astro
+import Layout from "@/layouts/main.astro";
+
+// ══ Isti fontovi kao na landing page ══
+const fontHeading = "font-[family-name:var(--font-poppins)]";
+const fontBody = "font-[family-name:var(--font-inter)]";
+
+type Rule = { title: string; text: string; note?: string };
+type Section = { id: string; title: string; rules: Rule[] };
+
+const sections: Section[] = [
+  {
+    id: "format",
+    title: "Format turnira",
+    rules: [
+      { title: "Učesnici", text: "Prijava je u timovima od dva punoletna takmičara. Pojedinačna prijava nije moguća." },
+      { title: "Trajanje", text: "4 sata neprekidnog pecanja. Hranjenje pozicije dozvoljeno je bilo kada — i pre i tokom turnira, bez ograničenja." },
+      { title: "Žreb pozicija", text: "Pozicije P1–P4 dodeljuju se žrebom pre starta. Svaki tim dobija jednu fiksnu poziciju za ceo turnir." },
+      { title: "Plasman", text: "Određuje se po ukupnoj težini ulova. Boduju se isključivo šaran i amur, minimalna težina 500g po ribi." },
+      { title: "Izjednačenje", text: "Timovi sa istom ukupnom težinom dele plasman. Fizička podela medalja rešava se javnim žrebom odmah posle turnira." },
+      { title: "Tim bez ulova", text: "Nema kaznu ni diskvalifikaciju — samo deli poslednje mesto sa ostalima bez ulova." },
+    ],
+  },
+  {
+    id: "prijava",
+    title: "Prijava i kotizacija",
+    rules: [
+      { title: "Ko prijavljuje", text: "Bilo koji tim od dva punoletna takmičara, isključivo zajedno kao tim." },
+      { title: "Rok za prijavu", text: "Objavljujemo zajedno sa datumom turnira." },
+      { title: "Kotizacija i plaćanje", text: "50€ po timu, u gotovini, na dan turnira prilikom prijave ekipa." },
+      { title: "Kontakt za prijavu", text: "Direktno javljanje organizatoru — isti kontakt za sva pitanja i prijave.", note: "[ KONTAKT TELEFON / WHATSAPP ]\n[ EMAIL ]" },
+      { title: "Obavezni dokumenti", text: "Pre starta svaki takmičar potpisuje izjavu o odricanju odgovornosti i saglasnost za snimanje. Bez toga nema učešća." },
+    ],
+  },
+  {
+    id: "oprema",
+    title: "Oprema i logistika",
+    rules: [
+      { title: "Štapovi", text: "2 rodpoda po timu, po 4 štapa — maksimalno 8 štapova u vodi po poziciji." },
+      { title: "Mamci i hrana", text: "Sve vrste dozvoljene, osim žive ribe kao mamca (pravilo jezera domaćina)." },
+      { title: "Infrastruktura na poziciji", text: "Samo obeleženo mesto — bez struje, vode, šatora, stolica, osvetljenja ili toaleta. Timovi nose svoju opremu." },
+      { title: "Alkohol, muzika i kretanje", text: "Alkohol dozvoljen, timovi odgovaraju za sopstveno ponašanje. Muzika i kretanje oko jezera zabranjeni tokom celog turnira." },
+      { title: "Hrana i piće od organizatora", text: "Svaki tim dobija jednu porciju hrane i jedno piće." },
+      { title: "Čišćenje", text: "Svaki tim čisti svoju poziciju posle turnira i odnosi svoje smeće." },
+    ],
+  },
+  {
+    id: "merenje",
+    title: "Procedura merenja",
+    rules: [
+      { title: "Ko meri", text: "Isključivo redar organizatora. Takmičari ne mere sami niti osporavaju merenje, osim kod očigledne tehničke greške." },
+      { title: "Rok za poziv redara", text: "60 sekundi od izvlačenja ribe iz vode. Ako rok istekne pre nego što redar stigne, ulov se ne računa." },
+      { title: "Minimalna težina", text: "500g bez zaokruživanja — sve ispod toga se odbija i ne ulazi u plasman." },
+      { title: "Spuštena riba", text: "Ako riba spadne sa udice pre merenja, ulov se ne računa. Bez izuzetaka." },
+      { title: "Catch & Release", text: "Obavezan za svaki ulov — riba se odmah posle merenja pušta nazad u jezero." },
+      { title: "Sporne situacije", text: "Sve sporove rešava glavni sudija na licu mesta. Njegova odluka je konačna." },
+    ],
+  },
+  {
+    id: "ponasanje",
+    title: "Ponašanje i red",
+    rules: [
+      { title: "Publika i gledaoci", text: "Ulaz besplatan, deca dobrodošla, parking obezbeđen. Deo prostora ima stolice, ostatak je slobodna zona za sopstvenu opremu." },
+      { title: "Obaveze tima pre starta", text: "Izjava o odricanju odgovornosti i saglasnost za snimanje — bez potpisa nema starta." },
+      { title: "Disciplina", text: "Muzika i kretanje oko jezera zabranjeni. Uznemiravanje protivničkog tima (verbalno ili ulaskom u njihovu zonu) povlači opomenu ili diskvalifikaciju po odluci sudije." },
+    ],
+  },
+  {
+    id: "nagrada",
+    title: "Nagrada i isplata",
+    rules: [
+      { title: "Nagradni fond", text: "200€ — pobednik nosi sve. Fond čine kotizacije svih učesnika (4 tima × 50€), odvojeno od sponzorskog novca." },
+      { title: "Isplata", text: "U kešu, na licu mesta, odmah posle merenja i proglašenja pobednika. Nema odložene isplate ni prenosa na račun." },
+    ],
+  },
+  {
+    id: "otkazivanje",
+    title: "Otkazivanje i zamena",
+    rules: [
+      { title: "Otkazivanje učešća", text: "Kotizacija se ne vraća ni u kom slučaju posle prijave." },
+      { title: "Zamena takmičara", text: "Dozvoljena pre starta — tim sam nalazi zamenu i javlja organizatoru najkasnije pre žreba pozicija. Posle žreba zamena nije moguća." },
+    ],
+  },
+  {
+    id: "nevreme",
+    title: "Nevreme i odloženi termin",
+    rules: [
+      { title: "Kiša", text: "Turnir se održava bez obzira na kišu — ne utiče na program ni trajanje." },
+      { title: "Grad i jako nevreme", text: "Glavni sudija odlučuje na licu mesta ako je bezbednost ugrožena. Turnir se u tom slučaju pomera na najbliži slobodan termin, ne otkazuje — kotizacije ostaju važeće." },
+    ],
+  },
+];
+---
+
+<Layout title="Pravilnik – ZenCarp" description="Pravilnik i propozicije takmičenja ZenCarp">
+  <div class={`min-h-screen bg-[#060a06] ${fontBody} text-[#e8e8e8] selection:bg-[#c9a227] selection:text-black`}>
+    
+    <!-- NAVBAR (isti stil kao na landing page) -->
+    <header class="sticky top-0 z-50 w-full border-b border-[#1a2e1a]/60 bg-[#060a06]/90 backdrop-blur-md">
+      <div class="mx-auto flex max-w-4xl items-center justify-between px-5 py-3">
+        <a href="/" class="flex items-center">
+          <img src="/zencarp_logo.png" alt="ZenCarp" class="h-11 w-auto" />
+        </a>
+        <div class="flex items-center gap-3">
+          <a href="/results" class={`hidden rounded-lg px-3 py-1.5 text-sm font-bold text-[#c9a227] transition-colors hover:bg-[#c9a227]/10 sm:block ${fontHeading}`}>
+            Rezultati
+          </a>
+          <a href="/" class="rounded-lg border border-[#1a2e1a] bg-[#0d140d]/60 px-4 py-1.5 text-sm font-medium text-[#aaa] backdrop-blur-sm transition-colors hover:border-[#c9a227]/40 hover:text-[#c9a227]">
+            Nazad na početnu
+          </a>
+          <a href="/#prijava" class={`rounded-full bg-[#c9a227] px-4 py-1.5 text-sm font-bold text-[#0a0f0a] transition-transform hover:scale-105 ${fontHeading}`}>
+            Prijavi ekipu
+          </a>
+        </div>
+      </div>
+    </header>
+
+    <!-- Glavni sadržaj -->
+    <main class="mx-auto max-w-3xl px-5 pb-20 pt-10">
+      <h1 class={`mb-8 text-4xl font-extrabold tracking-tight text-[#f0f0f0] ${fontHeading}`}>
+        Pravilnik i propozicije
+      </h1>
+
+      {sections.map((section) => (
+        <section id={section.id} class="mb-12 scroll-mt-24">
+          <h2 class={`mb-4 text-2xl font-bold text-[#c9a227] ${fontHeading}`}>{section.title}</h2>
+          <div class="space-y-4">
+            {section.rules.map((rule, idx) => (
+              <div class="border-b border-[#1a2e1a]/40 pb-3 last:border-0">
+                <h3 class={`text-lg font-semibold text-[#e0e0e0] ${fontHeading}`}>{rule.title}</h3>
+                <p class="mt-1 text-[15px] leading-relaxed text-[#aaa]">{rule.text}</p>
+                {rule.note && (
+                  <p class={`mt-2 whitespace-pre-line text-sm text-[#c9a227]/80 ${fontBody}`}>{rule.note}</p>
+                )}
+              </div>
+            ))}
+          </div>
+        </section>
+      ))}
+
+      <!-- Završna napomena -->
+      <div class="mt-12 rounded-xl border border-[#1a2e1a] bg-[#0d140d]/60 p-6 text-center">
+        <p class="text-sm leading-relaxed text-[#777]">
+          Odluka glavnog sudije na licu mesta je uvek konačna. Organizator zadržava pravo dopune pravila do dana turnira.
+          <br />
+          Za sva pitanja i prijave —{" "}
+          <a href="mailto:prijava@zencarp.rs" class="text-[#c9a227] underline underline-offset-4 hover:text-[#f0f0f0]">
+            prijava@zencarp.rs
+          </a>
+        </p>
+      </div>
+    </main>
+
+    <!-- Footer (isti stil kao na landing page) -->
+    <footer class="border-t border-[#1a2e1a]/60 bg-[#060a06] px-5 py-8">
+      <div class="mx-auto flex max-w-4xl flex-col items-center justify-between gap-4 sm:flex-row">
+        <div class="flex items-center gap-2">
+          <img src="/zencarp_logo.png" alt="ZenCarp" class="h-7 w-auto" />
+        </div>
+        <p class="text-xs text-[#444]">© 2026 ZenCarp. Sva prava zadržana.</p>
+        <div class="flex gap-4">
+          <a href="/" class="text-xs text-[#555] transition-colors hover:text-[#c9a227]">Početna</a>
+          <a href="/rezultati" class="text-xs text-[#555] transition-colors hover:text-[#c9a227]">Rezultati</a>
+        </div>
+      </div>
+    </footer>
+  </div>
+</Layout>
+
+
+
+
