@@ -197,7 +197,7 @@ export default function LiveTournamentHero() {
                 <div className="relative z-10 mx-auto max-w-5xl w-full">
                     <div className="flex flex-col items-start justify-between gap-4 mb-6 sm:flex-row sm:items-center">
                         <div className="flex items-center gap-4">
-                            <img  src={`${BASE}zencarp_logo.png`} alt="ZenCarp" className="h-12 w-auto" />
+                            <img  src={`${import.meta.env.BASE_URL}zencarp_logo.png`} alt="ZenCarp" className="h-12 w-auto" />
                             <div>
                                 <div className="mb-1 flex items-center gap-2">
                                     <span className="inline-block h-2 w-2 animate-pulse rounded-full bg-[#c9a227]" />
