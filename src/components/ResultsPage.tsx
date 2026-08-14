@@ -4,17 +4,8 @@ import { useEffect, useState } from "react";
 import { pb, fishTypeLabels, type FishType } from "@/lib/pocketbase";
 import { motion, AnimatePresence, LayoutGroup } from "motion/react";
 
-// ══ Isti fontovi kao na landing i pravilniku ══
 const fontHeading = "font-[family-name:var(--font-poppins)]";
 const fontBody = "font-[family-name:var(--font-inter)]";
-
-const FISH_IMAGES: Record<FishType, string> = {
-    common_carp: "/common_carp.png",
-    mirror_carp: "/mirror_carp.png",
-    grass_carp: "/grass_carp.png",
-};
-
-const PARTNER_LOGOS = Array.from({ length: 10 }, (_, i) => `/logos/logo${i + 1}.svg`);
 
 type Tournament = {
     id: string;
@@ -117,7 +108,19 @@ const rowVariants = {
     exit: { opacity: 0, x: -30, scale: 0.95 },
 } as const;
 
-export default function ResultsPage() {
+interface ResultsPageProps {
+    baseUrl?: string;
+}
+
+export default function ResultsPage({ baseUrl = "" }: ResultsPageProps) {
+    const fishImages: Record<FishType, string> = {
+        common_carp: `${baseUrl}common_carp.png`,
+        mirror_carp: `${baseUrl}mirror_carp.png`,
+        grass_carp: `${baseUrl}grass_carp.png`,
+    };
+
+    const partnerLogos = Array.from({ length: 10 }, (_, i) => `${baseUrl}logos/logo${i + 1}.svg`);
+
     const [tournament, setTournament] = useState<Tournament | null>(null);
     const [teams, setTeams] = useState<Team[]>([]);
     const [players, setPlayers] = useState<Player[]>([]);
@@ -127,17 +130,14 @@ export default function ResultsPage() {
     const [, setTick] = useState(0);
     const [mounted, setMounted] = useState(false);
 
-    // Tick every 15s to refresh relative times
     useEffect(() => {
         const id = setInterval(() => setTick((t) => t + 1), 15000);
         return () => clearInterval(id);
     }, []);
 
-    // Load data
     useEffect(() => {
         async function loadData() {
             try {
-                // 1. Get the latest tournament
                 const tournamentRes = await pb.collection("tournaments").getList<Tournament>(1, 1, {
                     sort: "-created",
                 });
@@ -150,19 +150,16 @@ export default function ResultsPage() {
                 const tournamentData = tournamentRes.items[0];
                 setTournament(tournamentData);
 
-                // 2. Get catches for this tournament
                 const catchesRes = await pb.collection("catches").getFullList<Catch>({
                     filter: `tournament_id = "${tournamentData.id}"`,
                     sort: "-caught_at",
                 });
                 setCatches(catchesRes);
 
-                // 3. Get teams - try by tournament_id first, if empty fallback to team ids from catches
                 let teamsRes = await pb.collection("teams").getFullList<Team>({
                     filter: `tournament_id = "${tournamentData.id}"`,
                 });
 
-                // If no teams found via tournament_id, extract team_ids from catches
                 if (teamsRes.length === 0 && catchesRes.length > 0) {
                     const teamIds = [...new Set(catchesRes.map((c) => c.team_id))];
                     if (teamIds.length > 0) {
@@ -174,7 +171,6 @@ export default function ResultsPage() {
                 }
                 setTeams(teamsRes);
 
-                // 4. Get players for all teams (using team_id, NOT tournament_id)
                 if (teamsRes.length > 0) {
                     const teamIds = teamsRes.map((t) => t.id);
                     const playersFilter = teamIds.map((id) => `team_id = "${id}"`).join(" || ");
@@ -196,7 +192,6 @@ export default function ResultsPage() {
         loadData();
     }, []);
 
-    // PocketBase real-time subscriptions
     useEffect(() => {
         if (!tournament) return;
 
@@ -206,7 +201,6 @@ export default function ResultsPage() {
         let unsubTournament: (() => void) | null = null;
 
         async function subscribe() {
-            // Subscribe to catches
             unsubCatches = await pb.collection("catches").subscribe<Catch>("*", (e) => {
                 if (e.action === "create") {
                     setCatches((prev) => [e.record, ...prev]);
@@ -217,7 +211,6 @@ export default function ResultsPage() {
                 }
             });
 
-            // Subscribe to tournament updates
             unsubTournament = await pb.collection("tournaments").subscribe<Tournament>(
                 tournamentId,
                 (e) => {
@@ -236,7 +229,6 @@ export default function ResultsPage() {
         };
     }, [tournament]);
 
-    // Countdown timer
     useEffect(() => {
         if (!tournament?.ends_at) return;
 
@@ -263,7 +255,6 @@ export default function ResultsPage() {
         return () => clearInterval(interval);
     }, [tournament]);
 
-    // Compute standings – only if teams and players are loaded
     const standings: TeamStanding[] = teams
         .map((team) => {
             const teamCatches = catches.filter((c) => c.team_id === team.id);
@@ -324,7 +315,6 @@ export default function ResultsPage() {
         <>
             <div className={`min-h-screen bg-[#060a06] ${fontBody} text-[#e8e8e8] selection:bg-[#c9a227] selection:text-black pb-20`}>
                 <div className="mx-auto max-w-7xl px-4 py-6 sm:px-6 lg:px-8">
-                    {/* HEADER */}
                     <motion.header
                         variants={headerVariants}
                         initial="hidden"
@@ -333,7 +323,7 @@ export default function ResultsPage() {
                     >
                         <div className="flex items-center gap-4">
                             <motion.img
-                                src="/zencarp_logo.png"
+                                src={`${baseUrl}zencarp_logo.png`}
                                 alt="ZenCarp"
                                 className="h-11 w-auto"
                                 whileHover={{ scale: 1.05, rotate: -2 }}
@@ -390,14 +380,12 @@ export default function ResultsPage() {
                         </div>
                     </motion.header>
 
-                    {/* Glavni sadržaj */}
                     <motion.div
                         variants={containerVariants}
                         initial="hidden"
                         animate={mounted ? "visible" : "hidden"}
                         className="grid gap-6 lg:grid-cols-5 lg:items-stretch"
                     >
-                        {/* Plasman */}
                         <motion.div variants={itemVariants} className="lg:col-span-3">
                             <div className="border-b border-[#1a2e1a]/60 pb-4">
                                 <motion.h2
@@ -468,7 +456,6 @@ export default function ResultsPage() {
                             </div>
                         </motion.div>
 
-                        {/* Najveći ulov */}
                         <motion.div variants={itemVariants} className="lg:col-span-2">
                             {biggestCatch ? (
                                 <motion.div
@@ -478,11 +465,11 @@ export default function ResultsPage() {
                                 >
                                     <div className="relative bg-[#0a140a]">
                                         <motion.img
-                                            src={FISH_IMAGES[biggestCatch.fish_type]}
+                                            src={fishImages[biggestCatch.fish_type]}
                                             alt={formatFishType(biggestCatch.fish_type)}
                                             className="h-auto w-full"
                                             style={{ aspectRatio: "1672/941", objectFit: "contain" }}
-                                            onError={(e) => (e.target as HTMLImageElement).src = FISH_IMAGES.common_carp}
+                                            onError={(e) => (e.target as HTMLImageElement).src = fishImages.common_carp}
                                             initial={{ scale: 1.05 }}
                                             animate={{ scale: 1 }}
                                             transition={{ duration: 0.6 }}
@@ -512,14 +499,12 @@ export default function ResultsPage() {
                         </motion.div>
                     </motion.div>
 
-                    {/* Top 5 i timeline */}
                     <motion.div
                         variants={containerVariants}
                         initial="hidden"
                         animate={mounted ? "visible" : "hidden"}
                         className="mt-8 grid gap-6 lg:grid-cols-5 lg:items-start"
                     >
-                        {/* Top 5 */}
                         <motion.div variants={itemVariants} className="lg:col-span-2">
                             <h2 className={`mb-4 text-lg font-extrabold text-[#f0f0f0] ${fontHeading}`}>Top 5 ulova</h2>
                             {topCatches.length === 0 ? (
@@ -540,7 +525,7 @@ export default function ResultsPage() {
                                             >
                                                 <div className={`flex h-8 w-8 items-center justify-center text-sm font-extrabold text-[#c9a227] ${fontHeading}`}>#{i + 1}</div>
                                                 <div className="h-10 w-16 overflow-hidden rounded bg-[#0a140a]">
-                                                    <img src={FISH_IMAGES[c.fish_type]} alt={formatFishType(c.fish_type)} className="h-full w-full object-contain" onError={(e) => (e.target as HTMLImageElement).src = FISH_IMAGES.common_carp} />
+                                                    <img src={fishImages[c.fish_type]} alt={formatFishType(c.fish_type)} className="h-full w-full object-contain" onError={(e) => (e.target as HTMLImageElement).src = fishImages.common_carp} />
                                                 </div>
                                                 <div className="min-w-0 flex-1">
                                                     <div className="text-sm font-semibold text-[#e0e0e0]">{formatFishType(c.fish_type)}</div>
@@ -561,7 +546,6 @@ export default function ResultsPage() {
                             )}
                         </motion.div>
 
-                        {/* Timeline */}
                         <motion.div variants={itemVariants} className="lg:col-span-3">
                             <h2 className={`mb-4 text-lg font-extrabold text-[#f0f0f0] ${fontHeading}`}>Poslednjih 20 ulova</h2>
                             {latestCatches.length === 0 ? (
@@ -594,7 +578,7 @@ export default function ResultsPage() {
                                                         </div>
                                                         <div className={`flex flex-1 items-center gap-3 border ${isNewest ? "border-[#c9a227]/40 bg-[#c9a227]/5" : "border-[#1a2e1a]/30 bg-[#060a06]/40"} rounded-xl p-3 transition-colors hover:border-[#c9a227]/20`}>
                                                             <div className="h-11 w-16 overflow-hidden rounded bg-[#0a140a]">
-                                                                <img src={FISH_IMAGES[c.fish_type]} alt={formatFishType(c.fish_type)} className="h-full w-full object-contain" onError={(e) => (e.target as HTMLImageElement).src = FISH_IMAGES.common_carp} />
+                                                                <img src={fishImages[c.fish_type]} alt={formatFishType(c.fish_type)} className="h-full w-full object-contain" onError={(e) => (e.target as HTMLImageElement).src = fishImages.common_carp} />
                                                             </div>
                                                             <div className="min-w-0 flex-1">
                                                                 <div className="flex items-baseline gap-2">
@@ -638,7 +622,6 @@ export default function ResultsPage() {
                 </div>
             </div>
 
-            {/* PARTNER STRIP */}
             <motion.div
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
@@ -653,7 +636,7 @@ export default function ResultsPage() {
                             animation: "marquee 30s linear infinite",
                         }}
                     >
-                        {[...PARTNER_LOGOS, ...PARTNER_LOGOS].map((src, idx) => (
+                        {[...partnerLogos, ...partnerLogos].map((src, idx) => (
                             <img
                                 key={idx}
                                 src={src}
