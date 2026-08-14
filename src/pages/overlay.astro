@@ -1,0 +1,17 @@
+---
+import StreamOverlay from "@/components/StreamOverlay"
+import MainLayout from "@/layouts/main.astro" // or wherever
+---
+
+<MainLayout title="ZenCarp Overlay" description="...">
+  <!-- Override body styles with a style tag or inline? -->
+  <style>
+    body {
+      background: transparent !important;
+      margin: 0;
+      padding: 0;
+      overflow: hidden;
+    }
+  </style>
+  <StreamOverlay />
+</MainLayout>

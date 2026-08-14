@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import { pb, fishTypeLabels, type FishType } from "@/lib/pocketbase";
 
 const fontHeading = "font-[family-name:var(--font-poppins)]";
+const fontBody = "font-[family-name:var(--font-inter)]";
 
 type Tournament = {
     id: string;
@@ -27,19 +28,23 @@ type TeamStanding = {
 };
 
 function formatWeight(w: number) {
-    return w.toFixed(1).replace(".", ",");
-}
-
-function formatFishType(type: FishType): string {
-    return fishTypeLabels[type] || type;
+    return w.toFixed(2).replace(".", ",");
 }
 
 const TEAM_COLORS = ["#c9a227", "#7cb87c", "#cd7f32", "#8888cc"];
 
-function PlayIcon({ className }: { className?: string }) { return <svg viewBox="0 0 24 24" fill="currentColor" className={className}><path d="M8 5v14l11-7z" /></svg>; }
-function TrophyIcon({ className }: { className?: string }) { return <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" className={className}><path d="M6 9H4.5a2.5 2.5 0 0 1 0-5H6m12 5h1.5a2.5 2.5 0 0 0 0-5H18M6 9v6a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2V9M6 9h12" /><path d="M12 17v3m-3 0h6" /></svg>; }
-function MapPinIcon({ className }: { className?: string }) { return <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" className={className}><path d="M20 10c0 6-8 12-8 12S4 16 4 10a8 8 0 0 1 16 0Z" /><circle cx="12" cy="10" r="3" /></svg>; }
-function EyeIcon({ className }: { className?: string }) { return <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" className={className}><path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7Z" /><circle cx="12" cy="12" r="3" /></svg>; }
+function PlayIcon({ className }: { className?: string }) {
+    return <svg viewBox="0 0 24 24" fill="currentColor" className={className}><path d="M8 5v14l11-7z" /></svg>;
+}
+function TrophyIcon({ className }: { className?: string }) {
+    return <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" className={className}><path d="M6 9H4.5a2.5 2.5 0 0 1 0-5H6m12 5h1.5a2.5 2.5 0 0 0 0-5H18M6 9v6a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2V9M6 9h12" /><path d="M12 17v3m-3 0h6" /></svg>;
+}
+function MapPinIcon({ className }: { className?: string }) {
+    return <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" className={className}><path d="M20 10c0 6-8 12-8 12S4 16 4 10a8 8 0 0 1 16 0Z" /><circle cx="12" cy="10" r="3" /></svg>;
+}
+function EyeIcon({ className }: { className?: string }) {
+    return <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" className={className}><path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7Z" /><circle cx="12" cy="12" r="3" /></svg>;
+}
 
 interface LiveTournamentHeroProps {
     baseUrl?: string;
@@ -172,14 +177,14 @@ export default function LiveTournamentHero({ baseUrl = "" }: LiveTournamentHeroP
         })
         .sort((a, b) => b.totalWeight - a.totalWeight);
 
+    const maxWeight = standings[0]?.totalWeight || 1;
+
     if (loadingLive) {
         return (
-            <section className="relative flex min-h-[90vh] items-center justify-center overflow-hidden px-5">
-                <div className="absolute inset-0 bg-cover bg-center bg-no-repeat" style={{ backgroundImage: "url('https://images.unsplash.com/photo-1541742425281-c1d3fc8aff96?auto=format&fit=crop&w=1920&q=80')" }} />
-                <div className="absolute inset-0 bg-linear-to-b from-[#060a06]/70 via-[#060a06]/50 to-[#060a06]/90" />
+            <section className={`flex min-h-[80vh] items-center justify-center ${fontBody}`}>
                 <div className="text-center">
-                    <div className="mx-auto mb-4 h-12 w-12 animate-spin rounded-full border-2 border-[#1a2e1a] border-t-[#c9a227]" />
-                    <p className="text-sm text-[#aaa]">Učitavanje...</p>
+                    <div className="mx-auto mb-4 h-10 w-10 animate-spin rounded-full border-2 border-[#1a2e1a] border-t-[#c9a227]" />
+                    <p className="text-sm text-[#666]">Učitavanje...</p>
                 </div>
             </section>
         );
@@ -187,99 +192,147 @@ export default function LiveTournamentHero({ baseUrl = "" }: LiveTournamentHeroP
 
     if (tournament && tournament.status === "in_progress") {
         return (
-            <section className="relative flex min-h-[90vh] items-center justify-center overflow-hidden px-5">
-                <div className="absolute inset-0 bg-cover bg-center bg-no-repeat" style={{ backgroundImage: "url('https://images.unsplash.com/photo-1541742425281-c1d3fc8aff96?auto=format&fit=crop&w=1920&q=80')" }} />
-                <div className="absolute inset-0 bg-linear-to-b from-[#060a06]/70 via-[#060a06]/50 to-[#060a06]/90" />
-                <div className="absolute inset-0 bg-linear-to-tr from-[#0a140a]/60 via-transparent to-[#c9a227]/10" />
+            <section className={`relative min-h-[90vh] overflow-hidden ${fontBody}`}>
+                {/* Video background */}
+                <video
+                    autoPlay
+                    loop
+                    muted
+                    playsInline
+                    className="absolute inset-0 h-full w-full object-cover"
+                    poster="https://images.unsplash.com/photo-1541742425281-c1d3fc8aff96?auto=format&fit=crop&w=1920&q=80"
+                >
+                    <source src={`${baseUrl}fishing.mp4`} type="video/mp4" />
+                </video>
 
-                <div className="relative z-10 mx-auto max-w-5xl w-full">
-                    <div className="flex flex-col items-start justify-between gap-4 mb-6 sm:flex-row sm:items-center">
-                        <div className="flex items-center gap-4">
-                            <img src={`${baseUrl}zencarp_logo.png`} alt="ZenCarp" className="h-12 w-auto" />
-                            <div>
-                                <div className="mb-1 flex items-center gap-2">
-                                    <span className="inline-block h-2 w-2 animate-pulse rounded-full bg-[#c9a227]" />
-                                    <span className={`text-xs font-bold uppercase tracking-widest text-[#7cb87c] ${fontHeading}`}>Uživo</span>
+                {/* Dark overlay for readability */}
+                <div className="absolute inset-0 bg-[#060a06]/75" />
+
+                {/* Content */}
+                <div className="relative z-10 px-5 py-16">
+                    <div className="mx-auto max-w-5xl">
+                        {/* Header */}
+                        <div className="mb-8 flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
+                            <div className="flex items-center gap-4">
+                                <img src={`${baseUrl}zencarp_logo.png`} alt="ZenCarp" className="h-10 w-auto opacity-90" />
+                                <div>
+                                    <div className="mb-1 flex items-center gap-2">
+                                        <span className="h-2 w-2 animate-pulse rounded-full bg-red-500" />
+                                        <span className={`text-[11px] font-bold uppercase tracking-wider text-red-400 ${fontHeading}`}>Uživo</span>
+                                    </div>
+                                    <h1 className={`text-2xl font-bold tracking-tight text-[#f0f0f0] sm:text-3xl ${fontHeading}`}>{tournament.name}</h1>
                                 </div>
-                                <h1 className={`text-2xl font-extrabold text-[#f0f0f0] sm:text-3xl ${fontHeading}`}>{tournament.name}</h1>
+                            </div>
+                            <div className="text-right">
+                                <div className={`text-[10px] font-medium uppercase tracking-wider text-[#7cb87c] ${fontHeading}`}>Preostalo vreme</div>
+                                <div className={`text-2xl font-bold tabular-nums tracking-tight text-[#c9a227] ${fontHeading}`}>{timeLeft}</div>
                             </div>
                         </div>
-                        <div className="rounded-2xl border border-[#1a2e1a] bg-[#0d140d]/80 px-6 py-3 backdrop-blur-sm">
-                            <div className={`mb-1 text-xs font-bold uppercase tracking-wider text-[#7cb87c] ${fontHeading}`}>Preostalo vreme</div>
-                            <div className={`text-2xl font-extrabold tabular-nums text-[#c9a227] ${fontHeading}`}>{timeLeft}</div>
-                        </div>
-                    </div>
 
-                    <div className="rounded-2xl border border-[#1a2e1a]/60 bg-[#0d140d]/80 p-4 backdrop-blur-sm">
-                        <div className="grid grid-cols-[30px_1fr_auto_auto] gap-2 px-2 text-[10px] font-bold uppercase tracking-wider text-[#666]">
-                            <span>#</span>
-                            <span>Tim</span>
-                            <span className="text-right">Težina</span>
-                            <span className="text-right">Ulova</span>
-                        </div>
-                        {standings.length === 0 ? (
-                            <p className="text-sm text-[#666] py-4 text-center">Još nema ulova.</p>
-                        ) : (
-                            <div className="mt-2 space-y-1">
-                                {standings.map((team, i) => {
-                                    const medalColors = ["#c9a227", "#a0a0a0", "#cd7f32", "#1a2e1a"];
-                                    const medalText = ["#0a0f0a", "#0a0f0a", "#0a0f0a", "#7cb87c"];
+                        {/* Standings */}
+                        <div className="space-y-2">
+                            {standings.length === 0 ? (
+                                <p className="py-8 text-center text-sm text-[#aaa]">Još nema ulova.</p>
+                            ) : (
+                                standings.map((team, i) => {
+                                    const isLeader = i === 0;
+                                    const gap = isLeader ? null : (standings[0].totalWeight - team.totalWeight).toFixed(2).replace(".", ",");
+                                    const pct = maxWeight > 0 ? (team.totalWeight / maxWeight) * 100 : 0;
+
                                     return (
-                                        <div key={team.id} className="relative grid grid-cols-[30px_1fr_auto_auto] items-center gap-2 rounded-lg bg-[#060a06]/40 px-2 py-1.5 hover:bg-[#ffffff08] transition-colors">
-                                            <span className="absolute bottom-0 left-0 top-0 w-0.5 rounded-l" style={{ background: team.color }} />
-                                            <div className="flex h-6 w-6 items-center justify-center rounded-full text-xs font-extrabold shadow-sm" style={{ background: medalColors[i], color: medalText[i] }}>{i + 1}</div>
-                                            <div className="min-w-0">
-                                                <div className="text-sm font-bold leading-tight text-white">{team.name}</div>
-                                                <div className="truncate text-[10px] text-[#888]">{team.players.map(p => `${p.first_name} ${p.last_name}`).join(", ")}</div>
+                                        <div
+                                            key={team.id}
+                                            className={`group relative flex items-center gap-4 rounded-xl px-5 py-4 ${isLeader ? "bg-[#0a0f0a]/90" : "bg-[#060a06]/80"}`}
+                                        >
+                                            {isLeader && <div className="absolute left-0 top-4 bottom-4 w-0.5 rounded-full bg-[#c9a227]" />}
+
+                                            {/* Rank */}
+                                            <div className={`w-6 shrink-0 text-right text-lg font-bold ${fontHeading} ${isLeader ? "text-[#c9a227]" : "text-[#444]"}`}>
+                                                {i + 1}
                                             </div>
-                                            <div className="flex flex-col items-end">
-                                                <span className="text-base font-extrabold tabular-nums" style={{ color: i === 0 ? "#c9a227" : i === 1 ? "#e8e8e8" : i === 2 ? "#cd7f32" : "#bbb" }}>{formatWeight(team.totalWeight)} kg</span>
-                                                {i === 0 ? <span className="text-[8px] font-bold uppercase tracking-wider text-[#c9a227]">Lider</span> : <span className="text-[9px] font-semibold tabular-nums text-[#888]">+{formatWeight(standings[0].totalWeight - team.totalWeight)} kg</span>}
+
+                                            {/* Info */}
+                                            <div className="min-w-0 flex-1">
+                                                <div className={`text-[15px] font-semibold text-[#f0f0f0] ${fontHeading}`}>{team.name}</div>
+                                                <div className="mt-0.5 truncate text-xs text-[#666]">
+                                                    {team.players.map(p => `${p.first_name} ${p.last_name}`).join(", ")}
+                                                </div>
+                                                <div className="mt-2 h-0.5 w-full rounded-full bg-[#1a2e1a]">
+                                                    <div className="h-0.5 rounded-full bg-[#c9a227]/40 transition-all" style={{ width: `${pct}%` }} />
+                                                </div>
                                             </div>
-                                            <div className="text-right text-[10px] text-[#666] tabular-nums">{team.fishCount}</div>
+
+                                            {/* Weight */}
+                                            <div className="shrink-0 text-right">
+                                                <div className={`text-xl font-bold tabular-nums tracking-tight ${fontHeading} ${isLeader ? "text-[#c9a227]" : "text-[#f0f0f0]"}`}>
+                                                    {formatWeight(team.totalWeight)} <span className="text-xs font-normal text-[#555]">kg</span>
+                                                </div>
+                                                <div className="mt-0.5 text-[11px] text-[#555]">
+                                                    {isLeader ? "Lider" : `+${gap} kg`} · {team.fishCount} ulova
+                                                </div>
+                                            </div>
                                         </div>
                                     );
-                                })}
-                            </div>
-                        )}
-                    </div>
+                                })
+                            )}
+                        </div>
 
-                    <div className="mt-6 text-center">
-                        <a href={`${baseUrl}results`} className={`inline-flex items-center gap-2 rounded-full bg-[#c9a227] px-8 py-3.5 text-sm font-extrabold uppercase tracking-wider text-[#0a0f0a] shadow-lg shadow-[#c9a227]/20 transition-transform hover:scale-105 ${fontHeading}`}>
-                            <EyeIcon className="h-4 w-4" /> Pogledaj sve rezultate
-                        </a>
+                        {/* CTA */}
+                        <div className="mt-8 text-center">
+                            <a
+                                href={`${baseUrl}results`}
+                                className={`inline-flex items-center gap-2 rounded-full bg-[#c9a227] px-8 py-3 text-sm font-medium text-[#0a0f0a] transition-colors hover:bg-[#d4b43a] ${fontHeading}`}
+                            >
+                                <EyeIcon className="h-4 w-4" /> Pogledaj sve rezultate
+                            </a>
+                        </div>
                     </div>
                 </div>
             </section>
         );
     }
 
+    // Hero / no tournament
     return (
-        <section className="relative flex min-h-[90vh] items-center justify-center overflow-hidden px-5">
-            <div className="absolute inset-0 bg-cover bg-center bg-no-repeat" style={{ backgroundImage: "url('https://images.unsplash.com/photo-1541742425281-c1d3fc8aff96?auto=format&fit=crop&w=1920&q=80')" }} />
-            <div className="absolute inset-0 bg-linear-to-b from-[#060a06]/70 via-[#060a06]/50 to-[#060a06]/90" />
-            <div className="absolute inset-0 bg-linear-to-tr from-[#0a140a]/60 via-transparent to-[#c9a227]/10" />
-            <div className="relative z-10 mx-auto max-w-4xl text-center">
+        <section className="relative flex min-h-[90vh] items-center justify-center overflow-hidden">
+            {/* Video background */}
+            <video
+                autoPlay
+                loop
+                muted
+                playsInline
+                className="absolute inset-0 h-full w-full object-cover"
+                poster="https://images.unsplash.com/photo-1541742425281-c1d3fc8aff96?auto=format&fit=crop&w=1920&q=80"
+            >
+                <source src="https://videos.pexels.com/video-files/855029/855029-hd_1920_1080_30fps.mp4" type="video/mp4" />
+            </video>
 
-                <img src={`${baseUrl}zencarp_logo.png`} alt="ZenCarp" className="mx-auto mb-6 h-40 w-auto drop-shadow-[0_4px_40px_rgba(201,162,39,0.3)] sm:h-52" />
-                <p className="mx-auto mb-8 max-w-2xl text-lg leading-relaxed text-[#ddd] sm:text-xl">
-                    Četiri ekipe. Četiri sata. Jedno jezero. <br className="hidden sm:block" /> PPrenos uživo i rezultati koji se ažuriraju u stvarnom vremenu — prvi put probamo ovakav format.
+            <div className="absolute inset-0 bg-[#060a06]/60" />
+
+            <div className="relative z-10 mx-auto max-w-4xl px-5 text-center">
+                <img src={`${baseUrl}zencarp_logo.png`} alt="ZenCarp" className="mx-auto mb-8 h-36 w-auto opacity-90 sm:h-44" />
+
+                <p className="mx-auto mb-10 max-w-2xl text-lg leading-relaxed text-[#ccc] sm:text-xl">
+                    Četiri ekipe. Četiri sata. Jedno jezero. <br className="hidden sm:block" />
+                    Prenos uživo i rezultati koji se ažuriraju u stvarnom vremenu.
                 </p>
-                <div className="mb-10 flex flex-col items-center justify-center gap-4 sm:flex-row">
-                    <a href="#prijava" className={`inline-flex items-center gap-2 rounded-full bg-[#c9a227] px-8 py-3.5 text-sm font-extrabold uppercase tracking-wider text-[#0a0f0a] shadow-lg shadow-[#c9a227]/20 transition-transform hover:scale-105 ${fontHeading}`}>
+
+                <div className="mb-12 flex flex-col items-center justify-center gap-4 sm:flex-row">
+                    <a href="#prijava" className={`inline-flex items-center gap-2 rounded-full bg-[#c9a227] px-8 py-3.5 text-sm font-medium text-[#0a0f0a] transition-colors hover:bg-[#d4b43a] ${fontHeading}`}>
                         <TrophyIcon className="h-4 w-4" /> Prijavi ekipu
                     </a>
-                    <a href="#prenos" className={`inline-flex items-center gap-2 rounded-full border border-white/10 bg-[#0d140d]/60 px-8 py-3.5 text-sm font-bold uppercase tracking-wider text-[#e0e0e0] backdrop-blur-sm transition-colors hover:border-[#c9a227]/40 hover:text-[#c9a227] ${fontHeading}`}>
+                    <a href="#prenos" className={`inline-flex items-center gap-2 rounded-full border border-[#1a2e1a] bg-[#0a0f0a]/80 px-8 py-3.5 text-sm font-medium text-[#e0e0e0] transition-colors hover:border-[#c9a227]/40 hover:text-[#c9a227] ${fontHeading}`}>
                         <PlayIcon className="h-4 w-4" /> Gledaj prenos
                     </a>
                 </div>
-                <div className="inline-flex items-center gap-3 rounded-2xl border border-[#1a2e1a] bg-[#0d140d]/70 px-6 py-4 backdrop-blur-md">
+
+                <div className="inline-flex items-center gap-3 rounded-xl bg-[#0a0f0a]/80 px-6 py-4">
                     <div className="flex h-10 w-10 items-center justify-center rounded-full bg-[#c9a227]/10 text-[#c9a227]">
                         <MapPinIcon className="h-5 w-5" />
                     </div>
                     <div className="text-left">
-                        <div className={`text-xs font-bold uppercase tracking-wider text-[#7cb87c] ${fontHeading}`}>Kada & gde</div>
-                        <div className="text-sm font-semibold text-[#e0e0e0]">Uskoro - Vojvoda Stepa </div>
+                        <div className={`text-xs font-medium text-[#7cb87c] ${fontHeading}`}>Kada & gde</div>
+                        <div className="text-sm font-medium text-[#e0e0e0]">Uskoro — Vojvoda Stepa</div>
                     </div>
                 </div>
             </div>
