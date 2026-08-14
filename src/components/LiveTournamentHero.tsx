@@ -41,7 +41,11 @@ function TrophyIcon({ className }: { className?: string }) { return <svg viewBox
 function MapPinIcon({ className }: { className?: string }) { return <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" className={className}><path d="M20 10c0 6-8 12-8 12S4 16 4 10a8 8 0 0 1 16 0Z" /><circle cx="12" cy="10" r="3" /></svg>; }
 function EyeIcon({ className }: { className?: string }) { return <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" className={className}><path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7Z" /><circle cx="12" cy="12" r="3" /></svg>; }
 
-export default function LiveTournamentHero() {
+interface LiveTournamentHeroProps {
+    baseUrl?: string;
+}
+
+export default function LiveTournamentHero({ baseUrl = "" }: LiveTournamentHeroProps) {
     const [tournament, setTournament] = useState<Tournament | null>(null);
     const [teams, setTeams] = useState<Team[]>([]);
     const [players, setPlayers] = useState<Player[]>([]);
@@ -49,7 +53,6 @@ export default function LiveTournamentHero() {
     const [loadingLive, setLoadingLive] = useState(true);
     const [timeLeft, setTimeLeft] = useState<string>("--:--:--");
 
-    // Učitavanje inicijalnih podataka
     useEffect(() => {
         async function loadLiveData() {
             try {
@@ -98,8 +101,6 @@ export default function LiveTournamentHero() {
         loadLiveData();
     }, []);
 
-    // Real-time subscription
-    // Real-time subscription
     useEffect(() => {
         if (!tournament) return;
         const tournamentId = tournament.id;
@@ -127,7 +128,6 @@ export default function LiveTournamentHero() {
         };
     }, [tournament]);
 
-    // Timer
     useEffect(() => {
         if (!tournament?.ends_at) {
             setTimeLeft("--:--:--");
@@ -172,7 +172,6 @@ export default function LiveTournamentHero() {
         })
         .sort((a, b) => b.totalWeight - a.totalWeight);
 
-    // LOADING
     if (loadingLive) {
         return (
             <section className="relative flex min-h-[90vh] items-center justify-center overflow-hidden px-5">
@@ -186,7 +185,6 @@ export default function LiveTournamentHero() {
         );
     }
 
-    // LIVE TURNIR
     if (tournament && tournament.status === "in_progress") {
         return (
             <section className="relative flex min-h-[90vh] items-center justify-center overflow-hidden px-5">
@@ -197,7 +195,7 @@ export default function LiveTournamentHero() {
                 <div className="relative z-10 mx-auto max-w-5xl w-full">
                     <div className="flex flex-col items-start justify-between gap-4 mb-6 sm:flex-row sm:items-center">
                         <div className="flex items-center gap-4">
-                            <img  src={`${BASE}zencarp_logo.png`} alt="ZenCarp" className="h-12 w-auto" />
+                            <img src={`${baseUrl}zencarp_logo.png`} alt="ZenCarp" className="h-12 w-auto" />
                             <div>
                                 <div className="mb-1 flex items-center gap-2">
                                     <span className="inline-block h-2 w-2 animate-pulse rounded-full bg-[#c9a227]" />
@@ -247,7 +245,7 @@ export default function LiveTournamentHero() {
                     </div>
 
                     <div className="mt-6 text-center">
-                        <a href="/results" className={`inline-flex items-center gap-2 rounded-full bg-[#c9a227] px-8 py-3.5 text-sm font-extrabold uppercase tracking-wider text-[#0a0f0a] shadow-lg shadow-[#c9a227]/20 transition-transform hover:scale-105 ${fontHeading}`}>
+                        <a href={`${baseUrl}results`} className={`inline-flex items-center gap-2 rounded-full bg-[#c9a227] px-8 py-3.5 text-sm font-extrabold uppercase tracking-wider text-[#0a0f0a] shadow-lg shadow-[#c9a227]/20 transition-transform hover:scale-105 ${fontHeading}`}>
                             <EyeIcon className="h-4 w-4" /> Pogledaj sve rezultate
                         </a>
                     </div>
@@ -256,7 +254,6 @@ export default function LiveTournamentHero() {
         );
     }
 
-    // DEFAULT HERO (nema turnira ili nije u toku)
     return (
         <section className="relative flex min-h-[90vh] items-center justify-center overflow-hidden px-5">
             <div className="absolute inset-0 bg-cover bg-center bg-no-repeat" style={{ backgroundImage: "url('https://images.unsplash.com/photo-1541742425281-c1d3fc8aff96?auto=format&fit=crop&w=1920&q=80')" }} />
@@ -266,7 +263,7 @@ export default function LiveTournamentHero() {
                 <div className="mb-6 inline-flex items-center gap-2 rounded-full border border-[#1a2e1a] bg-[#0d140d]/80 px-4 py-1.5 text-xs font-bold uppercase tracking-widest text-[#7cb87c] backdrop-blur-sm">
                     <span className="inline-block h-1.5 w-1.5 animate-pulse rounded-full bg-[#c9a227]" /> Prvi ZenCarp turnir — nova ideja, prva probna verzija
                 </div>
-                <img  src={`${BASE}zencarp_logo.png`} alt="ZenCarp" className="mx-auto mb-6 h-40 w-auto drop-shadow-[0_4px_40px_rgba(201,162,39,0.3)] sm:h-52" />
+                <img src={`${baseUrl}zencarp_logo.png`} alt="ZenCarp" className="mx-auto mb-6 h-40 w-auto drop-shadow-[0_4px_40px_rgba(201,162,39,0.3)] sm:h-52" />
                 <p className="mx-auto mb-8 max-w-2xl text-lg leading-relaxed text-[#ddd] sm:text-xl">
                     Četiri ekipe. Četiri sata. Jedno jezero. <br className="hidden sm:block" /> Prenos uživo i rezultati u realnom vremenu — probamo prvi put.
                 </p>
