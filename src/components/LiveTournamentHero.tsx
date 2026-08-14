@@ -260,12 +260,10 @@ export default function LiveTournamentHero({ baseUrl = "" }: LiveTournamentHeroP
             <div className="absolute inset-0 bg-linear-to-b from-[#060a06]/70 via-[#060a06]/50 to-[#060a06]/90" />
             <div className="absolute inset-0 bg-linear-to-tr from-[#0a140a]/60 via-transparent to-[#c9a227]/10" />
             <div className="relative z-10 mx-auto max-w-4xl text-center">
-                <div className="mb-6 inline-flex items-center gap-2 rounded-full border border-[#1a2e1a] bg-[#0d140d]/80 px-4 py-1.5 text-xs font-bold uppercase tracking-widest text-[#7cb87c] backdrop-blur-sm">
-                    <span className="inline-block h-1.5 w-1.5 animate-pulse rounded-full bg-[#c9a227]" /> Prvi ZenCarp turnir — nova ideja, prva probna verzija
-                </div>
+
                 <img src={`${baseUrl}zencarp_logo.png`} alt="ZenCarp" className="mx-auto mb-6 h-40 w-auto drop-shadow-[0_4px_40px_rgba(201,162,39,0.3)] sm:h-52" />
                 <p className="mx-auto mb-8 max-w-2xl text-lg leading-relaxed text-[#ddd] sm:text-xl">
-                    Četiri ekipe. Četiri sata. Jedno jezero. <br className="hidden sm:block" /> Prenos uživo i rezultati u realnom vremenu — probamo prvi put.
+                    Četiri ekipe. Četiri sata. Jedno jezero. <br className="hidden sm:block" /> PPrenos uživo i rezultati koji se ažuriraju u stvarnom vremenu — prvi put probamo ovakav format.
                 </p>
                 <div className="mb-10 flex flex-col items-center justify-center gap-4 sm:flex-row">
                     <a href="#prijava" className={`inline-flex items-center gap-2 rounded-full bg-[#c9a227] px-8 py-3.5 text-sm font-extrabold uppercase tracking-wider text-[#0a0f0a] shadow-lg shadow-[#c9a227]/20 transition-transform hover:scale-105 ${fontHeading}`}>
@@ -281,7 +279,7 @@ export default function LiveTournamentHero({ baseUrl = "" }: LiveTournamentHeroP
                     </div>
                     <div className="text-left">
                         <div className={`text-xs font-bold uppercase tracking-wider text-[#7cb87c] ${fontHeading}`}>Kada & gde</div>
-                        <div className="text-sm font-semibold text-[#e0e0e0]">Vojvoda Stepa — Uskoro</div>
+                        <div className="text-sm font-semibold text-[#e0e0e0]">Uskoro - Vojvoda Stepa </div>
                     </div>
                 </div>
             </div>

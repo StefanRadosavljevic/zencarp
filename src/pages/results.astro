@@ -1,8 +1,10 @@
 ---
-import Layout from "@/layouts/main.astro";
-import ResultsPage from "@/components/ResultsPage";
+import Layout from "@/layouts/main.astro"
+import ResultsPage from "@/components/ResultsPage"
+
+const BASE = import.meta.env.BASE_URL
 ---
 
-<Layout title="ZenCarp — Rezultati uživo">
-    <ResultsPage client:only="react" />
+<Layout title="ZenCarp — Rezultati" description="Rezultati uživo">
+  <ResultsPage client:load baseUrl={BASE} />
 </Layout>

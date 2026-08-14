@@ -10,16 +10,14 @@ const BASE = import.meta.env.BASE_URL
 const navLinks = [
   { label: "O turniru", href: "#o-turniru" },
   { label: "Format", href: "#format" },
-  { label: "Zašto ZenCarp", href: "#zasto" },
-  { label: "Prenos", href: "#prenos" },
-  { label: "Aplikacija", href: "#aplikacija" },
+  { label: "Za koga je ovo", href: "#za-koga" },
   { label: "Partnerstvo", href: "#partnerstvo" },
   { label: "Prijava", href: "#prijava" },
 ]
 ---
 
 <Layout
-  title="ZenCarp — 6. septembar"
+  title="ZenCarp — prvi digitalni šaranski turnir"
   description="4 tima. 4 sata. Jedan pobednik nosi sve. Šaranski ribolov turnir — Vojvoda Stepa, Banat."
 >
   <div
@@ -124,24 +122,24 @@ const navLinks = [
               <h2
                 class={`mb-6 text-3xl font-extrabold leading-tight text-[#f0f0f0] sm:text-4xl ${fontHeading}`}
               >
-                Ideja koju prvi put probamo. <br /><span class="text-[#c9a227]"
-                  >Bez velikih obećanja.</span
-                >
+                Prvi digitalni <span class="text-[#c9a227]"
+                  >šaranski turnir</span
+                > kod nas.
               </h2>
               <div class="space-y-4 text-[15px] leading-relaxed text-[#aaa]">
                 <p>
-                  ZenCarp je pokušaj da se pecanje šarana prikaže drugačije — sa
-                  prenosom uživo i rezultatima koji se ažuriraju u realnom
-                  vremenu, umesto pasivnog čekanja.
+                  Četiri ekipe, po dva takmičara. Jezero dimenzija 100 × 100
+                  metara, podeljeno dijagonalama na četiri sektora — svaka ekipa
+                  nalazi se na sredini svoje strane.
                 </p>
                 <p>
-                  Format: četiri ekipe, četiri sata, snimanje iz vazduha i
-                  plasman koji se prati uživo. Ovo nam je prvi pokušaj, pa ćemo
-                  tokom dana verovatno učiti i prilagođavati se.
+                  Četiri sata pecanja, prenos uživo i plasman koji se menja pred
+                  publikom, u stvarnom vremenu.
                 </p>
                 <p>
-                  Ako te zanima da vidiš kako to izgleda u praksi — pridruži se
-                  ili prati prenos.
+                  Ovo nam je prvi turnir. Ideja je jednostavna: da pecanje
+                  šarana prikažemo kao pravi sportski događaj, a ne kao pasivno
+                  čekanje da riba zagrize.
                 </p>
               </div>
             </div>
@@ -186,33 +184,28 @@ const navLinks = [
             {
               [
                 {
-                  title: "4 ekipe",
-                  text: "Dva takmičara po ekipi. Žreb određuje pozicije na dan turnira.",
+                  title: "4 tima, 4 pozicije",
+                  text: "Jezero je podeljeno dijagonalama na četiri sektora. Svaka ekipa dobija jednu poziciju na sredini svoje strane. Raspored pozicija određuje se žrebom.",
                 },
                 {
-                  title: "4 pozicije",
-                  text: "Svaka ekipa dobija peg na jezeru — pozicije se određuju žrebom.",
+                  title: "Trajanje: 4 sata",
+                  text: "Takmičenje traje od 17:00 do 21:00.",
                 },
-                { title: "Trajanje: 4 sata", text: "17:00 — 21:00." },
                 {
                   title: "Oprema",
-                  text: "2 rodpoda (4 štapa) po takmičaru. Isti uslovi za sve.",
+                  text: "Svaki takmičar koristi 4 štapa, odnosno ukupno 8 štapova po ekipi, raspoređenih na 2 rodpoda. Sve ekipe imaju jednake uslove i isti broj štapova.",
                 },
                 {
                   title: "Ciljane vrste",
-                  text: "Šaran i amur. Ostale vrste se ne računaju u ukupan ulov.",
+                  text: "Računaju se šaran i amur. Minimalna težina ribe koja ulazi u rezultat je 500 grama.",
                 },
                 {
-                  title: "Catch & Release",
-                  text: "Svaka riba se izmeri, fotografiše i vrati u jezero.",
+                  title: "Ulovi se vraćaju u jezero",
+                  text: "Svaka riba se izmeri, fotografiše i nakon toga pažljivo vraća u jezero.",
                 },
                 {
-                  title: "Plasman",
-                  text: "Odlučuje ukupna težina ulova (kg).",
-                },
-                {
-                  title: "Nagrada",
-                  text: "Nagradni fond je 200 EUR i ide isključivo prvoplasiranoj ekipi. Pobednik nosi sve.",
+                  title: "Plasman i nagrada",
+                  text: "Pobednika određuje ukupna težina priznatih ulova. Nagradni fond je 200 EUR — pobednik odnosi ceo fond.",
                 },
               ].map((item, i) => (
                 <div class="group flex gap-4 border-b border-[#1a2e1a]/30 pb-3">
@@ -235,114 +228,69 @@ const navLinks = [
               ))
             }
           </div>
+          <p class="mt-8 text-center text-sm text-[#666]">
+            Kompletan pravilnik dostupan je na <a
+              href={`${BASE}pravilnik`}
+              class="text-[#c9a227] hover:underline">posebnoj stranici</a
+            >.
+          </p>
         </div>
       </section>
 
-      <section id="zasto" class="px-5 py-24">
+      <section id="za-koga" class="px-5 py-24">
         <div class="mx-auto max-w-6xl">
           <div class="mb-12 text-center">
             <div
               class={`mb-3 text-xs font-bold uppercase tracking-widest text-[#7cb87c] ${fontHeading}`}
             >
-              Zašto je ZenCarp drugačiji
+              Za koga je ovo
             </div>
             <h2
               class={`text-3xl font-extrabold text-[#f0f0f0] sm:text-4xl ${fontHeading}`}
             >
-              Šta smo dodali u odnosu na klasičan turnir
+              Šta svako od ZenCarpa dobija
             </h2>
           </div>
-          <div class="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+
+          <div class="grid gap-6 md:grid-cols-3">
             {
               [
                 {
-                  icon: "play",
-                  title: "Prenos uživo sa više uglova",
-                  desc: "Dve statične kamere za stabilan pregled i dron za snimke iz vazduha.",
-                },
-                {
-                  icon: "phone",
-                  title: "Rezultati u realnom vremenu",
-                  desc: "Plasman se ažurira tokom turnira, bez čekanja na kraj.",
-                },
-                {
-                  icon: "cloud",
-                  title: "Dron pri svakom ulovu",
-                  desc: "Pogled iz vazduha kada ekipa izvlači ribu.",
+                  icon: "eye",
+                  title: "Gledaoci",
+                  items: [
+                    "Prenos uživo na YouTube-u",
+                    "Snimci sa jezera i iz vazduha",
+                    "Plasman i težina ulova u stvarnom vremenu",
+                    "Praćenje rezultata sa telefona ili računara",
+                    "Besplatan ulaz i obezbeđen parking",
+                  ],
                 },
                 {
                   icon: "trophy",
-                  title: "Kompaktan format",
-                  desc: "4 sata — lako za ispraćaj od početka do kraja.",
+                  title: "Takmičari",
+                  items: [
+                    "Učešće u prenosu sa samo četiri ekipe",
+                    "Plasman i težina svakog ulova prikazani uživo",
+                    "Fotografije i video snimci sa takmičenja",
+                    "Sadržaj koji možeš da podeliš na društvenim mrežama",
+                    "200 EUR nagrade za pobednika",
+                  ],
                 },
                 {
                   icon: "map",
-                  title: "Besplatan ulaz",
-                  desc: "Dođi na Vojvodu Stepu i prisustvuj turniru uživo. Parking obezbeđen.",
+                  title: "Partneri",
+                  items: [
+                    "Logo tokom celog prenosa uživo",
+                    "Logo u veb aplikaciji sa rezultatima",
+                    "Video od 15–20 sekundi snimljen dronom sa vašim logotipom",
+                    "Video koji možete koristiti na svojim društvenim mrežama",
+                    "Pominjanje u završnoj objavi zahvalnosti",
+                  ],
                 },
-                {
-                  icon: "eye",
-                  title: "Web aplikacija za praćenje",
-                  desc: "Prati rezultate na telefonu u realnom vremenu.",
-                },
-              ].map((f, i) => (
-                <div class="group border-b border-[#1a2e1a]/30 pb-4 transition-colors hover:border-[#c9a227]/30">
-                  <div class="mb-2 inline-flex rounded-full bg-[#c9a227]/10 p-2 text-[#c9a227] group-hover:bg-[#c9a227]/20">
-                    {f.icon === "play" && (
-                      <svg
-                        viewBox="0 0 24 24"
-                        fill="currentColor"
-                        class="h-6 w-6"
-                      >
-                        <path d="M8 5v14l11-7z" />
-                      </svg>
-                    )}
-                    {f.icon === "phone" && (
-                      <svg
-                        viewBox="0 0 24 24"
-                        fill="none"
-                        stroke="currentColor"
-                        stroke-width="1.6"
-                        class="h-6 w-6"
-                      >
-                        <rect x="5" y="2" width="14" height="20" rx="2" />
-                        <path d="M12 18h.01" />
-                      </svg>
-                    )}
-                    {f.icon === "cloud" && (
-                      <svg viewBox="0 0 24 24" fill="none" class="h-6 w-6">
-                        <path
-                          d="M7 18h10a4 4 0 0 0 .5-7.97A5.5 5.5 0 0 0 7.1 9.06 4 4 0 0 0 7 18Z"
-                          stroke="currentColor"
-                          stroke-width="1.6"
-                          stroke-linejoin="round"
-                        />
-                      </svg>
-                    )}
-                    {f.icon === "trophy" && (
-                      <svg
-                        viewBox="0 0 24 24"
-                        fill="none"
-                        stroke="currentColor"
-                        stroke-width="1.6"
-                        class="h-6 w-6"
-                      >
-                        <path d="M6 9H4.5a2.5 2.5 0 0 1 0-5H6m12 5h1.5a2.5 2.5 0 0 0 0-5H18M6 9v6a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2V9M6 9h12" />
-                        <path d="M12 17v3m-3 0h6" />
-                      </svg>
-                    )}
-                    {f.icon === "map" && (
-                      <svg
-                        viewBox="0 0 24 24"
-                        fill="none"
-                        stroke="currentColor"
-                        stroke-width="1.6"
-                        class="h-6 w-6"
-                      >
-                        <path d="M20 10c0 6-8 12-8 12S4 16 4 10a8 8 0 0 1 16 0Z" />
-                        <circle cx="12" cy="10" r="3" />
-                      </svg>
-                    )}
+              ].map((f) => (
+                <div class="border-b border-[#1a2e1a]/30 pb-6">
+                  <div class="mb-3 inline-flex rounded-full bg-[#c9a227]/10 p-2 text-[#c9a227]">
                     {f.icon === "eye" && (
                       <svg
                         viewBox="0 0 24 24"
@@ -355,13 +303,48 @@ const navLinks = [
                         <circle cx="12" cy="12" r="3" />
                       </svg>
                     )}
+
+                    {f.icon === "trophy" && (
+                      <svg
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="currentColor"
+                        stroke-width="1.6"
+                        class="h-6 w-6"
+                      >
+                        <path d="M6 9H4.5a2.5 2.5 0 0 1 0-5H6m12 5h1.5a2.5 2.5 0 0 0 0-5H18M6 9v6a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2V9M6 9h12" />
+                        <path d="M12 17v3m-3 0h6" />
+                      </svg>
+                    )}
+
+                    {f.icon === "map" && (
+                      <svg
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="currentColor"
+                        stroke-width="1.6"
+                        class="h-6 w-6"
+                      >
+                        <path d="M20 10c0 6-8 12-8 12S4 16 4 10a8 8 0 0 1 16 0Z" />
+                        <circle cx="12" cy="10" r="3" />
+                      </svg>
+                    )}
                   </div>
+
                   <h3
-                    class={`mb-1 text-base font-extrabold text-[#f0f0f0] ${fontHeading}`}
+                    class={`mb-4 text-base font-extrabold text-[#f0f0f0] ${fontHeading}`}
                   >
                     {f.title}
                   </h3>
-                  <p class="text-sm leading-relaxed text-[#888]">{f.desc}</p>
+
+                  <ul class="space-y-2.5">
+                    {f.items.map((item) => (
+                      <li class="flex gap-2.5 text-sm leading-relaxed text-[#888]">
+                        <span class="mt-2 h-1 w-1 shrink-0 rounded-full bg-[#7cb87c]" />
+                        <span>{item}</span>
+                      </li>
+                    ))}
+                  </ul>
                 </div>
               ))
             }
@@ -371,33 +354,20 @@ const navLinks = [
 
       <section class="border-y border-[#1a2e1a]/40 bg-[#080c08] px-5 py-24">
         <div class="mx-auto max-w-6xl">
-          <div class="grid items-center gap-12 lg:grid-cols-2">
-            <div>
-              <div
-                class={`mb-3 text-xs font-bold uppercase tracking-widest text-[#7cb87c] ${fontHeading}`}
-              >
-                Grafika prenosa
-              </div>
-              <h2
-                class={`mb-6 text-3xl font-extrabold leading-tight text-[#f0f0f0] sm:text-4xl ${fontHeading}`}
-              >
-                Šta se vidi na ekranu tokom prenosa
-              </h2>
-              <p class="mb-4 text-[15px] leading-relaxed text-[#aaa]">
-                Tokom prenosa je vidljiv overlay sa tabelom plasmana, preostalim
-                vremenom, vremenskim prilikama i animacijom pri svakom novom
-                ulovu.
-              </p>
-              <p class="text-[15px] leading-relaxed text-[#aaa]">
-                Uz to, prikazana je mapa jezera sa pozicijama ekipa, timeline
-                ulova i podaci o najvećoj ulovljenoj ribi.
-              </p>
+          <div class="mb-12 text-center">
+            <div
+              class={`mb-3 text-xs font-bold uppercase tracking-widest text-[#7cb87c] ${fontHeading}`}
+            >
+              Kako to izgleda
             </div>
-            <div class="relative">
-              <div
-                class="absolute -inset-3 rounded-4xl bg-linear-to-br from-[#c9a227]/10 via-transparent to-[#7cb87c]/10 blur-xl"
-              >
-              </div>
+            <h2
+              class={`text-3xl font-extrabold text-[#f0f0f0] sm:text-4xl ${fontHeading}`}
+            >
+              Prenos i rezultati uživo
+            </h2>
+          </div>
+          <div class="grid gap-8 md:grid-cols-2">
+            <div>
               <div
                 class="relative overflow-hidden rounded-2xl border border-[#1a2e1a] bg-[#0d140d]/90 shadow-2xl"
               >
@@ -415,19 +385,14 @@ const navLinks = [
                   />
                 </video>
               </div>
+              <p class="mt-4 text-sm leading-relaxed text-[#888]">
+                Tokom prenosa prikazuju se plasman ekipa, preostalo vreme, mapa
+                jezera i najvažniji trenuci takmičenja. Kada ekipa uhvati ribu,
+                rezultat se ažurira i publika odmah može da vidi kako se
+                promenio plasman.
+              </p>
             </div>
-          </div>
-        </div>
-      </section>
-
-      <section id="aplikacija" class="px-5 py-24">
-        <div class="mx-auto max-w-6xl">
-          <div class="grid items-center gap-12 lg:grid-cols-2">
-            <div class="relative order-2 lg:order-1">
-              <div
-                class="absolute -inset-3 rounded-4xl bg-linear-to-br from-[#7cb87c]/10 via-transparent to-[#c9a227]/10 blur-xl"
-              >
-              </div>
+            <div>
               <div
                 class="relative overflow-hidden rounded-2xl border border-[#1a2e1a] bg-[#0d140d]/90 p-4 shadow-2xl"
               >
@@ -438,187 +403,11 @@ const navLinks = [
                   style="object-fit: contain;"
                 />
               </div>
+              <p class="mt-4 text-sm leading-relaxed text-[#888]">
+                Rezultate možete pratiti na telefonu ili računaru. Plasman,
+                težina ulova i statistika menjaju se u stvarnom vremenu.
+              </p>
             </div>
-            <div class="order-1 lg:order-2">
-              <div
-                class={`mb-3 text-xs font-bold uppercase tracking-widest text-[#7cb87c] ${fontHeading}`}
-              >
-                Web aplikacija
-              </div>
-              <h2
-                class={`mb-6 text-3xl font-extrabold leading-tight text-[#f0f0f0] sm:text-4xl ${fontHeading}`}
-              >
-                Rezultati na telefonu
-              </h2>
-              <div class="space-y-4 text-[15px] leading-relaxed text-[#aaa]">
-                <p>
-                  Pored prenosa, napravili smo web aplikaciju koja prati plasman
-                  ekipa, statistiku i istoriju ulova u realnom vremenu.
-                </p>
-                <p>
-                  Otvara se u pretraživaču na telefonu ili računaru, ažurira se
-                  automatski, bez potrebe za refresh.
-                </p>
-                <p>
-                  Napravljena je isključivo za ovaj turnir — bez dodatnih
-                  funkcija koje ne trebaju.
-                </p>
-              </div>
-              <div class="mt-8 flex flex-wrap gap-3">
-                <span
-                  class="inline-flex items-center gap-1.5 rounded-full border border-[#1a2e1a] bg-[#111a11] px-3 py-1.5 text-xs font-medium text-[#999]"
-                >
-                  <svg
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    stroke="currentColor"
-                    stroke-width="1.6"
-                    class="h-3.5 w-3.5 text-[#7cb87c]"
-                    ><rect x="5" y="2" width="14" height="20" rx="2"
-                    ></rect><path d="M12 18h.01"></path></svg
-                  >
-                  Mobile-first
-                </span>
-                <span
-                  class="inline-flex items-center gap-1.5 rounded-full border border-[#1a2e1a] bg-[#111a11] px-3 py-1.5 text-xs font-medium text-[#999]"
-                >
-                  <svg
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    stroke="currentColor"
-                    stroke-width="1.6"
-                    class="h-3.5 w-3.5 text-[#7cb87c]"
-                    ><path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7Z"
-                    ></path><circle cx="12" cy="12" r="3"></circle></svg
-                  >
-                  Live rezultati
-                </span>
-                <span
-                  class="inline-flex items-center gap-1.5 rounded-full border border-[#1a2e1a] bg-[#111a11] px-3 py-1.5 text-xs font-medium text-[#999]"
-                >
-                  <svg
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    class="h-3.5 w-3.5 text-[#7cb87c]"
-                    ><path
-                      d="M7 18h10a4 4 0 0 0 .5-7.97A5.5 5.5 0 0 0 7.1 9.06 4 4 0 0 0 7 18Z"
-                      stroke="currentColor"
-                      stroke-width="1.6"
-                      stroke-linejoin="round"></path></svg
-                  >
-                  Bez refresha
-                </span>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <section
-        id="prenos"
-        class="border-y border-[#1a2e1a]/40 bg-[#080c08] px-5 py-24"
-      >
-        <div class="mx-auto max-w-6xl">
-          <div class="mb-12 text-center">
-            <div
-              class={`mb-3 text-xs font-bold uppercase tracking-widest text-[#7cb87c] ${fontHeading}`}
-            >
-              Pratite turnir
-            </div>
-            <h2
-              class={`text-3xl font-extrabold text-[#f0f0f0] sm:text-4xl ${fontHeading}`}
-            >
-              Tri načina da pratite dešavanja
-            </h2>
-          </div>
-          <div class="grid gap-6 md:grid-cols-3">
-            {
-              [
-                {
-                  icon: "play",
-                  title: "YouTube prenos uživo",
-                  desc: "Ceo turnir sa grafikom i tabelom plasmana. Gledaj sa televizora, telefona ili laptopa.",
-                  color: "text-red-500",
-                  bg: "bg-red-500/10",
-                  dot: "bg-red-500",
-                  label: "Link uskoro",
-                },
-                {
-                  icon: "phone",
-                  title: "Web aplikacija",
-                  desc: "Plasman ekipa uživo na telefonu ili računaru, sa automatskim osvežavanjem.",
-                  color: "text-[#c9a227]",
-                  bg: "bg-[#c9a227]/10",
-                  dot: "bg-[#c9a227]",
-                  label: "Uskoro dostupno",
-                },
-                {
-                  icon: "map",
-                  title: "Uživo na jezeru",
-                  desc: "Dođi na Vojvodu Stepu i prisustvuj turniru. Ulaz besplatan, parking obezbeđen.",
-                  color: "text-[#7cb87c]",
-                  bg: "bg-[#7cb87c]/10",
-                  dot: "bg-[#7cb87c]",
-                  label: "Slobodan ulaz",
-                },
-              ].map((item) => (
-                <div class="border-b border-[#1a2e1a]/30 pb-4 transition-colors hover:border-[#c9a227]/30">
-                  <div
-                    class={`mb-2 inline-flex rounded-full ${item.bg} p-2 ${item.color}`}
-                  >
-                    {item.icon === "play" && (
-                      <svg
-                        viewBox="0 0 24 24"
-                        fill="currentColor"
-                        class="h-6 w-6"
-                      >
-                        <path d="M8 5v14l11-7z" />
-                      </svg>
-                    )}
-                    {item.icon === "phone" && (
-                      <svg
-                        viewBox="0 0 24 24"
-                        fill="none"
-                        stroke="currentColor"
-                        stroke-width="1.6"
-                        class="h-6 w-6"
-                      >
-                        <rect x="5" y="2" width="14" height="20" rx="2" />
-                        <path d="M12 18h.01" />
-                      </svg>
-                    )}
-                    {item.icon === "map" && (
-                      <svg
-                        viewBox="0 0 24 24"
-                        fill="none"
-                        stroke="currentColor"
-                        stroke-width="1.6"
-                        class="h-6 w-6"
-                      >
-                        <path d="M20 10c0 6-8 12-8 12S4 16 4 10a8 8 0 0 1 16 0Z" />
-                        <circle cx="12" cy="10" r="3" />
-                      </svg>
-                    )}
-                  </div>
-                  <h3
-                    class={`mb-1 text-lg font-extrabold text-[#f0f0f0] ${fontHeading}`}
-                  >
-                    {item.title}
-                  </h3>
-                  <p class="mb-3 text-sm leading-relaxed text-[#888]">
-                    {item.desc}
-                  </p>
-                  <span
-                    class={`inline-flex items-center gap-1.5 text-xs font-bold tracking-wider text-[#555] uppercase ${fontHeading}`}
-                  >
-                    <span
-                      class={`inline-block h-1.5 w-1.5 rounded-full ${item.dot}`}
-                    />{" "}
-                    {item.label}
-                  </span>
-                </div>
-              ))
-            }
           </div>
         </div>
       </section>
@@ -636,14 +425,18 @@ const navLinks = [
           <h2
             class={`mb-6 text-3xl font-extrabold text-[#f0f0f0] sm:text-4xl ${fontHeading}`}
           >
-            Tražimo lokalne biznise za prvi ZenCarp turnir
+            ZenCarp prvi put organizujemo uz podršku lokalnih firmi.
           </h2>
           <p
             class="mx-auto mb-10 max-w-2xl text-[15px] leading-relaxed text-[#aaa]"
           >
-            Ovo nam je prvi put da ovo organizujemo, pa nam znači svaka podrška.
-            Bez velikih sponzorskih paketa — poštena saradnja i konkretna
-            vrednost zauzvrat.
+            Ne nudimo velike i komplikovane sponzorske pakete. Vi podržite prvi
+            ZenCarp događaj, a zauzvrat dobijate <strong
+              >gotov video od 15–20 sekundi sa vašim logom i informacijama o
+              brendu</strong
+            >, spreman za objavu na facebook, instagram, whatsapp ili bilo koju
+            društvenu mrežu. Vaš brend će biti prisutan, kao i na stranici sa
+            rezultatima.
           </p>
           <div
             class="relative mx-auto max-w-lg overflow-hidden rounded-3xl border border-[#c9a227]/30 bg-linear-to-b from-[#c9a227]/10 to-[#0d140d]/90 p-8 backdrop-blur-md"
@@ -656,15 +449,15 @@ const navLinks = [
               <div
                 class={`mb-6 text-xs font-bold uppercase tracking-widest text-[#c9a227] ${fontHeading}`}
               >
-                Šta dobijaš kao partner
+                Šta dobijate kao partner
               </div>
               <ul class="mb-8 space-y-3 text-left">
                 {
                   [
-                    "Logo na sponzorskoj traci koja je prikazana tokom celog live prenosa",
-                    "Logo na sponzorskoj traci u web aplikaciji sa rezultatima uživo",
-                    "Kratak video (10–15s) snimljen dronom, sa vašim logom",
-                    "Pomen u završnoj objavi zahvalnica",
+                    "Logo na traci sa partnerima tokom celog prenosa uživo",
+                    "Logo na traci sa partnerima u veb aplikaciji sa rezultatima",
+                    "Video od 15–20 sekundi snimljen dronom, pripremljen sa vašim logotipom, koji možete koristiti za svoje društvene mreže",
+                    "Pominjanje firme u završnoj objavi zahvalnosti",
                   ].map((item) => (
                     <li class="flex items-start gap-3 text-sm text-[#ccc]">
                       <span class="mt-0.5 inline-block h-1.5 w-1.5 shrink-0 rounded-full bg-[#c9a227]" />{" "}
@@ -700,7 +493,7 @@ const navLinks = [
           <h2
             class={`mb-6 text-3xl font-extrabold text-[#f0f0f0] sm:text-4xl ${fontHeading}`}
           >
-            Prijava ekipa
+            Prijavi svoj tim
           </h2>
           <div class="mb-10 grid gap-4 sm:grid-cols-2">
             <div
@@ -714,7 +507,7 @@ const navLinks = [
               <div
                 class={`text-sm font-extrabold text-[#f0f0f0] ${fontHeading}`}
               >
-                50 EUR / ekipa
+                50 EUR / tim
               </div>
             </div>
             <div
@@ -733,7 +526,7 @@ const navLinks = [
             </div>
           </div>
           <p class="mb-8 text-[15px] leading-relaxed text-[#aaa]">
-            Detaljan pravilnik je dostupan ispod.
+            Mesta su ograničena na 4 tima. Detaljan pravilnik dostupan je ispod.
           </p>
           <div
             class="flex flex-col items-center justify-center gap-4 sm:flex-row"
@@ -752,7 +545,7 @@ const navLinks = [
                   d="M6 9H4.5a2.5 2.5 0 0 1 0-5H6m12 5h1.5a2.5 2.5 0 0 0 0-5H18M6 9v6a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2V9M6 9h12"
                 ></path><path d="M12 17v3m-3 0h6"></path></svg
               >
-              Prijavi ekipu
+              Prijavi tim
             </a>
             <a
               href={`${BASE}pravilnik`}
@@ -767,8 +560,7 @@ const navLinks = [
                 ><path
                   d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"
                 ></path><path d="M14 2v6h6"></path><path d="M16 13H8"
-                ></path><path d="M16 17H8"></path><path d="M16 17H8"
-                ></path><path d="M10 9H8"></path></svg
+                ></path><path d="M16 17H8"></path><path d="M10 9H8"></path></svg
               >
               Pravilnik
             </a>
