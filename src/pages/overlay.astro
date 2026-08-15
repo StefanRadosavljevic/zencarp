@@ -1,17 +1,30 @@
 ---
+// Importuj Tailwind / shadcn stilove direktno
+import "@/styles/global.css"
 import StreamOverlay from "@/components/StreamOverlay"
-import MainLayout from "@/layouts/main.astro" // or wherever
+
+const BASE = import.meta.env.BASE_URL
 ---
 
-<MainLayout title="ZenCarp Overlay" description="...">
-  <!-- Override body styles with a style tag or inline? -->
-  <style>
-    body {
-      background: transparent !important;
-      margin: 0;
-      padding: 0;
-      overflow: hidden;
-    }
-  </style>
-  <StreamOverlay />
-</MainLayout>
+<!doctype html>
+<html lang="sr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>ZenCarp Overlay</title>
+    <style>
+      html,
+      body {
+        margin: 0 !important;
+        padding: 0 !important;
+        width: 100vw;
+        height: 100vh;
+        overflow: hidden;
+        background: transparent !important;
+      }
+    </style>
+  </head>
+  <body>
+    <StreamOverlay client:load baseUrl={BASE} />
+  </body>
+</html>
