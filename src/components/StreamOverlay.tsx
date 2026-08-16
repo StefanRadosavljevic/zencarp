@@ -180,10 +180,10 @@ function OverlayLeaderboard({ tournament, teams, players, catches, maxItems = 5 
 
 
 // ═══════════════════════════════════════════════════
-// RECENT CATCHES
+// RECENT CATCHES — bez scroll-a
 // ═══════════════════════════════════════════════════
 
-function RecentCatchesWidget({ catches, teams, fishImages, maxItems = 8 }: { catches: Catch[]; teams: Team[]; fishImages: Record<FishType, string>; maxItems?: number }) {
+function RecentCatchesWidget({ catches, teams, fishImages, maxItems = 6 }: { catches: Catch[]; teams: Team[]; fishImages: Record<FishType, string>; maxItems?: number }) {
     const recent = catches.slice(0, maxItems);
 
     return (
@@ -198,7 +198,7 @@ function RecentCatchesWidget({ catches, teams, fishImages, maxItems = 8 }: { cat
             {recent.length === 0 ? (
                 <div className="px-4 py-6 text-center text-sm text-[#555]">Još nema ulova.</div>
             ) : (
-                <div className="max-h-[420px] overflow-y-auto p-1">
+                <div className="p-1">
                     <AnimatePresence initial={false}>
                         {recent.map((c, idx) => {
                             const team = getTeam(c.team_id, teams);
@@ -238,7 +238,7 @@ function RecentCatchesWidget({ catches, teams, fishImages, maxItems = 8 }: { cat
 }
 
 // ═══════════════════════════════════════════════════
-// CATCH ALERT — centar (namerno malo istaknutiji radi pažnje)
+// CATCH ALERT — centar
 // ═══════════════════════════════════════════════════
 
 function OverlayCatchAlert({ catchItem, teams, fishImages, onDismiss }: { catchItem: Catch | null; teams: Team[]; fishImages: Record<FishType, string>; onDismiss?: () => void }) {
@@ -417,37 +417,36 @@ export default function StreamOverlay({ baseUrl = "" }: { baseUrl?: string }) {
 
     if (!tournament) return null;
 
-        return (
-            <div className={`relative h-screen w-screen overflow-hidden ${fontBody}`}>
-                {/* Background video */}
-                <video
-                    className="absolute inset-0 z-0 h-full w-full object-cover"
-                    src={`${baseUrl}fishing.mp4`}
-                    autoPlay
-                    loop
-                    muted
-                    playsInline
-                />
+    return (
+        <div className={`relative h-screen w-screen overflow-hidden ${fontBody}`}>
+            <video
+                className="absolute inset-0 z-0 h-full w-full object-cover"
+                src={`${baseUrl}fishing.mp4`}
+                autoPlay
+                loop
+                muted
+                playsInline
+            />
 
-                <div className="absolute left-1/2 top-4 -translate-x-1/2 z-20">
-                    <OverlayScoreBug tournament={tournament} teams={teams} catches={catches} timeLeft={timeLeft} />
-                </div>
-
-                <div className="absolute left-6 top-4 z-10">
-                    <OverlayLeaderboard tournament={tournament} teams={teams} players={players} catches={catches} maxItems={5} />
-                </div>
-
-                <div className="absolute right-6 top-4 z-10">
-                    <RecentCatchesWidget catches={catches} teams={teams} fishImages={fishImages} maxItems={8} />
-                </div>
-
-                <div className="absolute left-1/2 top-[55%] -translate-x-1/2 -translate-y-1/2 z-30">
-                    <OverlayCatchAlert catchItem={latestCatch} teams={teams} fishImages={fishImages} onDismiss={() => setLatestCatch(null)} />
-                </div>
-
-                <div className="absolute bottom-0 left-0 right-0 z-20">
-                    <SponsorMarquee baseUrl={baseUrl} />
-                </div>
+            <div className="absolute left-1/2 top-4 -translate-x-1/2 z-20">
+                <OverlayScoreBug tournament={tournament} teams={teams} catches={catches} timeLeft={timeLeft} />
             </div>
-        );
-    }
+
+            <div className="absolute left-6 top-4 z-10">
+                <OverlayLeaderboard tournament={tournament} teams={teams} players={players} catches={catches} maxItems={5} />
+            </div>
+
+            <div className="absolute right-6 top-4 z-10">
+                <RecentCatchesWidget catches={catches} teams={teams} fishImages={fishImages} maxItems={6} />
+            </div>
+
+            <div className="absolute left-1/2 top-[55%] -translate-x-1/2 -translate-y-1/2 z-30">
+                <OverlayCatchAlert catchItem={latestCatch} teams={teams} fishImages={fishImages} onDismiss={() => setLatestCatch(null)} />
+            </div>
+
+            <div className="absolute bottom-0 left-0 right-0 z-20">
+                <SponsorMarquee baseUrl={baseUrl} />
+            </div>
+        </div>
+    );
+}
