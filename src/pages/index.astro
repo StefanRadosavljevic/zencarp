@@ -1,602 +1,530 @@
 ---
+// index.astro – glavna stranica
 import Layout from "@/layouts/main.astro"
-import LiveTournamentHero from "@/components/LiveTournamentHero"
+import LiveBanner from "@/components/LiveBanner"
 
+const BASE = import.meta.env.BASE_URL
 const fontHeading = "font-[family-name:var(--font-poppins)]"
 const fontBody = "font-[family-name:var(--font-inter)]"
 
-const BASE = import.meta.env.BASE_URL
-
+// Navigacija
 const navLinks = [
-  { label: "O turniru", href: "#o-turniru" },
-  { label: "Format", href: "#format" },
-  { label: "Za koga je ovo", href: "#za-koga" },
-  { label: "Partnerstvo", href: "#partnerstvo" },
-  { label: "Prijava", href: "#prijava" },
+  { label: "Naslovna", href: BASE },
+  { label: "Partneri", href: `${BASE}partners` },
+  { label: "Rezultati", href: `${BASE}results` },
+]
+
+// CTA
+const cta = { label: "Prijavi ekipu", href: "#prijava" }
+
+// FAQ
+const faq = [
+  {
+    q: "Koju opremu tim mora da obezbedi sam?",
+    a: "Na pozicijama nema struje, vode, šatora, stolica ni toaleta. Molimo vas da ponesete svu neophodnu opremu za vaš tim.",
+  },
+  {
+    q: "Da li organizator obezbeđuje hranu i piće?",
+    a: "Svaki tim dobija jedan obrok i jedno piće. Sve dodatne potrebe snosi tim.",
+  },
+  {
+    q: "Da li je alkohol dozvoljen tokom takmičenja?",
+    a: "Alkohol je dozvoljen uz odgovorno ponašanje. Muzika nije dozvoljena tokom celog turnira.",
+  },
+  {
+    q: "Šta se dešava sa ulovljenom ribom?",
+    a: "Primenjujemo princip „catch & release“ – svaka izmerena riba se odmah vraća u vodu. Nijedna riba se ne zadržava.",
+  },
+  {
+    q: "Koja dokumenta je potrebno potpisati?",
+    a: "Pre početka, oba člana tima potpisuju izjavu o odricanju odgovornosti i saglasnost za fotografisanje i snimanje.",
+  },
+  {
+    q: "Kako se postupa u slučaju kiše?",
+    a: "Obična kiša ne prekida takmičenje. Jedino ozbiljno nevreme (npr. grad) može dovesti do prekida ili odlaganja, o čemu odlučuje glavni sudija.",
+  },
+  {
+    q: "Da li publika može da prisustvuje?",
+    a: "Da, ulaz je besplatan. Deca su dobrodošla, a parking je obezbeđen. Ulazak u pozicije timova dozvoljen je samo uz saglasnost organizatora.",
+  },
+  {
+    q: "Koliko štapova tim može da koristi?",
+    a: "Maksimalno 8 štapova po timu, raspoređenih na najviše 2 podmetača (rodpoda).",
+  },
+  {
+    q: "Ko rešava sporove tokom turnira?",
+    a: "Glavni sudija donosi konačnu odluku na licu mesta za svaki sporan slučaj.",
+  },
 ]
 ---
 
 <Layout
-  title="ZenCarp — prvi digitalni šaranski turnir"
-  description="4 tima. 4 sata. Jedan pobednik nosi sve. Šaranski ribolov turnir — Vojvoda Stepa, Banat."
+  title="ZenCarp — carp fishing turnir koji se gleda uživo"
+  description="4 ekipe. 4 sata. Svaki ulov menja tabelu. Carp fishing turnir iz Vojvode Stepe, Banat."
+  {navLinks}
+  {cta}
 >
   <div class={`min-h-screen bg-[#060a06] ${fontBody} text-[#e8e8e8]`}>
-    {/* Header */}
-    <header
-      class="fixed top-0 z-50 w-full border-b border-[#111a11] bg-[#060a06]/90"
+    <LiveBanner client:load baseUrl={BASE} />
+
+    <!-- Hero -->
+    <section
+      class="relative flex min-h-[80vh] items-center justify-center overflow-hidden"
     >
-      <div
-        class="mx-auto flex max-w-6xl items-center justify-between px-5 py-3"
+      <video
+        autoplay
+        loop
+        muted
+        playsinline
+        class="absolute inset-0 h-full w-full object-cover"
       >
-        <a href="#" class="flex items-center">
-          <img
-            src={`${BASE}zencarp_logo.png`}
-            alt="ZenCarp"
-            class="h-10 w-auto"
-          />
-        </a>
-        <nav class="hidden items-center gap-1 md:flex">
-          {
-            navLinks.map((l) => (
-              <a
-                href={l.href}
-                class="rounded-lg px-3 py-1.5 text-sm text-[#aaa] transition-colors hover:text-[#f0f0f0]"
-              >
-                {l.label}
-              </a>
-            ))
-          }
-          <a
-            href={`${BASE}results`}
-            class={`rounded-lg px-3 py-1.5 text-sm font-medium text-[#c9a227] transition-colors hover:text-[#e8c94a] ${fontHeading}`}
-            >Rezultati</a
-          >
-          <a
-            href={`${BASE}pravilnik`}
-            class="rounded-lg px-3 py-1.5 text-sm text-[#aaa] transition-colors hover:text-[#f0f0f0]"
-            >Pravilnik</a
-          >
-          <a
-            href="#prijava"
-            class={`ml-3 rounded-full bg-[#c9a227] px-4 py-1.5 text-sm font-medium text-[#0a0f0a] transition-colors hover:bg-[#d4b43a] ${fontHeading}`}
-            >Prijavi ekipu</a
-          >
-        </nav>
-        <button
-          id="mobile-menu-btn"
-          class="flex h-9 w-9 items-center justify-center rounded-lg text-[#aaa] md:hidden"
-          aria-label="Meni"
-        >
-          <svg
-            width="20"
-            height="20"
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="currentColor"
-            stroke-width="2"
-          >
-            <path d="M4 8h16M4 16h16"></path>
-          </svg>
-        </button>
+        <source src={`${BASE}fishing.mp4`} type="video/mp4" />
+      </video>
+      <div class="absolute inset-0 bg-[#060a06]/65"></div>
+      <div
+        class="absolute inset-0 bg-gradient-to-b from-[#060a06]/30 via-transparent to-[#060a06]"
+      >
       </div>
-      <div
-        id="mobile-menu"
-        class="hidden border-t border-[#111a11] bg-[#060a06] px-5 pt-2 pb-4 md:hidden"
-      >
-        {
-          navLinks.map((l) => (
-            <a
-              href={l.href}
-              class="block rounded-lg px-3 py-2 text-sm text-[#aaa] hover:text-[#f0f0f0]"
+
+      <div class="relative z-10 mx-auto max-w-4xl px-5 text-center">
+        <img
+          src={`${BASE}zencarp_logo.png`}
+          alt="ZenCarp"
+          class="mx-auto mb-8 h-28 w-auto opacity-95 sm:h-36"
+        />
+        <div
+          class={`mb-5 text-xs font-semibold uppercase tracking-[0.25em] text-[#c9a227] ${fontHeading}`}
+        >
+          Carp fishing turnir
+        </div>
+        <h1
+          class={`mb-6 text-4xl font-bold leading-tight text-[#f0f0f0] sm:text-6xl ${fontHeading}`}
+        >
+          Četiri ekipe.<br />Četiri sata. Jedan pobednik.
+        </h1>
+        <p
+          class="mx-auto mb-8 max-w-2xl text-lg leading-relaxed text-[#ccc] sm:text-xl"
+        >
+          Svaki ulov se meri pred kamerom i odmah ulazi u rezultat. Vojvoda
+          Stepa, Banat.
+        </p>
+        <div
+          class="flex flex-wrap items-center justify-center gap-5 text-xs text-[#888]"
+        >
+          <div>4 ekipe · 8 takmičara</div>
+          <div class="h-3 w-px bg-[#1a2e1a]"></div>
+          <div>4 sata</div>
+          <div class="h-3 w-px bg-[#1a2e1a]"></div>
+          <div>kotizacija 50€ · nagrada 200€</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- O turniru -->
+    <section id="o-turniru" class="px-5 py-24">
+      <div class="mx-auto max-w-6xl">
+        <div class="grid items-center gap-12 lg:grid-cols-2">
+          <div>
+            <div
+              class={`mb-4 text-xs font-semibold uppercase tracking-[0.2em] text-[#c9a227] ${fontHeading}`}
             >
-              {l.label}
-            </a>
-          ))
-        }
-        <a
-          href={`${BASE}results`}
-          class={`block rounded-lg px-3 py-2 text-sm font-medium text-[#c9a227] ${fontHeading}`}
-          >Rezultati</a
-        >
-        <a
-          href={`${BASE}pravilnik`}
-          class="block rounded-lg px-3 py-2 text-sm text-[#aaa] hover:text-[#f0f0f0]"
-          >Pravilnik</a
-        >
-      </div>
-    </header>
+              ZenCarp
+            </div>
+            <h2
+              class={`mb-6 text-3xl font-bold leading-tight text-[#f0f0f0] sm:text-4xl ${fontHeading}`}
+            >
+              Četiri sata sportske borbe.
+            </h2>
+            <div class="space-y-4 text-[15px] leading-relaxed text-[#aaa]">
+              <p>
+                Četiri ekipe, po dva takmičara. Svaka ekipa izvlači svoju
+                poziciju na jezeru 100 × 100 metara i tu ostaje ceo turnir.
+              </p>
+              <p>
+                Četiri sata traje borba za što veću ukupnu težinu ulova. Boduju
+                se šaran i amur, svaka riba se meri pred kamerom i rezultat se
+                odmah upisuje u tabelu.
+              </p>
+              <p>
+                Kada vreme istekne, ekipa sa najvećom ukupnom težinom postaje
+                ZenCarp šampion.
+              </p>
+            </div>
 
-    <main class="pt-16">
-      <LiveTournamentHero client:load baseUrl={BASE} />
-
-      {/* O turniru */}
-      <section id="o-turniru" class="px-5 py-24">
-        <div class="mx-auto max-w-6xl">
-          <div class="grid items-center gap-12 lg:grid-cols-2">
-            <div>
+            <div
+              class="mt-6 rounded-xl border border-[#1a2e1a] bg-[#0a0f0a] p-5"
+            >
               <div
-                class={`mb-3 text-sm font-medium text-[#7cb87c] ${fontHeading}`}
+                class={`mb-2 text-xs font-semibold uppercase tracking-[0.15em] text-[#c9a227] ${fontHeading}`}
               >
-                O turniru
+                Jezero Vojvoda Stepa
               </div>
-              <h2
-                class={`mb-6 text-3xl font-bold leading-tight text-[#f0f0f0] sm:text-4xl ${fontHeading}`}
-              >
-                Prvi digitalni <span class="text-[#c9a227]"
-                  >šaranski turnir</span
-                > kod nas.
-              </h2>
-              <div class="space-y-4 text-[15px] leading-relaxed text-[#aaa]">
-                <p>
-                  Četiri ekipe, po dva takmičara. Jezero dimenzija 100 × 100
-                  metara, podeljeno dijagonalama na četiri sektora — svaka ekipa
-                  nalazi se na sredini svoje strane.
-                </p>
-                <p>
-                  Četiri sata pecanja, prenos uživo i plasman koji se menja pred
-                  publikom, u stvarnom vremenu.
-                </p>
-                <p>
-                  Ovo nam je prvi turnir. Ideja je jednostavna: da pecanje
-                  šarana prikažemo kao pravi sportski događaj, a ne kao pasivno
-                  čekanje da riba zagrize.
-                </p>
-              </div>
+              <ul class="space-y-1 text-sm leading-relaxed text-[#aaa]">
+                <li>• Šaran: 3–7 kg</li>
+                <li>• Amur: 6 kg i više</li>
+                <li>• Površina: 100 × 100 m</li>
+              </ul>
             </div>
-            <div>
-              <div class="overflow-hidden rounded-2xl bg-[#0a0f0a] p-3">
-                <img
-                  src={`${BASE}mapa_jezera.png`}
-                  alt="Mapa jezera sa pozicijama ekipa i ulazom za publiku"
-                  class="h-auto w-full rounded-xl"
-                  style="object-fit: contain;"
-                />
-              </div>
+
+            <div class="mt-8 flex flex-wrap gap-4 text-xs text-[#888]">
+              <div>4 ekipe</div>
+              <div class="h-3 w-px bg-[#1a2e1a]"></div>
+              <div>8 takmičara</div>
+              <div class="h-3 w-px bg-[#1a2e1a]"></div>
+              <div>4h pecanja</div>
+            </div>
+          </div>
+
+          <div>
+            <div class="overflow-hidden rounded-2xl bg-[#0a0f0a] p-3">
+              <img
+                src={`${BASE}mapa_jezera.png`}
+                alt="Mapa ZenCarp jezera"
+                class="h-auto w-full rounded-xl"
+                style="object-fit: contain;"
+              />
             </div>
           </div>
         </div>
-      </section>
+      </div>
+    </section>
 
-      {/* Format */}
-      <section id="format" class="bg-[#080c08] px-5 py-24">
-        <div class="mx-auto max-w-4xl">
-          <div class="mb-12 text-center">
-            <div
-              class={`mb-3 text-sm font-medium text-[#7cb87c] ${fontHeading}`}
-            >
-              Format takmičenja
-            </div>
-            <h2
-              class={`text-3xl font-bold text-[#f0f0f0] sm:text-4xl ${fontHeading}`}
-            >
-              Pravila ukratko
-            </h2>
-          </div>
-          <div class="grid gap-x-16 gap-y-8 md:grid-cols-2">
-            {
-              [
-                {
-                  title: "4 tima, 4 pozicije",
-                  text: "Jezero je podeljeno dijagonalama na četiri sektora. Svaka ekipa dobija jednu poziciju na sredini svoje strane. Raspored pozicija određuje se žrebom.",
-                },
-                {
-                  title: "Trajanje: 4 sata",
-                  text: "Takmičenje traje od 17:00 do 21:00.",
-                },
-                {
-                  title: "Oprema",
-                  text: "Svaki takmičar koristi 4 štapa, odnosno ukupno 8 štapova po ekipi, raspoređenih na 2 rodpoda. Sve ekipe imaju jednake uslove i isti broj štapova.",
-                },
-                {
-                  title: "Ciljane vrste",
-                  text: "Računaju se šaran i amur. Minimalna težina ribe koja ulazi u rezultat je 500 grama.",
-                },
-                {
-                  title: "Ulovi se vraćaju u jezero",
-                  text: "Svaka riba se izmeri, fotografiše i nakon toga pažljivo vraća u jezero.",
-                },
-                {
-                  title: "Plasman i nagrada",
-                  text: "Pobednika određuje ukupna težina priznatih ulova. Nagradni fond je 200 EUR — pobednik odnosi ceo fond.",
-                },
-              ].map((item, i) => (
-                <div class="flex gap-4 pb-4">
-                  <span
-                    class={`mt-0.5 text-lg font-bold text-[#c9a227]/60 ${fontHeading}`}
-                  >
-                    {String(i + 1).padStart(2, "0")}
-                  </span>
-                  <div>
-                    <h3
-                      class={`mb-1 text-sm font-semibold text-[#e0e0e0] ${fontHeading}`}
-                    >
-                      {item.title}
-                    </h3>
-                    <p class="text-sm leading-relaxed text-[#777]">
-                      {item.text}
-                    </p>
-                  </div>
-                </div>
-              ))
-            }
-          </div>
-          <p class="mt-8 text-center text-sm text-[#666]">
-            Kompletan pravilnik dostupan je na <a
-              href={`${BASE}pravilnik`}
-              class="text-[#c9a227] hover:underline">posebnoj stranici</a
-            >.
-          </p>
-        </div>
-      </section>
-
-      {/* Za koga je ovo */}
-      <section id="za-koga" class="px-5 py-24">
-        <div class="mx-auto max-w-6xl">
-          <div class="mb-12 text-center">
-            <div
-              class={`mb-3 text-sm font-medium text-[#7cb87c] ${fontHeading}`}
-            >
-              Za koga je ovo
-            </div>
-            <h2
-              class={`text-3xl font-bold text-[#f0f0f0] sm:text-4xl ${fontHeading}`}
-            >
-              Šta svako od ZenCarpa dobija
-            </h2>
-          </div>
-
-          <div class="grid gap-8 md:grid-cols-3">
-            {
-              [
-                {
-                  icon: "eye",
-                  title: "Gledaoci",
-                  items: [
-                    "Prenos uživo na YouTube-u",
-                    "Snimci sa jezera i iz vazduha",
-                    "Plasman i težina ulova u stvarnom vremenu",
-                    "Praćenje rezultata sa telefona ili računara",
-                    "Besplatan ulaz i obezbeđen parking",
-                  ],
-                },
-                {
-                  icon: "trophy",
-                  title: "Takmičari",
-                  items: [
-                    "Učešće u prenosu sa samo četiri ekipe",
-                    "Plasman i težina svakog ulova prikazani uživo",
-                    "Fotografije i video snimci sa takmičenja",
-                    "Sadržaj koji možeš da podeliš na društvenim mrežama",
-                    "200 EUR nagrade za pobednika",
-                  ],
-                },
-                {
-                  icon: "map",
-                  title: "Partneri",
-                  items: [
-                    "Logo tokom celog prenosa uživo",
-                    "Logo u veb aplikaciji sa rezultatima",
-                    "Video od 15–20 sekundi snimljen dronom sa vašim logotipom",
-                    "Video koji možete koristiti na svojim društvenim mrežama",
-                    "Pominjanje u završnoj objavi zahvalnosti",
-                  ],
-                },
-              ].map((f) => (
-                <div class="rounded-xl bg-[#0a0f0a] p-6">
-                  <div class="mb-4 inline-flex rounded-full bg-[#c9a227]/10 p-2 text-[#c9a227]">
-                    {f.icon === "eye" && (
-                      <svg
-                        viewBox="0 0 24 24"
-                        fill="none"
-                        stroke="currentColor"
-                        stroke-width="1.6"
-                        class="h-5 w-5"
-                      >
-                        <path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7Z" />
-                        <circle cx="12" cy="12" r="3" />
-                      </svg>
-                    )}
-                    {f.icon === "trophy" && (
-                      <svg
-                        viewBox="0 0 24 24"
-                        fill="none"
-                        stroke="currentColor"
-                        stroke-width="1.6"
-                        class="h-5 w-5"
-                      >
-                        <path d="M6 9H4.5a2.5 2.5 0 0 1 0-5H6m12 5h1.5a2.5 2.5 0 0 0 0-5H18M6 9v6a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2V9M6 9h12" />
-                        <path d="M12 17v3m-3 0h6" />
-                      </svg>
-                    )}
-                    {f.icon === "map" && (
-                      <svg
-                        viewBox="0 0 24 24"
-                        fill="none"
-                        stroke="currentColor"
-                        stroke-width="1.6"
-                        class="h-5 w-5"
-                      >
-                        <path d="M20 10c0 6-8 12-8 12S4 16 4 10a8 8 0 0 1 16 0Z" />
-                        <circle cx="12" cy="10" r="3" />
-                      </svg>
-                    )}
-                  </div>
-
-                  <h3
-                    class={`mb-4 text-base font-semibold text-[#f0f0f0] ${fontHeading}`}
-                  >
-                    {f.title}
-                  </h3>
-
-                  <ul class="space-y-3">
-                    {f.items.map((item) => (
-                      <li class="flex gap-2.5 text-sm leading-relaxed text-[#888]">
-                        <span class="mt-2 h-1 w-1 shrink-0 rounded-full bg-[#7cb87c]" />
-                        <span>{item}</span>
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-              ))
-            }
-          </div>
-        </div>
-      </section>
-
-      {/* Kako to izgleda */}
-      <section class="bg-[#080c08] px-5 py-24">
-        <div class="mx-auto max-w-6xl">
-          <div class="mb-12 text-center">
-            <div
-              class={`mb-3 text-sm font-medium text-[#7cb87c] ${fontHeading}`}
-            >
-              Kako to izgleda
-            </div>
-            <h2
-              class={`text-3xl font-bold text-[#f0f0f0] sm:text-4xl ${fontHeading}`}
-            >
-              Prenos i rezultati uživo
-            </h2>
-          </div>
-          <div class="grid gap-8 md:grid-cols-2">
-            <div>
-              <div class="overflow-hidden rounded-2xl bg-[#0a0f0a]">
-                <video
-                  autoplay
-                  loop
-                  muted
-                  playsinline
-                  class="h-auto w-full"
-                  style="aspect-ratio: 16/9; object-fit: cover;"
-                >
-                  <source
-                    src={`${BASE}rendered_overlay.mp4`}
-                    type="video/mp4"
-                  />
-                </video>
-              </div>
-              <p class="mt-4 text-sm leading-relaxed text-[#888]">
-                Tokom prenosa prikazuju se plasman ekipa, preostalo vreme, mapa
-                jezera i najvažniji trenuci takmičenja. Kada ekipa uhvati ribu,
-                rezultat se ažurira i publika odmah može da vidi kako se
-                promenio plasman.
-              </p>
-            </div>
-            <div>
-              <div class="overflow-hidden rounded-2xl bg-[#0a0f0a] p-3">
-                <img
-                  src={`${BASE}results_mobile.png`}
-                  alt="ZenCarp web aplikacija"
-                  class="h-auto w-full rounded-xl"
-                  style="object-fit: contain;"
-                />
-              </div>
-              <p class="mt-4 text-sm leading-relaxed text-[#888]">
-                Rezultate možete pratiti na telefonu ili računaru. Plasman,
-                težina ulova i statistika menjaju se u stvarnom vremenu.
-              </p>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Partnerstvo */}
-      <section id="partnerstvo" class="bg-[#080c08] px-5 py-24">
-        <div class="mx-auto max-w-4xl text-center">
-          <div class={`mb-3 text-sm font-medium text-[#7cb87c] ${fontHeading}`}>
-            Partnerstvo
+    <!-- Karte – sada sa heading i subheading -->
+    <section class="border-b border-[#111a11] px-5 py-14">
+      <div class="mx-auto max-w-5xl">
+        <div class="mb-10 text-center">
+          <div
+            class={`mb-3 text-xs font-semibold uppercase tracking-[0.2em] text-[#c9a227] ${fontHeading}`}
+          >
+            Vaša uloga
           </div>
           <h2
-            class={`mb-6 text-3xl font-bold text-[#f0f0f0] sm:text-4xl ${fontHeading}`}
+            class={`text-2xl font-bold text-[#f0f0f0] sm:text-3xl ${fontHeading}`}
           >
-            ZenCarp prvi put organizujemo uz podršku lokalnih firmi.
+            Kako želite da budete deo ZenCarp-a?
+          </h2>
+          <p class="mt-2 text-sm text-[#888]">
+            Odaberite svoj put – kao gledalac, takmičar ili partner.
+          </p>
+        </div>
+
+        <div class="grid gap-4 sm:grid-cols-3">
+          <a
+            href="#uzivo"
+            class="group rounded-xl bg-[#0a0f0a] p-6 transition-colors hover:bg-[#0d140d]"
+          >
+            <div
+              class={`mb-2 text-xs font-semibold uppercase tracking-[0.15em] text-[#c9a227] ${fontHeading}`}
+            >
+              Dolazite kao gledalac
+            </div>
+            <p class="text-sm leading-relaxed text-[#999]">
+              Ulaz je besplatan, parking obezbeđen, deca dobrodošla. Doživite
+              atmosferu uživo.
+            </p>
+            <div
+              class="mt-4 text-sm text-[#c9a227] transition-transform group-hover:translate-x-1"
+            >
+              Pogledajte prenos →
+            </div>
+          </a>
+
+          <a
+            href="#format"
+            class="group rounded-xl bg-[#0a0f0a] p-6 transition-colors hover:bg-[#0d140d]"
+          >
+            <div
+              class={`mb-2 text-xs font-semibold uppercase tracking-[0.15em] text-[#c9a227] ${fontHeading}`}
+            >
+              Želite da se takmičite
+            </div>
+            <p class="text-sm leading-relaxed text-[#999]">
+              Saznajte pravila, format, kotizaciju i šta sve treba da ponesete.
+            </p>
+            <div
+              class="mt-4 text-sm text-[#c9a227] transition-transform group-hover:translate-x-1"
+            >
+              Pravila i prijava →
+            </div>
+          </a>
+
+          <a
+            href="#partnerstvo"
+            class="group rounded-xl bg-[#0a0f0a] p-6 transition-colors hover:bg-[#0d140d]"
+          >
+            <div
+              class={`mb-2 text-xs font-semibold uppercase tracking-[0.15em] text-[#c9a227] ${fontHeading}`}
+            >
+              Zainteresovani ste za partnerstvo
+            </div>
+            <p class="text-sm leading-relaxed text-[#999]">
+              Prisustvo u prenosu, na sadržaju i na samom događaju – saznajte
+              više.
+            </p>
+            <div
+              class="mt-4 text-sm text-[#c9a227] transition-transform group-hover:translate-x-1"
+            >
+              Saznajte više →
+            </div>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- Format -->
+    <section id="format" class="bg-[#080c08] px-5 py-24">
+      <div class="mx-auto max-w-4xl">
+        <div class="mb-12 text-center">
+          <h2
+            class={`text-3xl font-bold text-[#f0f0f0] sm:text-4xl ${fontHeading}`}
+          >
+            Format takmičenja
           </h2>
           <p
-            class="mx-auto mb-10 max-w-2xl text-[15px] leading-relaxed text-[#aaa]"
+            class="mx-auto mt-4 max-w-2xl text-[15px] leading-relaxed text-[#888]"
           >
-            Ne nudimo velike i komplikovane sponzorske pakete. Vi podržite prvi
-            ZenCarp događaj, a zauzvrat dobijate <strong
-              >gotov video od 15–20 sekundi sa vašim logom i informacijama o
-              brendu</strong
-            >, spreman za objavu na facebook, instagram, whatsapp ili bilo koju
-            društvenu mrežu. Vaš brend će biti prisutan, kao i na stranici sa
-            rezultatima.
-          </p>
-
-          <div class="mx-auto max-w-lg rounded-2xl bg-[#0a0f0a] p-8 text-left">
-            <div
-              class={`mb-6 text-sm font-medium text-[#c9a227] ${fontHeading}`}
-            >
-              Šta dobijate kao partner
-            </div>
-            <ul class="mb-8 space-y-3">
-              {
-                [
-                  "Logo na traci sa partnerima tokom celog prenosa uživo",
-                  "Logo na traci sa partnerima u veb aplikaciji sa rezultatima",
-                  "Video od 15–20 sekundi snimljen dronom, pripremljen sa vašim logotipom, koji možete koristiti za svoje društvene mreže",
-                  "Pominjanje firme u završnoj objavi zahvalnosti",
-                ].map((item) => (
-                  <li class="flex items-start gap-3 text-sm text-[#ccc]">
-                    <span class="mt-1.5 inline-block h-1.5 w-1.5 shrink-0 rounded-full bg-[#c9a227]" />
-                    {item}
-                  </li>
-                ))
-              }
-            </ul>
+            Osnovna pravila. Kompletan pravilnik je{" "}
             <a
-              href="mailto:partnerstvo@zencarp.rs"
-              class={`inline-flex w-full items-center justify-center gap-2 rounded-full bg-[#c9a227] px-6 py-3 text-sm font-medium text-[#0a0f0a] transition-colors hover:bg-[#d4b43a] ${fontHeading}`}
-              >Kontaktiraj nas</a
+              href={`${BASE}pravilnik`}
+              class="text-[#c9a227] underline underline-offset-4 hover:text-[#e8c94a]"
             >
-            <p class="mt-3 text-center text-xs text-[#555]">
-              partnerstvo@zencarp.rs
+              ovde
+            </a>.
+          </p>
+        </div>
+
+        <div class="space-y-6">
+          <div class="rounded-xl bg-[#0a0f0a] p-6">
+            <h3
+              class={`mb-3 text-sm font-semibold text-[#c9a227] ${fontHeading}`}
+            >
+              Tim i pozicije
+            </h3>
+            <ul class="space-y-2 text-sm leading-relaxed text-[#aaa]">
+              <li>
+                • Tim čine dva punoletna takmičara – nema pojedinačnog nastupa.
+              </li>
+              <li>
+                • Pozicije (P1–P4) se izvlače žrebom pre početka i fiksne su
+                tokom turnira.
+              </li>
+            </ul>
+          </div>
+
+          <div class="rounded-xl bg-[#0a0f0a] p-6">
+            <h3
+              class={`mb-3 text-sm font-semibold text-[#c9a227] ${fontHeading}`}
+            >
+              Bodovanje i plasman
+            </h3>
+            <ul class="space-y-2 text-sm leading-relaxed text-[#aaa]">
+              <li>
+                • Boduju se isključivo šaran i amur – minimalna težina 500 g.
+              </li>
+              <li>
+                • Pobednik je tim sa najvećom ukupnom težinom priznatih ulova
+                nakon 4 sata.
+              </li>
+              <li>
+                • U slučaju istog zbira, mesta se dele; za fizičku nagradu
+                odlučuje žreb.
+              </li>
+            </ul>
+          </div>
+
+          <div class="rounded-xl bg-[#0a0f0a] p-6">
+            <h3
+              class={`mb-3 text-sm font-semibold text-[#c9a227] ${fontHeading}`}
+            >
+              Postupak merenja
+            </h3>
+            <ul class="space-y-2 text-sm leading-relaxed text-[#aaa]">
+              <li>• Zagriz → poziv redara u roku od 60 sekundi.</li>
+              <li>• Merenje pred kamerom → upis u tabelu (min. 500 g).</li>
+              <li>• Povratak u vodu (catch & release).</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Uživo -->
+    <section id="uzivo" class="px-5 py-24">
+      <div class="mx-auto max-w-6xl">
+        <div class="mb-12 text-center">
+          <div
+            class={`mb-4 text-xs font-semibold uppercase tracking-[0.2em] text-[#c9a227] ${fontHeading}`}
+          >
+            Prenos uživo
+          </div>
+          <h2
+            class={`text-3xl font-bold text-[#f0f0f0] sm:text-4xl ${fontHeading}`}
+          >
+            Plasman se menja pred tobom, u realnom vremenu.
+          </h2>
+          <p
+            class="mx-auto mt-4 max-w-2xl text-[15px] leading-relaxed text-[#888]"
+          >
+            4 pozicione kamere, dron, reporter na terenu i 2 sudije-merioca
+            prate svaki minut.
+          </p>
+        </div>
+
+        <div class="grid gap-8 md:grid-cols-2">
+          <div>
+            <div class="overflow-hidden rounded-2xl bg-[#0a0f0a]">
+              <video
+                autoplay
+                loop
+                muted
+                playsinline
+                class="h-auto w-full"
+                style="aspect-ratio: 16/9; object-fit: cover;"
+              >
+                <source src={`${BASE}rendered_overlay.mp4`} type="video/mp4" />
+              </video>
+            </div>
+            <p class="mt-4 text-sm leading-relaxed text-[#888]">
+              Plasman, vreme i težina vidljivi su tokom celog prenosa.
+            </p>
+          </div>
+
+          <div>
+            <div class="overflow-hidden rounded-2xl bg-[#0a0f0a] p-3">
+              <img
+                src={`${BASE}results_mobile.png`}
+                alt="ZenCarp rezultati uživo"
+                class="h-auto w-full rounded-xl"
+                style="object-fit: contain;"
+              />
+            </div>
+            <p class="mt-4 text-sm leading-relaxed text-[#888]">
+              Rezultati su dostupni na telefonu i računaru u realnom vremenu.
             </p>
           </div>
         </div>
-      </section>
+      </div>
+    </section>
 
-      {/* Prijava */}
-      <section id="prijava" class="px-5 py-24">
-        <div class="mx-auto max-w-3xl text-center">
-          <div class={`mb-3 text-sm font-medium text-[#7cb87c] ${fontHeading}`}>
-            Prijava ekipa
+    <!-- FAQ -->
+    <section id="pitanja" class="bg-[#080c08] px-5 py-24">
+      <div class="mx-auto max-w-3xl">
+        <div class="mb-12 text-center">
+          <div
+            class={`mb-4 text-xs font-semibold uppercase tracking-[0.2em] text-[#c9a227] ${fontHeading}`}
+          >
+            Praktične informacije
           </div>
           <h2
-            class={`mb-6 text-3xl font-bold text-[#f0f0f0] sm:text-4xl ${fontHeading}`}
+            class={`text-3xl font-bold text-[#f0f0f0] sm:text-4xl ${fontHeading}`}
           >
-            Prijavi svoj tim
+            Često postavljana pitanja
           </h2>
-          <div class="mb-10 grid gap-4 sm:grid-cols-2">
-            <div class="rounded-xl bg-[#0a0f0a] p-4">
-              <div class={`mb-1 text-xs text-[#555] ${fontHeading}`}>
-                Kotizacija
-              </div>
-              <div
-                class={`text-sm font-semibold text-[#f0f0f0] ${fontHeading}`}
-              >
-                50 EUR / tim
-              </div>
-            </div>
-            <div class="rounded-xl bg-[#0a0f0a] p-4">
-              <div class={`mb-1 text-xs text-[#555] ${fontHeading}`}>
-                Nagrada
-              </div>
-              <div
-                class={`text-sm font-semibold text-[#f0f0f0] ${fontHeading}`}
-              >
-                200 EUR — pobednik nosi sve
-              </div>
-            </div>
-          </div>
-          <p class="mb-8 text-[15px] leading-relaxed text-[#aaa]">
-            Mesta su ograničena na 4 tima. Detaljan pravilnik dostupan je ispod.
-          </p>
-          <div
-            class="flex flex-col items-center justify-center gap-4 sm:flex-row"
-          >
-            <a
-              href="mailto:prijava@zencarp.rs"
-              class={`inline-flex items-center gap-2 rounded-full bg-[#c9a227] px-8 py-3.5 text-sm font-medium text-[#0a0f0a] transition-colors hover:bg-[#d4b43a] ${fontHeading}`}
-            >
-              <svg
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                stroke-width="1.6"
-                class="h-4 w-4"
-              >
-                <path
-                  d="M6 9H4.5a2.5 2.5 0 0 1 0-5H6m12 5h1.5a2.5 2.5 0 0 0 0-5H18M6 9v6a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2V9M6 9h12"
-                ></path>
-                <path d="M12 17v3m-3 0h6"></path>
-              </svg>
-              Prijavi tim
-            </a>
-            <a
-              href={`${BASE}pravilnik`}
-              class={`inline-flex items-center gap-2 rounded-full border border-[#1a2e1a] bg-[#0a0f0a] px-8 py-3.5 text-sm font-medium text-[#e0e0e0] transition-colors hover:border-[#c9a227]/40 hover:text-[#c9a227] ${fontHeading}`}
-            >
-              <svg
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                stroke-width="1.6"
-                class="h-4 w-4"
-              >
-                <path
-                  d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"
-                ></path>
-                <path d="M14 2v6h6"></path>
-                <path d="M16 13H8"></path>
-                <path d="M16 17H8"></path>
-                <path d="M10 9H8"></path>
-              </svg>
-              Pravilnik
-            </a>
-          </div>
         </div>
-      </section>
-    </main>
 
-    {/* Footer */}
-    <footer class="border-t border-[#111a11] bg-[#060a06] px-5 py-10">
-      <div
-        class="mx-auto flex max-w-6xl flex-col items-center justify-between gap-4 sm:flex-row"
-      >
-        <div class="flex items-center gap-2">
-          <img
-            src={`${BASE}zencarp_logo.png`}
-            alt="ZenCarp"
-            class="h-8 w-auto"
-          />
+        <div class="divide-y divide-[#1a2e1a]/60 rounded-2xl bg-[#0a0f0a]">
+          {
+            faq.map((item) => (
+              <details class="group px-6 py-5 first:rounded-t-2xl last:rounded-b-2xl">
+                <summary
+                  class={`flex cursor-pointer list-none items-center justify-between text-[15px] font-medium text-[#e8e8e8] ${fontHeading}`}
+                >
+                  {item.q}
+                  <span class="ml-4 shrink-0 text-[#c9a227] transition-transform group-open:rotate-45">
+                    +
+                  </span>
+                </summary>
+                <p class="mt-3 text-sm leading-relaxed text-[#999]">{item.a}</p>
+              </details>
+            ))
+          }
         </div>
-        <p class="text-xs text-[#444]">© 2026 ZenCarp. Sva prava zadržana.</p>
-        <div class="flex gap-4">
-          <a
-            href="#"
-            class="text-xs text-[#555] transition-colors hover:text-[#c9a227]"
-            >Instagram</a
-          >
-          <a
-            href="#"
-            class="text-xs text-[#555] transition-colors hover:text-[#c9a227]"
-            >YouTube</a
-          >
+
+        <div class="mt-8 text-center">
           <a
             href={`${BASE}pravilnik`}
-            class="text-xs text-[#555] transition-colors hover:text-[#c9a227]"
-            >Pravilnik</a
+            class={`inline-flex items-center gap-2 text-sm font-medium text-[#c9a227] underline underline-offset-4 hover:text-[#e8c94a] ${fontHeading}`}
           >
+            Pročitaj kompletan pravilnik →
+          </a>
         </div>
       </div>
-    </footer>
+    </section>
+
+    <!-- Partnerstvo – vodi na partners stranicu -->
+    <section id="partnerstvo" class="px-5 py-24">
+      <div class="mx-auto max-w-4xl text-center">
+        <div
+          class={`mb-4 text-xs font-semibold uppercase tracking-[0.2em] text-[#c9a227] ${fontHeading}`}
+        >
+          Partnerstvo
+        </div>
+        <h2
+          class={`mb-6 text-3xl font-bold text-[#f0f0f0] sm:text-4xl ${fontHeading}`}
+        >
+          Želite da podržite ZenCarp?
+        </h2>
+        <p
+          class="mx-auto mb-10 max-w-2xl text-[15px] leading-relaxed text-[#aaa]"
+        >
+          Pregledajte sponzorske pakete, saznajte šta nudimo i kako vaš brend
+          može biti deo našeg prenosa.
+        </p>
+        <a
+          href={`${BASE}partners`}
+          class={`inline-flex items-center justify-center gap-2 rounded-full bg-[#c9a227] px-8 py-3.5 text-sm font-medium text-[#0a0f0a] transition-colors hover:bg-[#d4b43a] ${fontHeading}`}
+        >
+          Saznajte više o partnerstvu
+        </a>
+      </div>
+    </section>
+
+    <!-- Prijava -->
+    <section id="prijava" class="bg-[#080c08] px-5 py-24">
+      <div class="mx-auto max-w-2xl text-center">
+        <div
+          class={`mb-4 text-xs font-semibold uppercase tracking-[0.2em] text-[#c9a227] ${fontHeading}`}
+        >
+          Takmičenje
+        </div>
+        <h2
+          class={`mb-6 text-3xl font-bold text-[#f0f0f0] sm:text-4xl ${fontHeading}`}
+        >
+          Prijavite svoj tim.
+        </h2>
+        <p
+          class="mx-auto mb-8 max-w-xl text-[15px] leading-relaxed text-[#888]"
+        >
+          Tim čine dva punoletna takmičara. Kotizacija se plaća u gotovini na
+          dan turnira, prilikom prijave. Pre početka potpisuju se izjava o
+          odricanju odgovornosti i saglasnost za snimanje.
+        </p>
+        <div class="mb-8 text-sm text-[#777]">
+          Kotizacija
+          <span class="mx-2 text-[#333]">·</span>
+          <span class="font-medium text-[#e0e0e0]">50 EUR po ekipi</span>
+          <span class="mx-3 text-[#333]">·</span>
+          Nagrada
+          <span class="mx-2 text-[#333]">·</span>
+          <span class="font-medium text-[#e0e0e0]">200 EUR</span>
+        </div>
+        <div
+          class="flex flex-col items-center justify-center gap-4 sm:flex-row"
+        >
+          <a
+            href="mailto:prijava@zencarp.rs"
+            class={`inline-flex items-center gap-2 rounded-full bg-[#c9a227] px-8 py-3.5 text-sm font-medium text-[#0a0f0a] transition-colors hover:bg-[#d4b43a] ${fontHeading}`}
+          >
+            Prijavi ekipu
+          </a>
+          <a
+            href={`${BASE}pravilnik`}
+            class={`inline-flex items-center gap-2 rounded-full border border-[#1a2e1a] bg-[#0a0f0a] px-8 py-3.5 text-sm font-medium text-[#e0e0e0] transition-colors hover:border-[#c9a227]/40 hover:text-[#c9a227] ${fontHeading}`}
+          >
+            Pravilnik
+          </a>
+        </div>
+      </div>
+    </section>
   </div>
-
-  <script>
-    ;(function () {
-      const btn = document.getElementById("mobile-menu-btn")
-      const menu = document.getElementById("mobile-menu")
-      if (!btn || !menu) return
-
-      btn.addEventListener("click", () => {
-        const isHidden = menu.classList.contains("hidden")
-        menu.classList.toggle("hidden", !isHidden)
-        const svg = btn.querySelector("svg")
-        if (svg) {
-          svg.innerHTML = isHidden
-            ? '<path d="M18 6 6 18M6 6l12 12" />'
-            : '<path d="M4 8h16M4 16h16" />'
-        }
-      })
-
-      menu.querySelectorAll("a").forEach((link) => {
-        link.addEventListener("click", () => {
-          menu.classList.add("hidden")
-          const svg = btn.querySelector("svg")
-          if (svg) svg.innerHTML = '<path d="M4 8h16M4 16h16" />'
-        })
-      })
-    })()
-  </script>
 </Layout>

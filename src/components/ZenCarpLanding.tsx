@@ -465,12 +465,17 @@ export default function ZenCarpLanding() {
                                 </div>
                             </FadeIn>
                             <FadeIn delay={0.15}>
-                                <div className="relative">
-                                    <div className="absolute -inset-3 rounded-4xl bg-linear-to-br from-[#c9a227]/10 via-transparent to-[#7cb87c]/10 blur-xl" />
-                                    <div className="relative overflow-hidden rounded-2xl border border-[#1a2e1a] bg-[#0d140d]/90 shadow-2xl">
-                                        <video autoPlay loop muted playsInline className="h-auto w-full" style={{ aspectRatio: "16/9", objectFit: "cover" }}><source src={`${import.meta.env.BASE_URL}rendered_overlay.mp4`} type="video/mp4" /></video>
-                                    </div>
+                              <div className="relative">
+                                <div className="absolute -inset-3 rounded-4xl bg-linear-to-br from-[#c9a227]/10 via-transparent to-[#7cb87c]/10 blur-xl" />
+                                <div className="relative overflow-hidden rounded-2xl border border-[#1a2e1a] bg-[#0d140d]/90 p-4 shadow-2xl">
+                                  <img
+                                    src={`${import.meta.env.BASE_URL}overlay_preview.png`}
+                                    alt="Broadcast overlay preview"
+                                    className="h-auto w-full rounded-xl"
+                                    style={{ aspectRatio: "16/9", objectFit: "contain" }}
+                                  />
                                 </div>
+                              </div>
                             </FadeIn>
                         </div>
                     </div>
