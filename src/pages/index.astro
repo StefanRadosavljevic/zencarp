@@ -275,7 +275,7 @@ const maxWeight = Math.max(...leaderboard.map((t) => t.weight))
           class="flex items-center justify-center overflow-hidden rounded-xl border border-[#1a2e1a] bg-[#0a0f0a]"
         >
           <img
-            src={`${BASE}mapa_jezera.jpeg`}
+            src={`${BASE}final_lake.jpeg`}
             alt="Mapa jezera"
             class="h-full w-full object-cover"
           />
@@ -382,15 +382,23 @@ const maxWeight = Math.max(...leaderboard.map((t) => t.weight))
         </div>
 
         <div class="order-1 flex justify-center lg:order-2">
+          {/* POVEĆAN KONTEJNER - sa 240px na 320px */}
           <div
-            class="w-[240px] overflow-hidden rounded-[2rem] border-4 border-[#111a11] bg-[#0a0f0a] shadow-2xl shadow-black/50 sm:w-[270px]"
+            class="relative w-[320px] overflow-hidden rounded-[2.5rem] border-4 border-[#111a11] bg-[#0a0f0a] shadow-2xl shadow-black/50 sm:w-[360px] lg:w-[400px]"
           >
+            {/* Notch mockup */}
+            <div
+              class="absolute top-0 left-1/2 z-10 h-6 w-32 -translate-x-1/2 rounded-b-2xl bg-[#111a11]"
+            >
+            </div>
+
             <video
               src={`${BASE}ZenCarpPhone.mp4`}
               loop
               muted
               playsInline
-              class="h-auto w-full"></video>
+              autoplay
+              class="aspect-[9/16] h-auto w-full object-cover"></video>
           </div>
         </div>
       </div>
