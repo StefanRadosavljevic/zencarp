@@ -8,13 +8,6 @@ const fontHeading = "font-[family-name:var(--font-poppins)]" // brand voice — 
 const fontBody = "font-[family-name:var(--font-inter)]" // reading voice — paragraphs
 const fontData = "font-[family-name:var(--font-oswald)]" // broadcast voice — labels, numbers, live data
 
-const navLinks = [
-  { label: "Početna", href: BASE },
-  { label: "Partneri", href: `${BASE}partners` },
-  { label: "Plasman", href: `${BASE}results` },
-]
-const cta = { label: "Prijavi ekipu", href: "#enter" }
-
 const tickerItems = [
   "ČETIRI EKIPE, JEDNO JEZERO",
   "SVAKI ULOV MENJA PLASMAN",
@@ -142,8 +135,6 @@ const maxWeight = Math.max(...leaderboard.map((t) => t.weight))
 <Layout
   title="ZEN CARP — Ribolovno takmičenje uživo"
   description="Četiri ekipe. Jedno jezero. Ideja o prenosu uživo građenom oko svakog ulova. ZenCarp je ribolovno takmičenje sa jezera Vojvoda Stepa, Banat."
-  {navLinks}
-  {cta}
 >
   <div class={`min-h-screen bg-[#060a06] ${fontBody} text-[#e8e8e8]`}>
     <!-- Ticker -->
@@ -388,11 +379,9 @@ const maxWeight = Math.max(...leaderboard.map((t) => t.weight))
         </div>
 
         <div class="order-1 flex justify-center lg:order-2">
-          {/* POVEĆAN KONTEJNER - sa 240px na 320px */}
           <div
             class="relative w-[320px] overflow-hidden rounded-[2.5rem] border-4 border-[#111a11] bg-[#0a0f0a] shadow-2xl shadow-black/50 sm:w-[360px] lg:w-[400px]"
           >
-            {/* Notch mockup */}
             <div
               class="absolute top-0 left-1/2 z-10 h-6 w-32 -translate-x-1/2 rounded-b-2xl bg-[#111a11]"
             >

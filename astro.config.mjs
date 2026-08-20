@@ -6,13 +6,12 @@ import react from "@astrojs/react"
 
 // https://astro.build/config
 export default defineConfig({
-  site: 'https://stefanradosavljevic.github.io',
-  base: '/zencarp/',
+  site: 'https://zencarp.rs',
   vite: {
     plugins: [tailwindcss()],
   },
   integrations: [react()],
   devToolbar: {
-     enabled: false
-   },
+    enabled: false
+  },
 })

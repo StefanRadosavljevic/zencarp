@@ -1,705 +1,757 @@
 ---
-// partners.astro – stranica za partnere (ranije sponzori)
+// partners.astro — ZenCarp partner offer page
+// Broadcast-first redesign: F1 timing-tower graphics meet a lake in Banat.
 import Layout from "@/layouts/main.astro"
 
 const BASE = import.meta.env.BASE_URL
 const fontHeading = "font-[family-name:var(--font-poppins)]"
 const fontBody = "font-[family-name:var(--font-inter)]"
+const fontData = "font-[family-name:var(--font-oswald)]"
 
-// Globalna navigacija (ista kao na indexu)
-const navLinks = [
-  { label: "Naslovna", href: BASE },
-  { label: "Partneri", href: `${BASE}partners` },
-  { label: "Rezultati", href: `${BASE}results` },
+const tickerItems = [
+  "PILOT PROJEKAT",
+  "JEDAN POSEBAN VIDEO",
+  "KOMPLETAN IZBOR NAJBOLJIH SNIMAKA",
+  "20.000 RSD",
+  "VOJVODA STEPA, BANAT",
 ]
 
-// CTA dugme – specifično za ovu stranicu
-const cta = { label: "Postani partner", href: "#partnerstvo" }
+const heroStats = [
+  { label: "CENA PAKETA", value: "20.000 RSD" },
+  { label: "POSEBAN VIDEO", value: "15–20s" },
+  { label: "NAJBOLJI SNIMCI", value: "SA VAŠIM LOGOM" },
+  { label: "PRVO IZDANJE", value: "2026" },
+]
+
+const mainBenefits = [
+  {
+    title: "Vaš poseban video",
+    desc: "Jedan video od 15–20 sekundi napravljen isključivo za vas, sa jedinstvenim kadrovima sa turnira i vašim logotipom.",
+  },
+  {
+    title: "Kompletan izbor najboljih snimaka",
+    desc: "Najbolji ulovi, borbe sa ribom, atmosfera i snimci dronom. Svaki partner dobija ceo ovaj izbor.",
+  },
+  {
+    title: "Logo tokom prenosa",
+    desc: "Vaš logotip biće prikazan u traci partnera tokom YouTube prenosa i na stranici sa rezultatima uživo.",
+  },
+]
+
+const deliveryTable = [
+  { item: "Poseban video (15–20 sekundi)", unique: "DA", shared: "NE" },
+  { item: "Izbor najboljih snimaka sa turnira", unique: "NE", shared: "DA" },
+  { item: "Logo u video materijalu", unique: "VAŠ LOGO", shared: "VAŠ LOGO" },
+  { item: "Logo u YouTube prenosu", unique: "DA", shared: "DA" },
+  { item: "Logo na rezultatima uživo", unique: "DA", shared: "DA" },
+]
+
+const usageChannels = [
+  "Instagram (Reels / Feed)",
+  "Facebook stranica",
+  "TikTok",
+  "YouTube kanal",
+  "Sajt kompanije",
+  "Ostali sopstveni digitalni kanali",
+]
+
+const faqItems = [
+  {
+    q: "Šta tačno dobijam za 20.000 RSD?",
+    a: "Dobijate jedan poseban video od 15–20 sekundi napravljen za vašu kompaniju, kompletan izbor najboljih obrađenih snimaka sa turnira (svaki sa vašim logotipom), kao i prikaz logotipa tokom prenosa i na rezultatima uživo.",
+  },
+  {
+    q: "Da li dobijam jedan video ili više videa?",
+    a: "Dobijate dva skupa materijala: 1) Jedan poseban video od 15–20 sekundi koji je unikatan za vas, i 2) Kompletan izbor najboljih kratkih snimaka sa turnira (npr. 20 različitih snimaka).",
+  },
+  {
+    q: "Koliko traje poseban video?",
+    a: "Između 15 i 20 sekundi, optimizovan za objavljivanje na društvenim mrežama.",
+  },
+  {
+    q: "Da li moj poseban video ima iste kadrove kao video druge kompanije?",
+    a: "Ne. Tokom turnira snimamo veliki broj različitih kadrova. Za vaš video biramo konkretne kadrove koji se ne koriste u posebnom videu druge kompanije. Svaka firma dobija svoj jedinstveni izbor.",
+  },
+  {
+    q: "Da li dobijam sve najbolje snimke sa turnira?",
+    a: "Da. Nakon turnira biramo najbolje snimke i svaki partner dobija kompletan taj izbor.",
+  },
+  {
+    q: "Da li svaki od tih snimaka ima moj logotip?",
+    a: "Da. Za svakog partnera se pravi poseban izvoz video materijala u kojem se nalazi isključivo logo tog partnera. Niko ne dobija fajl sa logotipovima drugih firmi.",
+  },
+  {
+    q: "Da li dobijam sirove snimke?",
+    a: "Ne. Dobijate gotove, obrađene i završene video snimke spremne za objavu, a ne sirove fajlove sa kamera ili drona.",
+  },
+  {
+    q: "Da li mogu da objavim dobijene snimke?",
+    a: "Da. Video materijale dobijate spremne za objavljivanje i možete ih slobodno koristiti u komunikaciji svoje kompanije na vašim kanalima.",
+  },
+  {
+    q: "Da li svi partneri dobijaju isti paket?",
+    a: "Da. Cena je 20.000 RSD i svi partneri dobijaju identičan paket usluga. Nema različitih nivoa sponzorstva ni skrivenih doplata.",
+  },
+  {
+    q: "Da li se nešto dodatno plaća?",
+    a: "Ne. Sve navedeno je uključeno u jedinstvenu cenu od 20.000 RSD.",
+  },
+  {
+    q: "Šta ako se turnir ne održi?",
+    a: "U tom slučaju, dogovaramo novi termin ili vam u potpunosti vraćamo uplaćena sredstva.",
+  },
+]
+
+const eventInfo = [
+  { label: "Lokacija", value: "Vojvoda Stepa, Banat" },
+  { label: "Format", value: "4 ekipe · po 2 takmičara" },
+  { label: "Trajanje", value: "5 sati na vodi" },
+  { label: "Jezero", value: "100 × 100 metara" },
+  { label: "Produkcija", value: "Više kamera + dron" },
+  { label: "Prenos", value: "Komentator + rezultati uživo" },
+]
 ---
 
 <Layout
-  title="ZenCarp — Partnerstvo"
-  description="Partnerstvo ZenCarp turnira. Vaš logo u prenosu uživo, na rezultatima i u video materijalu sa turnira."
-  {navLinks}
-  {cta}
+  title="ZEN CARP — Video sadržaj za vašu kompaniju"
+  description="ZenCarp je pilot projekat ribolovnog takmičenja koji kompanijama nudi konkretan video sadržaj sa turnira, spreman za društvene mreže."
 >
   <div class={`min-h-screen bg-[#060a06] ${fontBody} text-[#e8e8e8]`}>
-    <!-- Hero -->
-    <section class="relative overflow-hidden">
-      <div class="absolute inset-0">
-        <video
-          autoplay
-          loop
-          muted
-          playsinline
-          class="h-full w-full object-cover"
-          poster="https://images.unsplash.com/photo-1541742425281-c1d3fc8aff96?auto=format&fit=crop&w=1920&q=80"
-        >
-          <source src={`${BASE}fishing.mp4`} type="video/mp4" />
-        </video>
-        <div class="absolute inset-0 bg-[#060a06]/75"></div>
-        <div
-          class="absolute inset-0 bg-gradient-to-b from-[#060a06]/20 via-transparent to-[#060a06]"
-        >
-        </div>
-      </div>
-
+    <!-- Ticker -->
+    <div class="overflow-hidden border-b border-[#111a11] bg-[#080c08] py-2">
       <div
-        class="relative mx-auto flex min-h-[78vh] max-w-5xl items-center px-5 py-20 text-center"
+        class={`ticker flex w-max gap-10 whitespace-nowrap text-[11px] font-medium uppercase tracking-[0.2em] text-[#c9a227] ${fontData}`}
       >
-        <div class="mx-auto w-full">
-          <div
-            class={`mb-5 text-xs font-semibold uppercase tracking-[0.22em] text-[#c9a227] ${fontHeading}`}
-          >
-            Partnerstvo – ZenCarp turnir
-          </div>
-          <h1
-            class={`mx-auto mb-6 max-w-4xl text-4xl font-bold leading-[1.08] text-[#f0f0f0] sm:text-6xl ${fontHeading}`}
-          >
-            Budite partner – vaš brend uz naš sadržaj.
-          </h1>
-          <p
-            class="mx-auto mb-8 max-w-2xl text-lg leading-relaxed text-[#ccc] sm:text-xl"
-          >
-            Vaš logo u prenosu, na rezultatima, u video materijalu – i na samom
-            događaju.
-          </p>
-          <div
-            class={`mb-8 text-4xl font-bold text-[#f0f0f0] sm:text-5xl ${fontHeading}`}
-          >
-            20.000
-            <span class="text-xl text-[#c9a227] sm:text-2xl"> RSD</span>
-          </div>
-          <div
-            class="flex flex-col items-center justify-center gap-3 sm:flex-row"
-          >
-            <a
-              href="#partnerstvo"
-              class={`inline-flex items-center justify-center rounded-full bg-[#c9a227] px-8 py-3.5 text-sm font-semibold text-[#0a0f0a] transition-colors hover:bg-[#d4b43a] ${fontHeading}`}
-            >
-              Postani partner
-            </a>
-            <a
-              href="#sta-dobijate"
-              class={`inline-flex items-center justify-center rounded-full border border-[#354035] bg-[#080c08]/80 px-8 py-3.5 text-sm font-medium text-[#ddd] transition-colors hover:border-[#c9a227]/50 hover:text-[#c9a227] ${fontHeading}`}
-            >
-              Šta dobijate
-            </a>
-          </div>
-          <p class="mt-6 text-xs text-[#777]">
-            Ako se turnir ne održi, uplaćeni iznos vraćamo u celosti.
-          </p>
-        </div>
+        {
+          [...Array(2)].map(() =>
+            tickerItems.map((item) => (
+              <span class="flex items-center gap-10">
+                {item}
+                <span class="text-[#333]">/</span>
+              </span>
+            ))
+          )
+        }
       </div>
-    </section>
+    </div>
 
-    <!-- Šta dobijate (partner paket) -->
-    <section id="sta-dobijate" class="px-5 py-24">
-      <div class="mx-auto max-w-6xl">
-        <div class="mb-12 max-w-2xl">
-          <div
-            class={`mb-3 text-xs font-semibold uppercase tracking-[0.2em] text-[#c9a227] ${fontHeading}`}
-          >
-            Partnerski paket
-          </div>
-          <h2
-            class={`text-3xl font-bold leading-tight text-[#f0f0f0] sm:text-4xl ${fontHeading}`}
-          >
-            Šta dobijate za 20.000 RSD?
-          </h2>
-          <p class="mt-4 text-[15px] leading-relaxed text-[#888]">
-            Jedan paket. Jasno definisane isporuke. Bez skrivenih uslova.
-          </p>
-        </div>
-
-        <div class="grid gap-5 md:grid-cols-2 lg:grid-cols-4">
-          <div class="rounded-2xl bg-[#0a0f0a] p-7">
-            <div
-              class={`mb-7 text-3xl font-bold text-[#c9a227] ${fontHeading}`}
-            >
-              01
-            </div>
-            <h3
-              class={`mb-3 text-lg font-semibold text-[#f0f0f0] ${fontHeading}`}
-            >
-              Logo u prenosu
-            </h3>
-            <p class="text-sm leading-relaxed text-[#888]">
-              Vaš logo u donjoj traci sa partnerima tokom celog prenosa uživo.
-            </p>
-          </div>
-          <div class="rounded-2xl bg-[#0a0f0a] p-7">
-            <div
-              class={`mb-7 text-3xl font-bold text-[#c9a227] ${fontHeading}`}
-            >
-              02
-            </div>
-            <h3
-              class={`mb-3 text-lg font-semibold text-[#f0f0f0] ${fontHeading}`}
-            >
-              Logo uz rezultate
-            </h3>
-            <p class="text-sm leading-relaxed text-[#888]">
-              Logo na stranici sa rezultatima koju publika prati tokom
-              takmičenja.
-            </p>
-          </div>
-          <div class="rounded-2xl bg-[#0a0f0a] p-7">
-            <div
-              class={`mb-7 text-3xl font-bold text-[#c9a227] ${fontHeading}`}
-            >
-              03
-            </div>
-            <h3
-              class={`mb-3 text-lg font-semibold text-[#f0f0f0] ${fontHeading}`}
-            >
-              Video od 20 sekundi
-            </h3>
-            <p class="text-sm leading-relaxed text-[#888]">
-              Montiran video od 20 sekundi, napravljen od materijala snimljenog
-              tokom turnira – sa vašim logom.
-            </p>
-          </div>
-          <div class="rounded-2xl bg-[#0a0f0a] p-7">
-            <div
-              class={`mb-7 text-3xl font-bold text-[#c9a227] ${fontHeading}`}
-            >
-              04
-            </div>
-            <h3
-              class={`mb-3 text-lg font-semibold text-[#f0f0f0] ${fontHeading}`}
-            >
-              Naknadne objave
-            </h3>
-            <p class="text-sm leading-relaxed text-[#888]">
-              Materijal sa turnira koristiće se za objave na društvenim mrežama
-              i u promo sadržaju.
-            </p>
-          </div>
-        </div>
+    <!-- HERO -->
+    <section
+      class="relative flex min-h-[92vh] flex-col justify-end overflow-hidden"
+    >
+      <video
+        autoplay
+        loop
+        muted
+        playsinline
+        class="absolute inset-0 h-full w-full object-cover"
+      >
+        <source src={`${BASE}fishing.mp4`} type="video/mp4" />
+      </video>
+      <div
+        class="absolute inset-0 bg-gradient-to-t from-[#060a06] via-[#060a06]/75 to-[#060a06]/40"
+      >
       </div>
-    </section>
 
-    <!-- Vizuelni dokaz -->
-    <section class="bg-[#080c08] px-5 py-24">
-      <div class="mx-auto max-w-6xl">
-        <div class="mb-12">
-          <div
-            class={`mb-3 text-xs font-semibold uppercase tracking-[0.2em] text-[#c9a227] ${fontHeading}`}
+      <div class="relative z-10 mx-auto w-full max-w-6xl px-5 pt-32 pb-14">
+        <div class="mb-6 flex items-center gap-3">
+          <span class="live-dot"></span>
+          <span
+            class={`text-xs font-semibold uppercase tracking-[0.3em] text-[#e8e8e8] ${fontData}`}
           >
-            Kako izgleda
-          </div>
-          <h2
-            class={`text-3xl font-bold text-[#f0f0f0] sm:text-4xl ${fontHeading}`}
-          >
-            Vaš logo – deo prenosa i rezultata.
-          </h2>
-        </div>
-        <div class="grid gap-8 md:grid-cols-2">
-          <div>
-            <div class="overflow-hidden rounded-2xl bg-[#0a0f0a]">
-              <video
-                autoplay
-                loop
-                muted
-                playsinline
-                class="h-auto w-full"
-                style="aspect-ratio: 16/9; object-fit: cover;"
-              >
-                <source src={`${BASE}ZenCarpOverlay.mp4`} type="video/mp4" />
-              </video>
-            </div>
-            <h3 class={`mt-4 text-sm font-semibold text-[#ddd] ${fontHeading}`}>
-              Prenos uživo
-            </h3>
-            <p class="mt-1 text-sm text-[#777]">
-              Logo u donjoj traci sa partnerima.
-            </p>
-          </div>
-          <div>
-            <div class="overflow-hidden rounded-2xl bg-[#0a0f0a] p-3">
-              <video
-                autoplay
-                loop
-                muted
-                playsinline
-                class="h-auto w-full rounded-xl"
-                style="aspect-ratio: 9/16; object-fit: cover;"
-              >
-                <source src={`${BASE}ZenCarpPhone.mp4`} type="video/mp4" />
-              </video>
-            </div>
-            <h3 class={`mt-4 text-sm font-semibold text-[#ddd] ${fontHeading}`}>
-              Stranica sa rezultatima
-            </h3>
-            <p class="mt-1 text-sm text-[#777]">
-              Logo uz rezultate takmičenja.
-            </p>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- Produkcija i koncept – NOVA SEKCIJA -->
-    <section id="koncept" class="px-5 py-24">
-      <div class="mx-auto max-w-5xl">
-        <div class="mb-12 text-center">
-          <div
-            class={`mb-3 text-xs font-semibold uppercase tracking-[0.2em] text-[#c9a227] ${fontHeading}`}
-          >
-            Produkcija i priča
-          </div>
-          <h2
-            class={`text-3xl font-bold text-[#f0f0f0] sm:text-4xl ${fontHeading}`}
-          >
-            Kako izgleda ceo koncept?
-          </h2>
-          <p
-            class="mx-auto mt-4 max-w-2xl text-[15px] leading-relaxed text-[#888]"
-          >
-            Ne snimamo samo takmičenje – stvaramo priču od dolaska do poslednjeg
-            ulova.
-          </p>
+            Pilot projekat
+          </span>
         </div>
 
-        <div class="space-y-8">
-          <!-- Dolazak i intervjui -->
-          <div class="rounded-2xl bg-[#0a0f0a] p-8">
-            <div
-              class={`mb-4 text-sm font-semibold text-[#c9a227] ${fontHeading}`}
-            >
-              01 • Dolazak ekipa i intervjui
-            </div>
-            <ul class="space-y-2 text-sm leading-relaxed text-[#aaa]">
-              <li>
-                • Snimamo dolazak svake ekipe – auto, prikolica, oprema, prvi
-                utisci.
-              </li>
-              <li>
-                • Kratki intervjui sa takmičarima pre početka – očekivanja,
-                strategija, uvertira.
-              </li>
-              <li>
-                • Atmosfera na parkingu i oko jezera – pripreme, druženje,
-                tenzija.
-              </li>
-            </ul>
-          </div>
+        <h1
+          class={`text-[10vw] sm:text-[5rem] font-bold leading-[1.1] text-[#f0f0f0] ${fontHeading}`}
+        >
+          Video sadržaj sa ZenCarp turnira — <br class="hidden sm:block" />
+          <span class="text-[#c9a227]">napravljen za vašu kompaniju.</span>
+        </h1>
 
-          <!-- Tok takmičenja i komentar -->
-          <div class="rounded-2xl bg-[#0a0f0a] p-8">
-            <div
-              class={`mb-4 text-sm font-semibold text-[#c9a227] ${fontHeading}`}
-            >
-              02 • Tok takmičenja i komentar
-            </div>
-            <ul class="space-y-2 text-sm leading-relaxed text-[#aaa]">
-              <li>
-                • Četiri pozicione kamere prate svaku ekipu u kontinuitetu.
-              </li>
-              <li>• Dron snima šire kadrove – jezero, pozicije, prirodu.</li>
-              <li>
-                • Reporter na terenu prati dešavanja, donosi izveštaje sa lica
-                mesta.
-              </li>
-              <li>
-                • <strong>Komentator</strong> prati tok, objašnjava taktike, analizira
-                ulove i prati tabelu uživo – sve sa stručnim i zanimljivim narativom.
-              </li>
-              <li>
-                • Svaki potvrđeni ulov se prikazuje na ekranu sa težinom i
-                timom.
-              </li>
-            </ul>
-          </div>
+        <div class="mt-6 flex items-baseline gap-3">
+          <span
+            class={`text-4xl sm:text-5xl font-bold text-[#c9a227] ${fontData}`}
+            >20.000 RSD</span
+          >
+        </div>
 
-          <!-- Vremenska linija (timeline) -->
-          <div class="rounded-2xl bg-[#0a0f0a] p-8">
-            <div
-              class={`mb-4 text-sm font-semibold text-[#c9a227] ${fontHeading}`}
-            >
-              03 • Vremenska linija prenosa
-            </div>
-            <div
-              class="grid gap-4 text-sm leading-relaxed text-[#aaa] sm:grid-cols-4"
-            >
+        <p
+          class="mt-6 max-w-2xl text-[16px] leading-relaxed text-[#ccc] sm:text-lg"
+        >
+          Za 20.000 RSD dobijate jedan poseban video od 15–20 sekundi za svoju
+          kompaniju, kao i kompletan izbor najboljih obrađenih snimaka sa
+          turnira — svaki sa vašim logotipom.
+        </p>
+
+        <div class="mt-9 flex flex-wrap items-center gap-4">
+          <a
+            href="#benefits"
+            class={`rounded-full bg-[#c9a227] px-8 py-3.5 text-sm font-medium text-[#0a0f0a] transition-colors hover:bg-[#d4b43a] ${fontHeading}`}
+          >
+            Šta tačno dobijate
+          </a>
+          <a
+            href="#enter"
+            class={`rounded-full border border-[#2a3a2a] px-8 py-3.5 text-sm font-medium text-[#e0e0e0] transition-colors hover:border-[#c9a227]/50 hover:text-[#c9a227] ${fontHeading}`}
+          >
+            Postani partner
+          </a>
+        </div>
+
+        <div
+          class={`mt-14 grid grid-cols-2 gap-x-8 gap-y-6 border-t border-[#1a2e1a] pt-6 sm:flex sm:flex-wrap sm:gap-x-12 ${fontData}`}
+        >
+          {
+            heroStats.map((s) => (
               <div>
-                <div class="text-xs font-bold text-[#c9a227]">Prvih 30 min</div>
-                <ul class="mt-1 space-y-1">
-                  <li>• Uvod i predstavljanje ekipa</li>
-                  <li>• Izvlačenje pozicija</li>
-                </ul>
-              </div>
-              <div>
-                <div class="text-xs font-bold text-[#c9a227]">
-                  Sredina takmičenja
+                <div class="text-[10px] tracking-[0.25em] text-[#777] uppercase">
+                  {s.label}
                 </div>
-                <ul class="mt-1 space-y-1">
-                  <li>• Akcija, zameci, ulovi</li>
-                  <li>• Izveštaji reportera</li>
-                  <li>• Prva promena na tabeli</li>
-                </ul>
-              </div>
-              <div>
-                <div class="text-xs font-bold text-[#c9a227]">Završnica</div>
-                <ul class="mt-1 space-y-1">
-                  <li>• Poslednjih 60 minuta</li>
-                  <li>• Najveći ulovi</li>
-                  <li>• Tenzija i pregovori</li>
-                </ul>
-              </div>
-              <div>
-                <div class="text-xs font-bold text-[#c9a227]">
-                  Posle turnira
+                <div class="mt-1 text-2xl font-medium text-[#f0f0f0]">
+                  {s.value}
                 </div>
-                <ul class="mt-1 space-y-1">
-                  <li>• Intervjui sa pobednicima</li>
-                  <li>• Dodela nagrada</li>
-                  <li>• Završna reč</li>
-                </ul>
               </div>
-            </div>
-          </div>
+            ))
+          }
+        </div>
+      </div>
+    </section>
 
-          <!-- Konceptualno – šta gledalac dobija -->
-          <div class="rounded-2xl bg-[#0a0f0a] p-8">
-            <div
-              class={`mb-4 text-sm font-semibold text-[#c9a227] ${fontHeading}`}
-            >
-              04 • Šta publika dobija
-            </div>
-            <ul class="space-y-2 text-sm leading-relaxed text-[#aaa]">
-              <li>
-                • <strong>Edukativno-zabavni sadržaj</strong> – objašnjenje ribolovačkih
-                tehnika i taktika.
+    <!-- MAIN BENEFITS -->
+    <section
+      id="benefits"
+      class="reveal border-y border-[#111a11] bg-[#080c08] px-5 py-24"
+    >
+      <div class="mx-auto max-w-6xl">
+        <div class="mb-14 max-w-2xl">
+          <div
+            class={`mb-4 text-xs font-semibold uppercase tracking-[0.25em] text-[#c9a227] ${fontData}`}
+          >
+            Ponuda
+          </div>
+          <h2
+            class={`mb-5 text-3xl font-bold leading-tight text-[#f0f0f0] sm:text-4xl ${fontHeading}`}
+          >
+            Šta tačno dobijate.
+          </h2>
+          <p class="text-[15px] leading-relaxed text-[#999]">
+            Jednostavna i transparentna ponuda. Svi partneri plaćaju istu cenu i
+            dobijaju isti paket, bez skrivenih troškova ili različitih nivoa
+            sponzorstva.
+          </p>
+        </div>
+
+        <div class="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+          {
+            mainBenefits.map((b, i) => (
+              <div class="rounded-xl border border-[#1a2e1a] bg-[#0a0f0a] p-6">
+                <div
+                  class={`mb-3 text-sm font-medium tracking-[0.1em] text-[#c9a227] uppercase ${fontData}`}
+                >
+                  0{i + 1} / {b.title}
+                </div>
+                <div class="text-[15px] leading-relaxed text-[#aaa]">
+                  {b.desc}
+                </div>
+              </div>
+            ))
+          }
+        </div>
+      </div>
+    </section>
+
+    <!-- SPECIAL VIDEO DETAIL -->
+    <section class="reveal px-5 py-24">
+      <div class="mx-auto grid max-w-6xl items-center gap-14 lg:grid-cols-2">
+        <div class="order-2 lg:order-1">
+          <div
+            class={`mb-4 text-xs font-semibold uppercase tracking-[0.25em] text-[#c9a227] ${fontData}`}
+          >
+            Vaš poseban video
+          </div>
+          <h2
+            class={`mb-6 text-3xl font-bold leading-tight text-[#f0f0f0] sm:text-4xl ${fontHeading}`}
+          >
+            Jedinstveni kadrovi za vašu kompaniju.
+          </h2>
+          <div class="space-y-4 text-[15px] leading-relaxed text-[#aaa]">
+            <p>
+              Svaka kompanija dobija <strong class="text-[#e8e8e8]"
+                >jedan poseban video</strong
+              > koji se pravi isključivo za nju.
+            </p>
+            <p>
+              Tokom turnira snimamo veliki broj različitih kadrova kamerama i
+              dronom. Za vaš video biramo konkretne kadrove koji se <strong
+                class="text-[#e8e8e8]">ne koriste</strong
+              > u posebnom videu druge kompanije.
+            </p>
+            <p class="text-[#c9a227]">
+              Primer: Ako tokom turnira snimimo 30 različitih kadrova dronom,
+              nećemo isti kadar koristiti u posebnom videu dve kompanije. Svaka
+              kompanija dobija svoj izbor kadrova.
+            </p>
+            <ul class="mt-4 space-y-2 text-sm text-[#999]">
+              <li class="flex items-center gap-2">
+                <span class="h-1 w-1 rounded-full bg-[#c9a227]"></span>Trajanje:
+                15–20 sekundi
               </li>
-              <li>
-                • <strong>Dramaturgija sportskog događaja</strong> – borba, preokreti,
-                emocije.
+              <li class="flex items-center gap-2">
+                <span class="h-1 w-1 rounded-full bg-[#c9a227]"></span>Sadrži
+                logotip vaše kompanije
               </li>
-              <li>
-                • <strong>Vizuelno bogatstvo</strong> – kamere iz više uglova, dron,
-                priroda.
-              </li>
-              <li>
-                • <strong>Interaktivnost</strong> – tabela uživo, mogućnost komentara
-                publike.
+              <li class="flex items-center gap-2">
+                <span class="h-1 w-1 rounded-full bg-[#c9a227]"></span>Spreman
+                za objavljivanje na društvenim mrežama
               </li>
             </ul>
+          </div>
+        </div>
+
+        <div class="order-1 flex justify-center lg:order-2">
+          <div
+            class="relative w-[320px] overflow-hidden rounded-[2.5rem] border-4 border-[#111a11] bg-[#0a0f0a] shadow-2xl shadow-black/50 sm:w-[360px] lg:w-[400px]"
+          >
+            <div
+              class="absolute top-0 left-1/2 z-10 h-6 w-32 -translate-x-1/2 rounded-b-2xl bg-[#111a11]"
+            >
+            </div>
+            <video
+              src={`${BASE}ZenCarpPhone.mp4`}
+              loop
+              muted
+              playsinline
+              autoplay
+              class="aspect-[9/16] h-auto w-full object-cover"></video>
           </div>
         </div>
       </div>
     </section>
 
-    <!-- Turnir (kratak pregled) -->
-    <section id="turnir" class="bg-[#080c08] px-5 py-24">
-      <div class="mx-auto max-w-5xl">
-        <div class="mx-auto mb-12 max-w-3xl text-center">
-          <div
-            class={`mb-3 text-xs font-semibold uppercase tracking-[0.2em] text-[#c9a227] ${fontHeading}`}
-          >
-            O događaju
-          </div>
-          <h2
-            class={`text-3xl font-bold text-[#f0f0f0] sm:text-4xl ${fontHeading}`}
-          >
-            Šta je ZenCarp?
-          </h2>
-          <p class="mx-auto mt-5 text-[15px] leading-relaxed text-[#888]">
-            ZenCarp je šaranski ribolovački turnir koji se održava u okolini
-            Zrenjanina, u Vojvodini.
+    <!-- BEST CLIPS DETAIL -->
+    <section class="reveal border-y border-[#111a11] bg-[#080c08] px-5 py-24">
+      <div class="mx-auto max-w-4xl text-center">
+        <div
+          class={`mb-4 text-xs font-semibold uppercase tracking-[0.25em] text-[#c9a227] ${fontData}`}
+        >
+          Kompletan izbor
+        </div>
+        <h2
+          class={`mb-6 text-3xl font-bold leading-tight text-[#f0f0f0] sm:text-4xl ${fontHeading}`}
+        >
+          Svi najbolji snimci sa turnira.
+        </h2>
+        <p
+          class="mx-auto mb-10 max-w-xl text-[15px] leading-relaxed text-[#aaa]"
+        >
+          Tokom turnira snimamo ulove, borbu sa ribom, merenje, vraćanje ribe u
+          vodu, reakcije takmičara, atmosferu i snimke dronom. Nakon turnira od
+          tog materijala pravimo <strong class="text-[#e8e8e8]"
+            >izbor najboljih video snimaka</strong
+          >.
+        </p>
+
+        <div
+          class="rounded-xl border border-[#1a2e1a] bg-[#0a0f0a] p-8 text-left"
+        >
+          <p class="text-[15px] leading-relaxed text-[#ccc]">
+            <strong class="text-[#c9a227]">Primer isporuke:</strong> Ako nakon turnira
+            odaberemo 20 najboljih kratkih video snimaka, kompanija A dobija svih
+            20 snimaka sa logotipom A. Kompanija B takođe dobija svih 20 snimaka,
+            ali sa logotipom B.
+            <span class="mt-3 block text-[#888]"
+              >Niko ne dobija zajednički fajl sa logotipovima drugih partnera.
+              Dobijate isključivo verziju sa vašim logotipom.</span
+            >
           </p>
         </div>
-        <div class="grid gap-4 sm:grid-cols-4">
-          <div class="rounded-xl bg-[#0a0f0a] p-6 text-center">
-            <div class={`text-3xl font-bold text-[#c9a227] ${fontHeading}`}>
-              4
-            </div>
-            <div class="mt-2 text-xs text-[#666]">ekipe</div>
-          </div>
-          <div class="rounded-xl bg-[#0a0f0a] p-6 text-center">
-            <div class={`text-3xl font-bold text-[#c9a227] ${fontHeading}`}>
-              8
-            </div>
-            <div class="mt-2 text-xs text-[#666]">takmičara</div>
-          </div>
-          <div class="rounded-xl bg-[#0a0f0a] p-6 text-center">
-            <div class={`text-3xl font-bold text-[#c9a227] ${fontHeading}`}>
-              5h
-            </div>
-            <div class="mt-2 text-xs text-[#666]">takmičenja</div>
-          </div>
-          <div class="rounded-xl bg-[#0a0f0a] p-6 text-center">
-            <div class={`text-3xl font-bold text-[#c9a227] ${fontHeading}`}>
-              100×100
-            </div>
-            <div class="mt-2 text-xs text-[#666]">metara jezero</div>
-          </div>
+      </div>
+    </section>
+
+    <!-- DELIVERY TABLE -->
+    <section class="reveal px-5 py-24">
+      <div class="mx-auto max-w-4xl">
+        <div
+          class={`mb-8 text-center text-xs font-semibold uppercase tracking-[0.25em] text-[#c9a227] ${fontData}`}
+        >
+          Pregled isporuke
         </div>
         <div
-          class="mx-auto mt-10 max-w-3xl space-y-4 text-[15px] leading-relaxed text-[#888]"
+          class="overflow-hidden rounded-xl border border-[#1a2e1a] bg-[#0a0f0a]"
         >
-          <p>
-            Četiri ekipe po dva takmičara takmiče se u lovu na šarana i amura.
-            Svaka ekipa ima svoju poziciju, a takmičenje traje pet sati.
-          </p>
-          <p>
-            Ulovi se mere, evidentiraju i odmah ulaze u rezultate. Publika tako
-            može da prati promenu plasmana tokom samog takmičenja.
-          </p>
-          <p>
-            Prenos se snima sa više kamera, uz reportera na terenu,
-            sudije-merioce i snimke dronom.
-          </p>
+          <div
+            class="grid grid-cols-3 border-b border-[#1a2e1a] bg-[#0f140f] text-sm font-medium tracking-[0.1em] text-[#c9a227] uppercase"
+          >
+            <div class="p-4 text-left">Šta dobijate</div>
+            <div class="border-l border-[#1a2e1a] p-4 text-center">
+              Posebno za vas
+            </div>
+            <div class="border-l border-[#1a2e1a] p-4 text-center">
+              Dobijaju svi partneri
+            </div>
+          </div>
+          {
+            deliveryTable.map((row, i) => (
+              <div
+                class={`grid grid-cols-3 text-[15px] ${i !== deliveryTable.length - 1 ? "border-b border-[#1a2e1a]" : ""}`}
+              >
+                <div class="p-4 text-[#e8e8e8]">{row.item}</div>
+                <div class="border-l border-[#1a2e1a] p-4 text-center font-medium text-[#c9a227]">
+                  {row.unique}
+                </div>
+                <div class="border-l border-[#1a2e1a] p-4 text-center font-medium text-[#c9a227]">
+                  {row.shared}
+                </div>
+              </div>
+            ))
+          }
         </div>
       </div>
     </section>
 
-    <!-- Publika -->
-    <section id="publika" class="px-5 py-24">
+    <!-- USAGE -->
+    <section class="reveal border-y border-[#111a11] bg-[#080c08] px-5 py-24">
+      <div class="mx-auto max-w-4xl">
+        <div
+          class={`mb-4 text-xs font-semibold uppercase tracking-[0.25em] text-[#c9a227] ${fontData}`}
+        >
+          Primena
+        </div>
+        <h2
+          class={`mb-6 max-w-2xl text-3xl font-bold leading-tight text-[#f0f0f0] sm:text-4xl ${fontHeading}`}
+        >
+          Gde možete da koristite materijal?
+        </h2>
+        <p class="mb-8 max-w-xl text-[15px] leading-relaxed text-[#aaa]">
+          Video materijale dobijate spremne za objavljivanje i možete ih
+          koristiti u komunikaciji svoje kompanije na sledećim kanalima:
+        </p>
+        <div class="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+          {
+            usageChannels.map((channel) => (
+              <div class="flex items-center gap-3 rounded-lg border border-[#1a2e1a] bg-[#0a0f0a] p-4 text-sm text-[#ccc]">
+                <span class="h-1.5 w-1.5 shrink-0 rounded-full bg-[#c9a227]" />
+                {channel}
+              </div>
+            ))
+          }
+        </div>
+      </div>
+    </section>
+
+    <!-- ADDITIONAL & HOW IT'S MADE -->
+    <section
+      id="live"
+      class="reveal border-y border-[#111a11] bg-[#080c08] px-5 py-24"
+    >
       <div class="mx-auto max-w-6xl">
-        <div class="mb-12 max-w-3xl">
+        <div class="mb-14 max-w-2xl">
           <div
-            class={`mb-3 text-xs font-semibold uppercase tracking-[0.2em] text-[#c9a227] ${fontHeading}`}
+            class={`mb-4 text-xs font-semibold uppercase tracking-[0.25em] text-[#c9a227] ${fontData}`}
           >
-            Promocija
+            Dodatno tokom turnira
           </div>
           <h2
-            class={`text-3xl font-bold leading-tight text-[#f0f0f0] sm:text-4xl ${fontHeading}`}
+            class={`mb-5 text-3xl font-bold leading-tight text-[#f0f0f0] sm:text-4xl ${fontHeading}`}
           >
-            Kako ljudi vide vaš brend?
+            Vaš logotip u prenosu.
           </h2>
-          <p class="mt-4 text-[15px] leading-relaxed text-[#888]">
-            ZenCarp se promoviše pre turnira, prenosi se tokom takmičenja i
-            nastavlja da se objavljuje nakon događaja.
+          <p class="text-[15px] leading-relaxed text-[#999]">
+            Iako je glavni proizvod video sadržaj koji dobijate nakon turnira,
+            vaš logotip će biti vidljiv i tokom samog događaja u traci partnera
+            tokom YouTube prenosa i na stranici sa rezultatima uživo.
           </p>
         </div>
-        <div class="grid gap-6 md:grid-cols-3">
-          <div class="rounded-2xl bg-[#0a0f0a] p-8">
-            <div
-              class={`mb-5 text-sm font-semibold text-[#c9a227] ${fontHeading}`}
+
+        <div class="grid gap-10 lg:grid-cols-[1.1fr_1fr]">
+          <div
+            class="relative aspect-[16/9] overflow-hidden rounded-xl border border-[#1a2e1a] bg-[#060a06]"
+          >
+            <video
+              autoplay
+              loop
+              muted
+              playsinline
+              class="h-full w-full object-contain"
             >
-              PRE TURNIRA
-            </div>
-            <h3
-              class={`mb-3 text-lg font-semibold text-[#f0f0f0] ${fontHeading}`}
-            >
-              Najava događaja
-            </h3>
-            <p class="text-sm leading-relaxed text-[#888]">
-              Turnir se promoviše kroz društvene mreže i kreatore sadržaja kako
-              bi publika saznala za događaj.
-            </p>
+              <source src={`${BASE}ZenCarpOverlay.mp4`} type="video/mp4" />
+            </video>
           </div>
-          <div class="rounded-2xl bg-[#0a0f0a] p-8">
-            <div
-              class={`mb-5 text-sm font-semibold text-[#c9a227] ${fontHeading}`}
-            >
-              TOKOM TURNIRA
-            </div>
-            <h3
-              class={`mb-3 text-lg font-semibold text-[#f0f0f0] ${fontHeading}`}
-            >
-              Prenos i rezultati
+
+          <div class="rounded-xl border border-[#1a2e1a] bg-[#0a0f0a] p-6">
+            <h3 class={`mb-4 text-lg font-bold text-[#f0f0f0] ${fontHeading}`}>
+              Kako nastaje materijal?
             </h3>
-            <p class="text-sm leading-relaxed text-[#888]">
-              Publika prati pet sati takmičenja. Vaš logo je deo grafike prenosa
-              i stranice sa rezultatima.
-            </p>
-          </div>
-          <div class="rounded-2xl bg-[#0a0f0a] p-8">
-            <div
-              class={`mb-5 text-sm font-semibold text-[#c9a227] ${fontHeading}`}
-            >
-              NAKON TURNIRA
-            </div>
-            <h3
-              class={`mb-3 text-lg font-semibold text-[#f0f0f0] ${fontHeading}`}
-            >
-              Novi sadržaj
-            </h3>
-            <p class="text-sm leading-relaxed text-[#888]">
-              Snimljeni materijal koristiće se za nove objave i video sadržaj na
-              društvenim mrežama.
-            </p>
+            <ul class="space-y-3 text-[14px] leading-relaxed text-[#aaa]">
+              <li class="flex items-start gap-3">
+                <span
+                  class="mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full bg-[#c9a227]"
+                ></span>
+                <span
+                  >Četiri ekipe (osam takmičara) takmiče se pet sati na jezeru
+                  dimenzija 100×100 metara.</span
+                >
+              </li>
+              <li class="flex items-start gap-3">
+                <span
+                  class="mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full bg-[#c9a227]"
+                ></span>
+                <span
+                  >Celokupan događaj pratimo sa više stalnih kamera, jednom
+                  terenskom kamerom u pokretu i dronom.</span
+                >
+              </li>
+              <li class="flex items-start gap-3">
+                <span
+                  class="mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full bg-[#c9a227]"
+                ></span>
+                <span
+                  >Komentator i izveštač na terenu prate dešavanja i
+                  objašnjavaju tok takmičenja.</span
+                >
+              </li>
+              <li class="flex items-start gap-3">
+                <span
+                  class="mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full bg-[#c9a227]"
+                ></span>
+                <span
+                  >Tabela sa rezultatima uživo prikazuje svaku promenu plasmana
+                  čim se riba izmeri.</span
+                >
+              </li>
+            </ul>
           </div>
         </div>
       </div>
     </section>
 
-    <!-- Video za partnera -->
-    <section class="bg-[#080c08] px-5 py-24">
-      <div class="mx-auto max-w-5xl">
-        <div class="grid items-center gap-12 md:grid-cols-2 lg:gap-20">
-          <div>
-            <div class="overflow-hidden rounded-2xl bg-[#0a0f0a]">
-              <video
-                autoplay
-                loop
-                muted
-                playsinline
-                class="h-auto w-full"
-                style="aspect-ratio: 16/9; object-fit: cover;"
-              >
-                <source src={`${BASE}rendered_overlay.mp4`} type="video/mp4" />
-              </video>
-            </div>
-          </div>
-          <div>
-            <div
-              class={`mb-3 text-xs font-semibold uppercase tracking-[0.2em] text-[#c9a227] ${fontHeading}`}
-            >
-              Video za vaš brend
-            </div>
-            <h2
-              class={`mb-5 text-3xl font-bold leading-tight text-[#f0f0f0] sm:text-4xl ${fontHeading}`}
-            >
-              Vaš sopstveni video sa turnira.
-            </h2>
-            <p class="mb-5 text-[15px] leading-relaxed text-[#888]">
-              Za svakog partnera pravimo poseban video od 20 sekundi, napravljen
-              od najboljih kadrova sa turnira i sa vašim logotipom.
-            </p>
-            <p class="mb-6 text-[15px] leading-relaxed text-[#888]">
-              Video je ekskluzivan – ne deli se sa drugim partnerima. Možete ga
-              objaviti na svojim kanalima.
-            </p>
-            <div class="rounded-xl border border-[#1a2e1a] bg-[#0a0f0a] p-5">
-              <div class="text-2xl font-bold text-[#c9a227]">20 sekundi</div>
-              <div class="mt-1 text-sm text-[#777]">
-                jedan poseban video samo za vaš brend
-              </div>
-            </div>
-          </div>
+    <!-- LOGISTICS & IMPORTANT NOTE -->
+    <section
+      id="info"
+      class="reveal border-y border-[#111a11] bg-[#080c08] px-5 py-24"
+    >
+      <div class="mx-auto max-w-3xl">
+        <div
+          class={`mb-4 text-xs font-semibold uppercase tracking-[0.25em] text-[#c9a227] ${fontData}`}
+        >
+          Logistika
         </div>
-      </div>
-    </section>
+        <h2
+          class={`mb-10 text-3xl font-bold leading-tight text-[#f0f0f0] sm:text-4xl ${fontHeading}`}
+        >
+          Šta treba da nam pošaljete.
+        </h2>
 
-    <!-- Logistika (isto) -->
-    <section class="px-5 py-20">
-      <div class="mx-auto max-w-4xl">
-        <div class="grid gap-8 md:grid-cols-2">
-          <div>
-            <h2 class={`mb-4 text-2xl font-bold text-[#f0f0f0] ${fontHeading}`}>
-              Šta treba da nam pošaljete?
-            </h2>
-            <p class="text-sm leading-relaxed text-[#888]">
-              Ako možemo da preuzmemo vaš logo sa sajta, ne morate ništa da
-              šaljete. Ako ne, zamolićemo vas da nam ga dostavite.
-            </p>
-          </div>
-          <div>
-            <h2 class={`mb-4 text-2xl font-bold text-[#f0f0f0] ${fontHeading}`}>
-              Da li je paket isti za sve?
-            </h2>
-            <p class="text-sm leading-relaxed text-[#888]">
-              Da. Svaki partner dobija isti paket i isti nivo prisustva u okviru
-              turnira.
-            </p>
-          </div>
+        <div class="mb-12 rounded-xl border border-[#1a2e1a] bg-[#0a0f0a] p-6">
+          <p class="text-[15px] leading-relaxed text-[#aaa]">
+            Potreban nam je isključivo <strong class="text-[#e8e8e8]"
+              >kvalitetan logotip vaše kompanije</strong
+            > (vektorski .svg, .eps ili .png visoke rezolucije), ukoliko ga već nemamo
+            dostupnog. Ništa više. Mi preuzimamo kompletnu produkciju i obradu.
+          </p>
+        </div>
+
+        <div class="rounded-xl border border-[#2a1a1a] bg-[#1a0f0f] p-6">
+          <h3 class={`mb-3 text-lg font-bold text-[#e8e8e8] ${fontHeading}`}>
+            Važna napomena
+          </h3>
+          <p class="mb-3 text-[14px] leading-relaxed text-[#aaa]">
+            Da bismo sprečili pogrešna očekivanja, važno je napomenuti šta ovaj
+            paket <strong class="text-[#e8e8e8]">NE</strong> podrazumeva:
+          </p>
+          <ul class="space-y-2 text-[14px] text-[#999]">
+            <li class="flex items-center gap-2">
+              <span class="text-[#e0473a]">×</span> Sirove snimke sa svih kamera
+            </li>
+            <li class="flex items-center gap-2">
+              <span class="text-[#e0473a]">×</span> Neobrađene snimke dronom
+            </li>
+            <li class="flex items-center gap-2">
+              <span class="text-[#e0473a]">×</span> Dodatno snimanje van okvira turnira
+            </li>
+            <li class="flex items-center gap-2">
+              <span class="text-[#e0473a]">×</span> Poseban reklamni spot sniman odvojeno
+              od turnira
+            </li>
+            <li class="flex items-center gap-2">
+              <span class="text-[#e0473a]">×</span> Dodatne video materijale koji
+              nisu navedeni u ovoj ponudi
+            </li>
+          </ul>
         </div>
       </div>
     </section>
 
     <!-- FAQ -->
-    <section id="pitanja" class="bg-[#080c08] px-5 py-24">
+    <section class="reveal px-5 py-24">
       <div class="mx-auto max-w-3xl">
-        <div class="mb-12 text-center">
-          <h2
-            class={`text-3xl font-bold text-[#f0f0f0] sm:text-4xl ${fontHeading}`}
-          >
-            Najčešća pitanja
-          </h2>
+        <div
+          class={`mb-10 text-xs font-semibold uppercase tracking-[0.25em] text-[#c9a227] ${fontData}`}
+        >
+          Česta pitanja
         </div>
-        <div class="space-y-3">
-          <details class="group rounded-xl bg-[#0a0f0a] px-6 py-5">
-            <summary
-              class={`cursor-pointer list-none pr-6 text-sm font-semibold text-[#e0e0e0] ${fontHeading}`}
-            >
-              Da li svi partneri dobijaju isti paket?
-              <span class="float-right text-[#c9a227]">+</span>
-            </summary>
-            <p class="mt-4 text-sm leading-relaxed text-[#777]">
-              Da. Svi partneri dobijaju isti paket i isti nivo prisustva.
-            </p>
-          </details>
-          <details class="group rounded-xl bg-[#0a0f0a] px-6 py-5">
-            <summary
-              class={`cursor-pointer list-none pr-6 text-sm font-semibold text-[#e0e0e0] ${fontHeading}`}
-            >
-              Da li mogu da koristim video koji dobijem?
-              <span class="float-right text-[#c9a227]">+</span>
-            </summary>
-            <p class="mt-4 text-sm leading-relaxed text-[#777]">
-              Da. Video od 20 sekundi namenjen je za vaše društvene mreže i
-              druge kanale.
-            </p>
-          </details>
-          <details class="group rounded-xl bg-[#0a0f0a] px-6 py-5">
-            <summary
-              class={`cursor-pointer list-none pr-6 text-sm font-semibold text-[#e0e0e0] ${fontHeading}`}
-            >
-              Da li mogu da budem prisutan na samom događaju?
-              <span class="float-right text-[#c9a227]">+</span>
-            </summary>
-            <p class="mt-4 text-sm leading-relaxed text-[#777]">
-              Za ovaj paket ne nudimo posebno prisustvo na lokaciji. Paket je
-              fokusiran na digitalni sadržaj.
-            </p>
-          </details>
-          <details class="group rounded-xl bg-[#0a0f0a] px-6 py-5">
-            <summary
-              class={`cursor-pointer list-none pr-6 text-sm font-semibold text-[#e0e0e0] ${fontHeading}`}
-            >
-              Šta ako se turnir ne održi?
-              <span class="float-right text-[#c9a227]">+</span>
-            </summary>
-            <p class="mt-4 text-sm leading-relaxed text-[#777]">
-              Ukoliko se turnir ne održi, svim partnerima koji su uplatili
-              sredstva novac se vraća u celosti.
-            </p>
-          </details>
+        <h2
+          class={`mb-10 text-3xl font-bold leading-tight text-[#f0f0f0] sm:text-4xl ${fontHeading}`}
+        >
+          Odgovori na vaša pitanja.
+        </h2>
+
+        <div class="space-y-4">
+          {
+            faqItems.map((item) => (
+              <details class="group rounded-lg border border-[#1a2e1a] bg-[#0a0f0a] transition-colors open:bg-[#0f140f]">
+                <summary class="flex cursor-pointer items-center justify-between p-5 text-[15px] font-medium text-[#e8e8e8]">
+                  <span>{item.q}</span>
+                  <span class="ml-4 shrink-0 text-[#c9a227] transition-transform group-open:rotate-180">
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      class="h-5 w-5"
+                      viewBox="0 0 20 20"
+                      fill="currentColor"
+                    >
+                      <path
+                        fill-rule="evenodd"
+                        d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
+                        clip-rule="evenodd"
+                      />
+                    </svg>
+                  </span>
+                </summary>
+                <div class="px-5 pb-5 text-[14px] leading-relaxed text-[#aaa]">
+                  {item.a}
+                </div>
+              </details>
+            ))
+          }
         </div>
       </div>
     </section>
 
-    <!-- Final CTA -->
-    <section id="partnerstvo" class="px-5 py-24">
-      <div class="mx-auto max-w-3xl text-center">
+    <!-- FINAL CTA -->
+    <section id="enter" class="reveal relative overflow-hidden px-5 py-28">
+      <div
+        class="absolute inset-0 bg-gradient-to-b from-[#080c08] to-[#060a06]"
+      >
+      </div>
+      <div class="relative mx-auto max-w-3xl text-center">
         <div
-          class={`mb-4 text-xs font-semibold uppercase tracking-[0.2em] text-[#c9a227] ${fontHeading}`}
+          class={`mb-4 text-xs font-semibold uppercase tracking-[0.25em] text-[#c9a227] ${fontData}`}
         >
-          Partnerstvo
+          Ograničen broj partnera
         </div>
         <h2
-          class={`mb-6 text-3xl font-bold leading-tight text-[#f0f0f0] sm:text-5xl ${fontHeading}`}
+          class={`mb-4 text-3xl font-bold leading-tight text-[#f0f0f0] sm:text-5xl ${fontHeading}`}
         >
-          Želite da vaš logo bude
-          <br class="hidden sm:block" />
-          među partnerima ZenCarp turnira?
+          Želite da dobijete video materijal sa ZenCarp turnira za svoju
+          kompaniju?
         </h2>
-        <div
-          class={`mb-7 text-3xl font-bold text-[#c9a227] sm:text-4xl ${fontHeading}`}
-        >
-          20.000 RSD
+        <div class="my-8">
+          <span class={`text-5xl font-bold text-[#c9a227] ${fontData}`}
+            >20.000 RSD</span
+          >
         </div>
-        <p
-          class="mx-auto mb-9 max-w-xl text-[15px] leading-relaxed text-[#888]"
-        >
-          Logo u prenosu, logo na rezultatima i jedan video od 20 sekundi sa
-          materijalom sa turnira.
+        <p class="mb-10 text-[15px] leading-relaxed text-[#999] sm:text-lg">
+          1 poseban video od 15–20 sekundi + kompletan izbor najboljih snimaka
+          sa turnira sa vašim logotipom.
         </p>
-        <a
-          href="mailto:partnerstvo@zencarp.rs?subject=ZenCarp%20partnerstvo"
-          class={`inline-flex items-center justify-center rounded-full bg-[#c9a227] px-9 py-4 text-sm font-semibold text-[#0a0f0a] transition-colors hover:bg-[#d4b43a] ${fontHeading}`}
-        >
-          Postani partner
-        </a>
-        <p class="mt-4 text-xs text-[#555]">partnerstvo@zencarp.rs</p>
-        <p class="mt-8 text-xs leading-relaxed text-[#555]">
-          Ukoliko se turnir ne održi, uplaćeni iznos vraćamo u celosti.
-        </p>
+        <div class="flex flex-wrap items-center justify-center gap-4">
+          <a
+            href="mailto:partnerstvo@zencarp.rs?subject=ZenCarp%20partnerstvo"
+            class={`rounded-full bg-[#c9a227] px-8 py-4 text-sm font-medium text-[#0a0f0a] transition-colors hover:bg-[#d4b43a] ${fontHeading}`}
+          >
+            Postani partner
+          </a>
+          <a
+            href="#benefits"
+            class={`rounded-full border border-[#2a3a2a] px-8 py-4 text-sm font-medium text-[#e0e0e0] transition-colors hover:border-[#c9a227]/50 hover:text-[#c9a227] ${fontHeading}`}
+          >
+            Pročitaj ponudu ponovo
+          </a>
+        </div>
       </div>
     </section>
   </div>
 </Layout>
+
+<style>
+  .live-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 999px;
+    background: #e0473a;
+    box-shadow: 0 0 0 0 rgba(224, 71, 58, 0.6);
+    animation: pulse 1.8s ease-out infinite;
+  }
+  @keyframes pulse {
+    0% {
+      box-shadow: 0 0 0 0 rgba(224, 71, 58, 0.55);
+    }
+    70% {
+      box-shadow: 0 0 0 8px rgba(224, 71, 58, 0);
+    }
+    100% {
+      box-shadow: 0 0 0 0 rgba(224, 71, 58, 0);
+    }
+  }
+
+  .ticker {
+    animation: scroll-left 28s linear infinite;
+  }
+  @keyframes scroll-left {
+    from {
+      transform: translateX(0);
+    }
+    to {
+      transform: translateX(-50%);
+    }
+  }
+
+  .reveal {
+    opacity: 0;
+    transform: translateY(16px);
+    transition:
+      opacity 0.6s ease,
+      transform 0.6s ease;
+  }
+  .reveal.is-visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  details > summary {
+    list-style: none;
+  }
+  details > summary::-webkit-details-marker {
+    display: none;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .live-dot,
+    .ticker,
+    .reveal {
+      animation: none !important;
+      transition: none !important;
+    }
+    .reveal {
+      opacity: 1;
+      transform: none;
+    }
+  }
+</style>
+
+<script>
+  const io = new IntersectionObserver(
+    (entries) => {
+      for (const entry of entries) {
+        if (entry.isIntersecting) {
+          entry.target.classList.add("is-visible")
+          io.unobserve(entry.target)
+        }
+      }
+    },
+    { threshold: 0.2 }
+  )
+  document.querySelectorAll(".reveal").forEach((el) => io.observe(el))
+</script>

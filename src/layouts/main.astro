@@ -1,5 +1,4 @@
 ---
-// main.astro
 interface Props {
   title?: string
   description?: string
@@ -7,17 +6,29 @@ interface Props {
   cta?: { label: string; href: string }
 }
 
+const BASE = import.meta.env.BASE_URL
+import "@/styles/global.css"
+
+const fontHeading = "font-[family-name:var(--font-poppins)]"
+const fontBody = "font-[family-name:var(--font-inter)]"
+
+// --- NAVBAR DATA MOVED HERE ---
+const defaultNavLinks = [
+  { label: "Početna", href: BASE },
+  { label: "Jezero", href: `${BASE}lake` },
+  { label: "Partneri", href: `${BASE}partners` },
+  { label: "Pravilnik", href: `${BASE}rules` },
+  { label: "Plasman", href: `${BASE}results` },
+]
+
+const defaultCta = { label: "Prijavi ekipu", href: "#enter" }
+
 const {
   title = "ZenCarp",
   description = "4 tima. 4 sata. Jedan pobednik nosi sve.",
-  navLinks = [],
-  cta = { label: "Prijavi ekipu", href: "#prijava" },
+  navLinks = defaultNavLinks,
+  cta = defaultCta,
 } = Astro.props
-
-const BASE = import.meta.env.BASE_URL
-import "@/styles/global.css"
-const fontHeading = "font-[family-name:var(--font-poppins)]"
-const fontBody = "font-[family-name:var(--font-inter)]"
 ---
 
 <!doctype html>

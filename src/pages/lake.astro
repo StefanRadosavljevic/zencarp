@@ -1,0 +1,276 @@
+---
+// src/pages/lake.astro
+import Layout from "@/layouts/main.astro"
+
+const BASE = import.meta.env.BASE_URL
+const fontHeading = "font-[family-name:var(--font-poppins)]"
+const fontBody = "font-[family-name:var(--font-inter)]"
+const fontData = "font-[family-name:var(--font-oswald)]"
+
+const lakeStats = [
+  { label: "POVRŠINA", value: "~1 HA" },
+  { label: "DIMENZIJE", value: "100 × 100 M" },
+  { label: "PROSEČNA DUBINA", value: "1.5 – 2 M" },
+  { label: "MAKSIMALNA DUBINA", value: "4.5 M" },
+]
+
+const terrainFeatures = [
+  {
+    title: "Dno i reljef",
+    desc: "Kombinacija muljevitih i tvrdih zona. Bez unapred poznatih mapa, platoa ili kanala – takmičari sami čitaju vodu.",
+  },
+  {
+    title: "Centralno ostrvo",
+    desc: "Poluprečnik ~5 metara. Dostupno za pecanje, direktno utiče na raspored hranjenja i taktički izbor pozicije.",
+  },
+  {
+    title: "Vegetacija",
+    desc: "Trska uz obalu i podvodna trava. Bez lokvanja, panjeva ili granja, što omogućava čistu i kontrolisanu borbu.",
+  },
+  {
+    title: "Riblji fond",
+    desc: "1–2 tone ukupno. Šaran (2–6 kg, prosek 4 kg) i amur (6–15 kg, prosek 6–7 kg).",
+  },
+]
+---
+
+<Layout
+  title="Teren — ZenCarp"
+  description="Upoznajte teren takmičenja ZenCarp u Vojvodi Stepi, Banat. Kompaktan, taktički zahtevan i dizajniran za ozbiljan carp fishing."
+>
+  <div class={`min-h-screen bg-[#060a06] ${fontBody} text-[#e8e8e8]`}>
+    <!-- PAGE HERO -->
+    <section
+      class="relative flex min-h-[60vh] flex-col justify-end overflow-hidden border-b border-[#111a11]"
+    >
+      <div
+        class="absolute inset-0 z-10 bg-gradient-to-t from-[#060a06] via-[#060a06]/80 to-[#060a06]/30"
+      >
+      </div>
+
+      <div class="relative z-20 mx-auto w-full max-w-6xl px-5 pt-32 pb-16">
+        <div
+          class={`mb-4 text-xs font-semibold uppercase tracking-[0.3em] text-[#c9a227] ${fontData}`}
+        >
+          Lokacija takmičenja
+        </div>
+        <h1
+          class={`text-5xl font-bold leading-tight text-[#f0f0f0] sm:text-6xl ${fontHeading}`}
+        >
+          Jezero ZenCarp
+        </h1>
+        <p class="mt-4 max-w-2xl text-lg leading-relaxed text-[#aaa]">
+          Vojvoda Stepa, Banat, Srbija. Privatni i komercijalni teren
+          konstruisan isključivo za ozbiljno takmičarsko pecanje šarana.
+        </p>
+      </div>
+    </section>
+
+    <!-- STATS BAR -->
+    <section class="border-b border-[#111a11] bg-[#080c08]">
+      <div
+        class={`mx-auto grid max-w-6xl grid-cols-2 gap-6 px-5 py-8 sm:grid-cols-4 ${fontData}`}
+      >
+        {
+          lakeStats.map((stat) => (
+            <div class="border-l-2 border-[#c9a227] pl-4">
+              <div class="text-[10px] tracking-[0.25em] text-[#666] uppercase">
+                {stat.label}
+              </div>
+              <div class="mt-1 text-2xl font-semibold text-[#f0f0f0]">
+                {stat.value}
+              </div>
+            </div>
+          ))
+        }
+      </div>
+    </section>
+
+    <!-- LAKE IMAGE - HERO VISUAL -->
+    <section class="reveal relative overflow-hidden border-b border-[#111a11]">
+      <div
+        class="absolute inset-0 z-10 bg-gradient-to-t from-[#060a06] via-transparent to-transparent"
+      >
+      </div>
+
+      <!-- Container koji čuva proporcije slike -->
+      <div class="relative mx-auto max-w-5xl px-5">
+        <div
+          class="relative overflow-hidden rounded-xl border border-[#1a2e1a]"
+        >
+          <img
+            src={`${BASE}final_lake.jpeg`}
+            alt="Jezero ZenCarp - pogled sa obale"
+            class="h-auto w-full"
+            width="1055"
+            height="1008"
+          />
+
+          <!-- Overlay label -->
+          <div class="absolute bottom-4 left-4 z-20">
+            <div
+              class={`flex items-center gap-2 rounded-full bg-[#060a06]/80 px-4 py-2 backdrop-blur-sm`}
+            >
+              <span class="h-2 w-2 rounded-full bg-[#c9a227]"></span>
+              <span
+                class={`text-xs font-semibold uppercase tracking-[0.15em] text-[#c9a227] ${fontData}`}
+              >
+                Arena takmičenja
+              </span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- MAIN DESCRIPTION -->
+    <section class="reveal px-5 py-20">
+      <div
+        class="mx-auto max-w-4xl space-y-8 text-[15px] leading-relaxed text-[#ccc] sm:text-base"
+      >
+        <p>
+          Površine od približno jednog hektara i dimenzija oko 100 × 100 metara,
+          ovo gotovo kvadratno jezero nudi kompaktnu, ali taktički izuzetno
+          zahtevnu arenu. Obala je uređena i prilagođena postavljanju opreme,
+          dok je okruženje oivičeno drvećem, pružajući prirodan mir i fokus
+          neophodan tokom petosatnog takmičenja.
+        </p>
+        <p>
+          Hidrološke karakteristike terena diktiraju specifičan pristup.
+          Prosečna dubina kreće se između 1,5 i 2 metra, sa maksimumom od 4,5
+          metara. Dno je heterogena kombinacija muljevitih i tvrdih zona. S
+          obzirom na to da ne postoji precizna mapa podvodnog reljefa, takmičari
+          ne mogu da se oslanjaju na unapred poznate strukture poput platoa,
+          kanala ili rupa. Umesto toga, primorani su da sopstvenim obeležavanjem
+          i čitanjem vode grade strategiju od nule.
+        </p>
+
+        <!-- FEATURE GRID -->
+        <div class="my-12 grid gap-6 sm:grid-cols-2">
+          {
+            terrainFeatures.map((feature) => (
+              <div class="rounded-xl border border-[#1a2e1a] bg-[#0a0f0a] p-6 transition-colors hover:border-[#c9a227]/30">
+                <h3
+                  class={`mb-3 text-sm font-semibold tracking-[0.15em] text-[#c9a227] uppercase ${fontData}`}
+                >
+                  {feature.title}
+                </h3>
+                <p class="text-sm leading-relaxed text-[#aaa]">
+                  {feature.desc}
+                </p>
+              </div>
+            ))
+          }
+        </div>
+
+        <p>
+          Centralni deo jezera zauzima veliko ostrvo poluprečnika oko 5 metara,
+          koje je dostupno za pecanje i predstavlja važan element ribolovnog
+          terena. Njegovo prisustvo direktno utiče na izbor pozicije i raspored
+          hranjenja, iako tačan obrazac zadržavanja ribe uz njega ostaje deo
+          takmičarske nepoznanice koju svaka ekipa mora samostalno da reši.
+          Vegetaciju čine trska uz obalu i podvodna, odnosno obalna trava. Na
+          terenu nema lokvanja, panjeva, granja ili drugih podvodnih prepreka,
+          što omogućava čistu i kontrolisanu borbu sa ribom.
+        </p>
+
+        <p>
+          Riblji fond, procenjen na ukupno 1–2 tone, čine šarani težine 2–6 kg
+          (sa najčešćim ulovom oko 4 kg) i amuri težine 6–15 kg (najčešći ulov
+          6–7 kg). Upravo ova struktura fonda nameće ključnu taktičku dimenziju
+          takmičenja: dok su ulovi šarana od 4 kg očekivana osnova za bodovanje,
+          jedan ulov amura od 6–7 kg može drastično i trenutno promeniti ishod i
+          poredak na tabeli.
+        </p>
+
+        <div
+          class="rounded-xl border border-[#c9a227]/20 bg-[#c9a227]/5 p-6 sm:p-8"
+        >
+          <h3 class={`mb-3 text-lg font-bold text-[#f0f0f0] ${fontHeading}`}>
+            Prednost za gledaoce, izazov za takmičare
+          </h3>
+          <p class="text-[15px] leading-relaxed text-[#ccc]">
+            Kompaktne dimenzije jezera od jednog hektara predstavljaju značajnu
+            prednost za spektatorski i televizijski doživljaj. Gledaoci i
+            publika mogu lako da prate razvoj događaja, kretanje rezultata i
+            atmosferu na obali. Ipak, mala površina <strong
+              class="text-[#f0f0f0]">ne podrazumeva ujednačene uslove</strong
+            >. Svaka pozicija nosi svoje specifičnosti u pogledu dubine,
+            strukture dna i blizine vegetacije, zahtevajući od takmičara
+            precizno prilagođavanje umesto oslanjanja na slučajnost. ZenCarp
+            jezero nije samo lepa lokacija; to je dinamičan teren gde se svaki
+            detalj računa.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- CTA -->
+    <section
+      class="reveal border-t border-[#111a11] bg-[#080c08] px-5 py-20 text-center"
+    >
+      <div class="mx-auto max-w-2xl">
+        <h2
+          class={`mb-6 text-3xl font-bold text-[#f0f0f0] sm:text-4xl ${fontHeading}`}
+        >
+          Spremni za izazov?
+        </h2>
+        <p class="mb-8 text-[15px] leading-relaxed text-[#aaa]">
+          Pročitaj pravilnik, upoznaj se sa uslovima i prijavi svoju ekipu za
+          naredni turnir.
+        </p>
+        <div class="flex flex-wrap items-center justify-center gap-4">
+          <a
+            href="/pravilnik"
+            class={`rounded-full border border-[#2a3a2a] px-7 py-3.5 text-sm font-medium text-[#e0e0e0] transition-colors hover:border-[#c9a227]/50 hover:text-[#c9a227] ${fontHeading}`}
+          >
+            Pravilnik takmičenja
+          </a>
+          <a
+            href="#enter"
+            class={`rounded-full bg-[#c9a227] px-7 py-3.5 text-sm font-medium text-[#0a0f0a] transition-colors hover:bg-[#d4b43a] ${fontHeading}`}
+          >
+            Prijavi ekipu
+          </a>
+        </div>
+      </div>
+    </section>
+  </div>
+</Layout>
+
+<style is:global>
+  .reveal {
+    opacity: 0;
+    transform: translateY(16px);
+    transition:
+      opacity 0.6s ease,
+      transform 0.6s ease;
+  }
+  .reveal.is-visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .reveal {
+      opacity: 1;
+      transform: none;
+      transition: none;
+    }
+  }
+</style>
+
+<script>
+  const io = new IntersectionObserver(
+    (entries) => {
+      for (const entry of entries) {
+        if (entry.isIntersecting) {
+          entry.target.classList.add("is-visible")
+          io.unobserve(entry.target)
+        }
+      }
+    },
+    { threshold: 0.15 }
+  )
+  document.querySelectorAll(".reveal").forEach((el) => io.observe(el))
+</script>
