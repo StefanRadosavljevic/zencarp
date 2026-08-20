@@ -1,0 +1,443 @@
+---
+// src/pages/competitors.astro
+import Layout from "@/layouts/main.astro"
+
+const BASE = import.meta.env.BASE_URL
+const fontHeading = "font-[family-name:var(--font-poppins)]"
+const fontBody = "font-[family-name:var(--font-inter)]"
+const fontData = "font-[family-name:var(--font-oswald)]"
+
+const tickerItems = [
+  "DATUM: USKORO",
+  "4 EKIPE · 2 TAKMIČARA",
+  "5 SATI NA VODI (16h–21h)",
+  "FIKSNE POZICIJE",
+  "NAGRADA: 200 €",
+  "PRIJAVE SU OTVORENE",
+]
+
+const schedule = [
+  {
+    time: "14:00",
+    label: "Dolazak i overa",
+    desc: "Dolazak ekipa na jezero, provera opreme, potpisivanje izjava i uplata kotizacije.",
+  },
+  {
+    time: "14:30",
+    label: "Izvlačenje pozicija",
+    desc: "Nasumično izvlačenje papirića P1, P2, P3 ili P4. Pozicija je fiksna za ceo turnir.",
+  },
+  {
+    time: "16:00",
+    label: "Zvanični početak",
+    desc: "Početak 5-satnog ribolova. Hranjenje je dozvoljeno bez ograničenja.",
+  },
+  {
+    time: "21:00",
+    label: "Kraj takmičenja",
+    desc: "Završetak pecanja. Obavezno prisustvo svih takmičara pri finalnom pregledu rezultata.",
+  },
+  {
+    time: "21:30",
+    label: "Proglašenje pobednika",
+    desc: "Dodela nagrade od 200 € pobedničkoj ekipi i završna fotografija.",
+  },
+]
+
+const gearInfo = [
+  {
+    category: "Šta mi obezbeđujemo",
+    items: [
+      "Fiksna takmičarska pozicija (P1–P4) na jezeru",
+      "Profesionalni redar za merenje svake ribe pred kamerom",
+      "Jedan obrok i jedno piće po takmičarskom timu",
+      "Službena vaga i podmetač organizatora",
+      "Potpuna video produkcija i praćenje uživo",
+    ],
+  },
+  {
+    category: "Šta donosite vi",
+    items: [
+      "Maksimalno 8 štapova (najviše 2 rodpoda)",
+      "Sva lična oprema: stolice, šatori, odeća (nema struje/infrastrukture na poziciji)",
+      "Mamci, prihrana i dodatna hrana/piće",
+      "Dobro raspoloženje i sportski duh",
+    ],
+  },
+]
+
+const faq = [
+  {
+    q: "Da li je datum već određen?",
+    a: "Tačan datum će biti naknadno objavljen. Trenutno smo u fazi finalizacije koncepta. Prijavom sada rezervišete jedno od samo 4 dostupna mesta.",
+  },
+  {
+    q: "Šta ako nemam partnera za tim?",
+    a: "Takmičenje je isključivo timsko (2 člana). Ako se prijavljujete sami, kontaktirajte nas pa ćemo pokušati da vas uparimo sa drugim takmičarem koji traži partnera.",
+  },
+  {
+    q: "Da li se riba zadržava?",
+    a: "Ne. ZenCarp je 100% Catch & Release takmičenje. Svaka izmerena riba se odmah i bezbedno vraća u vodu pred kamerom.",
+  },
+  {
+    q: "Šta se dešava ako padne kiša?",
+    a: "Takmičenje se održava po svim vremenskim uslovima, osim u slučaju ekstremnog nevremena (grad, oluja) kada glavni sudija može privremeno prekinuti takmičenje radi bezbednosti.",
+  },
+]
+
+// Stats extracted for the Hero section to match index.astro pattern
+const heroStats = [
+  { label: "KOTIZACIJA", value: "50 € / tim" },
+  { label: "NAGRADA", value: "200 €" },
+  { label: "FORMAT", value: "2 člana" },
+  { label: "MESTA", value: "4 tima" },
+]
+---
+
+<Layout
+  title="Takmičari — ZenCarp"
+  description="Sve informacije za takmičare ZenCarp turnira. Format, oprema, tok dana i prijava."
+>
+  <div class={`min-h-screen bg-[#060a06] ${fontBody} text-[#e8e8e8]`}>
+    <!-- Ticker -->
+    <div class="overflow-hidden border-b border-[#111a11] bg-[#080c08] py-2">
+      <div
+        class={`ticker flex w-max gap-10 whitespace-nowrap text-[11px] font-medium uppercase tracking-[0.2em] text-[#c9a227] ${fontData}`}
+      >
+        {
+          [...Array(2)].map(() =>
+            tickerItems.map((item) => (
+              <span class="flex items-center gap-10">
+                {item}
+                <span class="text-[#333]">/</span>
+              </span>
+            ))
+          )
+        }
+      </div>
+    </div>
+
+    <!-- HERO -->
+    <section
+      class="relative flex min-h-[85vh] flex-col justify-end overflow-hidden"
+    >
+      <div
+        class="absolute inset-0 bg-gradient-to-t from-[#060a06] via-[#060a06]/80 to-[#060a06]/40"
+      >
+      </div>
+
+      <div class="relative z-10 mx-auto w-full max-w-6xl px-5 pt-32 pb-14">
+        <div class="mb-6 flex items-center gap-3">
+          <span class="live-dot"></span>
+          <span
+            class={`text-xs font-semibold uppercase tracking-[0.3em] text-[#e8e8e8] ${fontData}`}
+          >
+            Informacije za takmičare
+          </span>
+        </div>
+
+        <h1
+          class={`text-[12vw] font-bold leading-[0.85] text-[#f0f0f0] sm:text-[7rem] ${fontHeading}`}
+        >
+          SPREMNI ZA <span class="text-[#c9a227]">BORBU</span>?
+        </h1>
+
+        <p
+          class="mt-8 max-w-xl text-[15px] leading-relaxed text-[#ccc] sm:text-lg"
+        >
+          Četiri ekipe. Jedno jezero. Pet sati koncentracije od 16h do 21h. Ovde
+          ćete pronaći sve što vam je potrebno da se pripremite za ZenCarp
+          takmičenje.
+          <span class="mt-2 block font-semibold text-[#f0f0f0]"
+            >Datum turnira biće naknadno objavljen.</span
+          >
+        </p>
+
+        <div class="mt-9 flex flex-wrap items-center gap-4">
+          <a
+            href="#prijava"
+            class={`rounded-full bg-[#c9a227] px-8 py-3.5 text-sm font-medium text-[#0a0f0a] transition-colors hover:bg-[#d4b43a] ${fontHeading}`}
+          >
+            Rezerviši mesto
+          </a>
+          <a
+            href={`${BASE}pravilnik`}
+            class={`rounded-full border border-[#2a3a2a] px-8 py-3.5 text-sm font-medium text-[#e0e0e0] transition-colors hover:border-[#c9a227]/50 hover:text-[#c9a227] ${fontHeading}`}
+          >
+            Pročitaj pravilnik
+          </a>
+        </div>
+
+        <!-- Hero Stats (Moved from lower section to match index.astro pattern) -->
+        <div
+          class={`mt-14 grid grid-cols-2 gap-x-8 gap-y-6 border-t border-[#1a2e1a] pt-6 sm:flex sm:flex-wrap sm:gap-x-12 ${fontData}`}
+        >
+          {
+            heroStats.map((s) => (
+              <div>
+                <div class="text-[10px] tracking-[0.25em] text-[#777] uppercase">
+                  {s.label}
+                </div>
+                <div class="mt-1 text-2xl font-medium text-[#f0f0f0]">
+                  {s.value}
+                </div>
+              </div>
+            ))
+          }
+        </div>
+      </div>
+    </section>
+
+    <!-- SCHEDULE (Styled like "Live Experience" list) -->
+    <section class="reveal border-y border-[#111a11] bg-[#080c08] px-5 py-24">
+      <div class="mx-auto max-w-4xl">
+        <div class="mb-14 max-w-2xl">
+          <div
+            class={`mb-4 text-xs font-semibold uppercase tracking-[0.25em] text-[#c9a227] ${fontData}`}
+          >
+            Tok dana
+          </div>
+          <h2
+            class={`mb-5 text-3xl font-bold leading-tight text-[#f0f0f0] sm:text-4xl ${fontHeading}`}
+          >
+            Satnica takmičenja.
+          </h2>
+        </div>
+
+        <div class="divide-y divide-[#1a2e1a]">
+          {
+            schedule.map((item) => (
+              <div class="flex items-start gap-4 py-5">
+                <span
+                  class={`mt-1 min-w-[70px] text-xl font-semibold text-[#c9a227] ${fontData}`}
+                >
+                  {item.time}
+                </span>
+                <div>
+                  <div
+                    class={`text-sm font-medium tracking-[0.1em] text-[#e8e8e8] uppercase ${fontData}`}
+                  >
+                    {item.label}
+                  </div>
+                  <div class="mt-1 text-[15px] leading-relaxed text-[#888]">
+                    {item.desc}
+                  </div>
+                </div>
+              </div>
+            ))
+          }
+        </div>
+      </div>
+    </section>
+
+    <!-- GEAR / LOGISTICS (Styled like "Koncept" split layout) -->
+    <section class="reveal px-5 py-24">
+      <div class="mx-auto grid max-w-6xl gap-14 lg:grid-cols-[1fr_1fr]">
+        <div>
+          <div
+            class={`mb-4 text-xs font-semibold uppercase tracking-[0.25em] text-[#c9a227] ${fontData}`}
+          >
+            Logistika
+          </div>
+          <h2
+            class={`mb-6 text-3xl font-bold leading-tight text-[#f0f0f0] sm:text-4xl ${fontHeading}`}
+          >
+            Šta treba da znaš pre dolaska.
+          </h2>
+          <div class="space-y-4 text-[15px] leading-relaxed text-[#aaa]">
+            <p>
+              Takmičenje je dizajnirano da bude jednostavno i fer. Organizator
+              obezbeđuje ključnu infrastrukturu, dok takmičari donose ličnu
+              opremu i mamce.
+            </p>
+            <p>
+              Nagradni fond se formira isključivo od kotizacija prijavljenih
+              timova. Isplata se vrši u gotovini, na licu mesta, odmah po
+              završetku merenja i proglašenja pobednika.
+            </p>
+          </div>
+        </div>
+
+        <div class="space-y-6">
+          {
+            gearInfo.map((col) => (
+              <div class="rounded-xl border border-[#1a2e1a] bg-[#0a0f0a] p-6">
+                <h3
+                  class={`mb-4 text-sm font-semibold tracking-[0.15em] text-[#c9a227] uppercase ${fontData}`}
+                >
+                  {col.category}
+                </h3>
+                <ul class="space-y-3">
+                  {col.items.map((item) => (
+                    <li class="flex items-start gap-3 text-[15px] leading-relaxed text-[#aaa]">
+                      <span class="mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full bg-[#c9a227]" />
+                      {item}
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            ))
+          }
+        </div>
+      </div>
+    </section>
+
+    <!-- FAQ -->
+    <section class="reveal border-y border-[#111a11] bg-[#080c08] px-5 py-24">
+      <div class="mx-auto max-w-3xl">
+        <div class="mb-10 text-center">
+          <div
+            class={`mb-4 text-xs font-semibold uppercase tracking-[0.25em] text-[#c9a227] ${fontData}`}
+          >
+            Česta pitanja
+          </div>
+          <h2
+            class={`text-3xl font-bold leading-tight text-[#f0f0f0] sm:text-4xl ${fontHeading}`}
+          >
+            Sve što te zanima.
+          </h2>
+        </div>
+
+        <div class="space-y-4">
+          {
+            faq.map((item) => (
+              <div class="rounded-xl border border-[#1a2e1a] bg-[#0a0f0a] p-6">
+                <h3
+                  class={`text-base font-semibold text-[#f0f0f0] ${fontHeading}`}
+                >
+                  {item.q}
+                </h3>
+                <p class="mt-2 text-[15px] leading-relaxed text-[#aaa]">
+                  {item.a}
+                </p>
+              </div>
+            ))
+          }
+        </div>
+      </div>
+    </section>
+
+    <!-- FINAL CTA / REGISTRATION (Identical to index.astro CTA) -->
+    <section id="prijava" class="reveal relative overflow-hidden px-5 py-28">
+      <div
+        class="absolute inset-0 bg-gradient-to-b from-[#080c08] to-[#060a06]"
+      >
+      </div>
+      <div class="relative mx-auto max-w-3xl text-center">
+        <div
+          class={`mb-4 text-xs font-semibold uppercase tracking-[0.25em] text-[#c9a227] ${fontData}`}
+        >
+          Prijave
+        </div>
+        <h2
+          class={`mb-4 text-3xl font-bold leading-tight text-[#f0f0f0] sm:text-5xl ${fontHeading}`}
+        >
+          Rezerviši jedno od 4 mesta.
+        </h2>
+        <p class="mb-10 text-[15px] leading-relaxed text-[#999] sm:text-lg">
+          Iako tačan datum još uvek nije zakazan, broj mesta je strogo ograničen
+          na četiri tima. Pošaljite nam mejl sa imenima članova tima i kontakt
+          telefonom da biste dobili sve detalje čim budu objavljeni.
+        </p>
+
+        <div
+          class="flex flex-col items-center justify-center gap-4 sm:flex-row"
+        >
+          <a
+            href="mailto:zencarp@outlook.com?subject=Prijava%20ekipe%20-%20ZenCarp&body=Pozdrav,%0A%0AZelim%20da%20prijavim%20ekipu%20za%20ZenCarp%20takmicenje.%0A%0AIme%20clana%201:%20%0AIme%20clana%202:%20%0AKontakt%20telefon:%20%0A%0AHvala!"
+            class={`rounded-full bg-[#c9a227] px-8 py-3.5 text-sm font-medium text-[#0a0f0a] transition-colors hover:bg-[#d4b43a] ${fontHeading}`}
+          >
+            Pošalji prijavu na mejl
+          </a>
+          <a
+            href="https://wa.me/381600000000"
+            target="_blank"
+            rel="noopener noreferrer"
+            class={`rounded-full border border-[#2a3a2a] px-8 py-3.5 text-sm font-medium text-[#e0e0e0] transition-colors hover:border-[#c9a227]/50 hover:text-[#c9a227] ${fontHeading}`}
+          >
+            Piši nam na WhatsApp
+          </a>
+        </div>
+
+        <p class="mt-8 text-xs text-[#555]">
+          Slanjem prijave ne obavezujete se na plaćanje dok se ne potvrdi
+          zvaničan datum turnira.
+        </p>
+      </div>
+    </section>
+  </div>
+</Layout>
+
+<style is:global>
+  .live-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 999px;
+    background: #e0473a;
+    box-shadow: 0 0 0 0 rgba(224, 71, 58, 0.6);
+    animation: pulse 1.8s ease-out infinite;
+  }
+  @keyframes pulse {
+    0% {
+      box-shadow: 0 0 0 0 rgba(224, 71, 58, 0.55);
+    }
+    70% {
+      box-shadow: 0 0 0 8px rgba(224, 71, 58, 0);
+    }
+    100% {
+      box-shadow: 0 0 0 0 rgba(224, 71, 58, 0);
+    }
+  }
+
+  .ticker {
+    animation: scroll-left 28s linear infinite;
+  }
+  @keyframes scroll-left {
+    from {
+      transform: translateX(0);
+    }
+    to {
+      transform: translateX(-50%);
+    }
+  }
+
+  .reveal {
+    opacity: 0;
+    transform: translateY(16px);
+    transition:
+      opacity 0.6s ease,
+      transform 0.6s ease;
+  }
+  .reveal.is-visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .live-dot,
+    .ticker,
+    .reveal {
+      animation: none !important;
+      transition: none !important;
+    }
+    .reveal {
+      opacity: 1;
+      transform: none;
+    }
+  }
+</style>
+
+<script>
+  const io = new IntersectionObserver(
+    (entries) => {
+      for (const entry of entries) {
+        if (entry.isIntersecting) {
+          entry.target.classList.add("is-visible")
+          io.unobserve(entry.target)
+        }
+      }
+    },
+    { threshold: 0.15 }
+  )
+  document.querySelectorAll(".reveal").forEach((el) => io.observe(el))
+</script>

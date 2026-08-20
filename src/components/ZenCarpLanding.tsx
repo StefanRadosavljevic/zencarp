@@ -465,17 +465,17 @@ export default function ZenCarpLanding() {
                                 </div>
                             </FadeIn>
                             <FadeIn delay={0.15}>
-                              <div className="relative">
-                                <div className="absolute -inset-3 rounded-4xl bg-linear-to-br from-[#c9a227]/10 via-transparent to-[#7cb87c]/10 blur-xl" />
-                                <div className="relative overflow-hidden rounded-2xl border border-[#1a2e1a] bg-[#0d140d]/90 p-4 shadow-2xl">
-                                  <img
-                                    src={`${import.meta.env.BASE_URL}overlay_preview.png`}
-                                    alt="Broadcast overlay preview"
-                                    className="h-auto w-full rounded-xl"
-                                    style={{ aspectRatio: "16/9", objectFit: "contain" }}
-                                  />
+                                <div className="relative">
+                                    <div className="absolute -inset-3 rounded-4xl bg-linear-to-br from-[#c9a227]/10 via-transparent to-[#7cb87c]/10 blur-xl" />
+                                    <div className="relative overflow-hidden rounded-2xl border border-[#1a2e1a] bg-[#0d140d]/90 p-4 shadow-2xl">
+                                        <img
+                                            src={`${import.meta.env.BASE_URL}overlay_preview.png`}
+                                            alt="Broadcast overlay preview"
+                                            className="h-auto w-full rounded-xl"
+                                            style={{ aspectRatio: "16/9", objectFit: "contain" }}
+                                        />
+                                    </div>
                                 </div>
-                              </div>
                             </FadeIn>
                         </div>
                     </div>
@@ -562,8 +562,8 @@ export default function ZenCarpLanding() {
                                             </li>
                                         ))}
                                     </ul>
-                                    <a href="mailto:partnerstvo@zencarp.rs" className={`inline-flex w-full items-center justify-center gap-2 rounded-full bg-[#c9a227] px-6 py-3 text-sm font-extrabold uppercase tracking-wider text-[#0a0f0a] transition-transform hover:scale-105 ${fontHeading}`}>Kontaktiraj nas</a>
-                                    <p className="mt-3 text-xs text-[#555]">partnerstvo@zencarp.rs</p>
+                                    <a href="mailto:zencarp@outlook.com" className={`inline-flex w-full items-center justify-center gap-2 rounded-full bg-[#c9a227] px-6 py-3 text-sm font-extrabold uppercase tracking-wider text-[#0a0f0a] transition-transform hover:scale-105 ${fontHeading}`}>Kontaktiraj nas</a>
+                                    <p className="mt-3 text-xs text-[#555]">zencarp@outlook.com</p>
                                 </div>
                             </div>
                         </FadeIn>
@@ -591,7 +591,7 @@ export default function ZenCarpLanding() {
                         <FadeIn delay={0.2}>
                             <p className="mb-8 text-[15px] leading-relaxed text-[#aaa]">Detaljan pravilnik je dostupan ispod.</p>
                             <div className="flex flex-col items-center justify-center gap-4 sm:flex-row">
-                                <a href="mailto:prijava@zencarp.rs" className={`inline-flex items-center gap-2 rounded-full bg-[#c9a227] px-8 py-3.5 text-sm font-extrabold uppercase tracking-wider text-[#0a0f0a] shadow-lg shadow-[#c9a227]/20 transition-transform hover:scale-105 ${fontHeading}`}><TrophyIcon className="h-4 w-4" /> Prijavi ekipu</a>
+                                <a href="mailto:zencarp@outlook.com" className={`inline-flex items-center gap-2 rounded-full bg-[#c9a227] px-8 py-3.5 text-sm font-extrabold uppercase tracking-wider text-[#0a0f0a] shadow-lg shadow-[#c9a227]/20 transition-transform hover:scale-105 ${fontHeading}`}><TrophyIcon className="h-4 w-4" /> Prijavi ekipu</a>
                                 <a href={`${import.meta.env.BASE_URL}pravilnik`} className={`inline-flex items-center gap-2 rounded-full border border-[#1a2e1a] bg-[#0d140d]/60 px-8 py-3.5 text-sm font-bold uppercase tracking-wider text-[#e0e0e0] backdrop-blur-sm transition-colors hover:border-[#c9a227]/40 hover:text-[#c9a227] ${fontHeading}`}><FileTextIcon className="h-4 w-4" /> Pravilnik</a>
                             </div>
                         </FadeIn>

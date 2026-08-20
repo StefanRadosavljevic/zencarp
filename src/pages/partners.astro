@@ -23,27 +23,41 @@ const heroStats = [
   { label: "PRVO IZDANJE", value: "2026" },
 ]
 
-const mainBenefits = [
+// Dva video proizvoda čine paket. Ovo je JEDINO mesto na sajtu gde se
+// detaljno objašnjavaju — ostale sekcije (tabela, FAQ) samo upućuju nazad,
+// da ne bi isti tekst bio ponovljen na pet mesta.
+const offerProducts = [
   {
-    title: "Vaš poseban video",
-    desc: "Jedan video od 15–20 sekundi napravljen isključivo za vas, sa jedinstvenim kadrovima sa turnira i vašim logotipom.",
+    tag: "Proizvod 1 / Vaš poseban video",
+    title: "Video koji dobija samo vaša firma",
+    desc: [
+      "Tokom turnira snimamo veliki broj različitih kadrova — kamerama i dronom. Od tog materijala pravimo jedan video od 15–20 sekundi isključivo za vas, sa kadrovima koje ne koristimo ni u jednom videu druge firme.",
+    ],
+    bullets: [
+      "Trajanje: 15–20 sekundi",
+      "Kadrovi jedinstveni za vašu firmu — ne ponavljaju se kod drugih partnera",
+      "Sadrži logotip vaše kompanije",
+      "Gotov, obrađen i spreman za objavu",
+    ],
   },
   {
-    title: "Kompletan izbor najboljih snimaka",
-    desc: "Najbolji ulovi, borbe sa ribom, atmosfera i snimci dronom. Svaki partner dobija ceo ovaj izbor.",
-  },
-  {
-    title: "Logo tokom prenosa",
-    desc: "Vaš logotip biće prikazan u traci partnera tokom YouTube prenosa i na stranici sa rezultatima uživo.",
+    tag: "Proizvod 2 / Zajednički izbor snimaka",
+    title: "Kompletan izbor najboljih snimaka sa turnira",
+    desc: [
+      "Posle turnira biramo najbolje kadrove — ulove, borbu sa ribom, atmosferu, dron. Recimo da izaberemo 20 takvih snimaka: taj isti izbor od 20 snimaka dobijaju svi partneri.",
+      "Razlika je samo u logotipu — svaka firma dobija sopstvenu verziju fajla, sa isključivo svojim logom. Niko ne dobija verziju sa tuđim logotipom.",
+    ],
+    bullets: [
+      "Isti izbor snimaka za sve partnere",
+      "Svaka firma dobija svoju verziju — samo sa svojim logom",
+      "Gotovi, obrađeni snimci, ne sirovi materijal",
+    ],
   },
 ]
 
 const deliveryTable = [
-  { item: "Poseban video (15–20 sekundi)", unique: "DA", shared: "NE" },
-  { item: "Izbor najboljih snimaka sa turnira", unique: "NE", shared: "DA" },
-  { item: "Logo u video materijalu", unique: "VAŠ LOGO", shared: "VAŠ LOGO" },
-  { item: "Logo u YouTube prenosu", unique: "DA", shared: "DA" },
-  { item: "Logo na rezultatima uživo", unique: "DA", shared: "DA" },
+  { item: "Poseban video (15–20 sekundi)", unique: "DA", shared: "—" },
+  { item: "Izbor najboljih snimaka sa turnira", unique: "—", shared: "DA" },
 ]
 
 const usageChannels = [
@@ -57,24 +71,12 @@ const usageChannels = [
 
 const faqItems = [
   {
-    q: "Šta tačno dobijam za 20.000 RSD?",
-    a: "Dobijate jedan poseban video od 15–20 sekundi napravljen za vašu kompaniju, kompletan izbor najboljih obrađenih snimaka sa turnira (svaki sa vašim logotipom), kao i prikaz logotipa tokom prenosa i na rezultatima uživo.",
-  },
-  {
-    q: "Da li dobijam jedan video ili više videa?",
-    a: "Dobijate dva skupa materijala: 1) Jedan poseban video od 15–20 sekundi koji je unikatan za vas, i 2) Kompletan izbor najboljih kratkih snimaka sa turnira (npr. 20 različitih snimaka).",
-  },
-  {
     q: "Koliko traje poseban video?",
     a: "Između 15 i 20 sekundi, optimizovan za objavljivanje na društvenim mrežama.",
   },
   {
     q: "Da li moj poseban video ima iste kadrove kao video druge kompanije?",
     a: "Ne. Tokom turnira snimamo veliki broj različitih kadrova. Za vaš video biramo konkretne kadrove koji se ne koriste u posebnom videu druge kompanije. Svaka firma dobija svoj jedinstveni izbor.",
-  },
-  {
-    q: "Da li dobijam sve najbolje snimke sa turnira?",
-    a: "Da. Nakon turnira biramo najbolje snimke i svaki partner dobija kompletan taj izbor.",
   },
   {
     q: "Da li svaki od tih snimaka ima moj logotip?",
@@ -180,9 +182,9 @@ const eventInfo = [
         <p
           class="mt-6 max-w-2xl text-[16px] leading-relaxed text-[#ccc] sm:text-lg"
         >
-          Za 20.000 RSD dobijate jedan poseban video od 15–20 sekundi za svoju
-          kompaniju, kao i kompletan izbor najboljih obrađenih snimaka sa
-          turnira — svaki sa vašim logotipom.
+          Za 20.000 RSD dobijate dva video proizvoda za svoju kompaniju: jedan
+          poseban video od 15–20 sekundi napravljen samo za vas, i kompletan
+          izbor najboljih snimaka sa turnira — sa vašim logotipom.
         </p>
 
         <div class="mt-9 flex flex-wrap items-center gap-4">
@@ -219,7 +221,7 @@ const eventInfo = [
       </div>
     </section>
 
-    <!-- MAIN BENEFITS -->
+    <!-- OFFER: the two video products, explained once, in full -->
     <section
       id="benefits"
       class="reveal border-y border-[#111a11] bg-[#080c08] px-5 py-24"
@@ -234,185 +236,161 @@ const eventInfo = [
           <h2
             class={`mb-5 text-3xl font-bold leading-tight text-[#f0f0f0] sm:text-4xl ${fontHeading}`}
           >
-            Šta tačno dobijate.
+            Šta tačno dobijate za 20.000 RSD.
           </h2>
           <p class="text-[15px] leading-relaxed text-[#999]">
-            Jednostavna i transparentna ponuda. Svi partneri plaćaju istu cenu i
-            dobijaju isti paket, bez skrivenih troškova ili različitih nivoa
+            Jedna cena, isti paket za svakog partnera — dva video proizvoda, oba
+            sa vašim logotipom. Bez skrivenih troškova i bez različitih nivoa
             sponzorstva.
           </p>
         </div>
 
-        <div class="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-          {
-            mainBenefits.map((b, i) => (
-              <div class="rounded-xl border border-[#1a2e1a] bg-[#0a0f0a] p-6">
-                <div
-                  class={`mb-3 text-sm font-medium tracking-[0.1em] text-[#c9a227] uppercase ${fontData}`}
-                >
-                  0{i + 1} / {b.title}
-                </div>
-                <div class="text-[15px] leading-relaxed text-[#aaa]">
-                  {b.desc}
-                </div>
+        <div class="grid gap-10 lg:grid-cols-2">
+          <!-- Product 1: special video, with phone mockup -->
+          <div class="flex flex-col gap-6">
+            <div>
+              <div
+                class={`mb-3 text-sm font-medium tracking-[0.1em] text-[#c9a227] uppercase ${fontData}`}
+              >
+                {offerProducts[0].tag}
               </div>
-            ))
-          }
-        </div>
-      </div>
-    </section>
+              <h3
+                class={`mb-3 text-xl font-bold text-[#f0f0f0] ${fontHeading}`}
+              >
+                {offerProducts[0].title}
+              </h3>
+              {
+                offerProducts[0].desc.map((p) => (
+                  <p class="mb-3 text-[15px] leading-relaxed text-[#aaa]">
+                    {p}
+                  </p>
+                ))
+              }
+              <ul class="mt-4 space-y-2 text-sm text-[#999]">
+                {
+                  offerProducts[0].bullets.map((b) => (
+                    <li class="flex items-start gap-2">
+                      <span class="mt-1.5 h-1 w-1 shrink-0 rounded-full bg-[#c9a227]" />
+                      {b}
+                    </li>
+                  ))
+                }
+              </ul>
+            </div>
 
-    <!-- SPECIAL VIDEO DETAIL -->
-    <section class="reveal px-5 py-24">
-      <div class="mx-auto grid max-w-6xl items-center gap-14 lg:grid-cols-2">
-        <div class="order-2 lg:order-1">
-          <div
-            class={`mb-4 text-xs font-semibold uppercase tracking-[0.25em] text-[#c9a227] ${fontData}`}
-          >
-            Vaš poseban video
+            <div class="flex justify-center">
+              <div
+                class="relative w-[260px] overflow-hidden rounded-[2rem] border-4 border-[#111a11] bg-[#0a0f0a] shadow-2xl shadow-black/50"
+              >
+                <div
+                  class="absolute top-0 left-1/2 z-10 h-5 w-24 -translate-x-1/2 rounded-b-2xl bg-[#111a11]"
+                >
+                </div>
+                <video
+                  src={`${BASE}ZenCarpPhone.mp4`}
+                  loop
+                  muted
+                  playsinline
+                  autoplay
+                  class="aspect-[9/16] h-auto w-full object-cover"></video>
+              </div>
+            </div>
           </div>
-          <h2
-            class={`mb-6 text-3xl font-bold leading-tight text-[#f0f0f0] sm:text-4xl ${fontHeading}`}
-          >
-            Jedinstveni kadrovi za vašu kompaniju.
-          </h2>
-          <div class="space-y-4 text-[15px] leading-relaxed text-[#aaa]">
-            <p>
-              Svaka kompanija dobija <strong class="text-[#e8e8e8]"
-                >jedan poseban video</strong
-              > koji se pravi isključivo za nju.
-            </p>
-            <p>
-              Tokom turnira snimamo veliki broj različitih kadrova kamerama i
-              dronom. Za vaš video biramo konkretne kadrove koji se <strong
-                class="text-[#e8e8e8]">ne koriste</strong
-              > u posebnom videu druge kompanije.
-            </p>
-            <p class="text-[#c9a227]">
-              Primer: Ako tokom turnira snimimo 30 različitih kadrova dronom,
-              nećemo isti kadar koristiti u posebnom videu dve kompanije. Svaka
-              kompanija dobija svoj izbor kadrova.
-            </p>
-            <ul class="mt-4 space-y-2 text-sm text-[#999]">
-              <li class="flex items-center gap-2">
-                <span class="h-1 w-1 rounded-full bg-[#c9a227]"></span>Trajanje:
-                15–20 sekundi
-              </li>
-              <li class="flex items-center gap-2">
-                <span class="h-1 w-1 rounded-full bg-[#c9a227]"></span>Sadrži
-                logotip vaše kompanije
-              </li>
-              <li class="flex items-center gap-2">
-                <span class="h-1 w-1 rounded-full bg-[#c9a227]"></span>Spreman
-                za objavljivanje na društvenim mrežama
-              </li>
-            </ul>
+
+          <!-- Product 2: shared best-clips selection, personalized logo -->
+          <div class="flex flex-col gap-6">
+            <div>
+              <div
+                class={`mb-3 text-sm font-medium tracking-[0.1em] text-[#c9a227] uppercase ${fontData}`}
+              >
+                {offerProducts[1].tag}
+              </div>
+              <h3
+                class={`mb-3 text-xl font-bold text-[#f0f0f0] ${fontHeading}`}
+              >
+                {offerProducts[1].title}
+              </h3>
+              {
+                offerProducts[1].desc.map((p) => (
+                  <p class="mb-3 text-[15px] leading-relaxed text-[#aaa]">
+                    {p}
+                  </p>
+                ))
+              }
+              <ul class="mt-4 space-y-2 text-sm text-[#999]">
+                {
+                  offerProducts[1].bullets.map((b) => (
+                    <li class="flex items-start gap-2">
+                      <span class="mt-1.5 h-1 w-1 shrink-0 rounded-full bg-[#c9a227]" />
+                      {b}
+                    </li>
+                  ))
+                }
+              </ul>
+            </div>
+
+            <div class="rounded-xl border border-[#1a2e1a] bg-[#0a0f0a] p-6">
+              <p class="text-[14px] leading-relaxed text-[#ccc]">
+                <strong class="text-[#c9a227]">Primer:</strong> Ako posle turnira
+                odaberemo 20 najboljih snimaka, kompanija A dobija svih 20 sa logotipom
+                A. Kompanija B dobija iste snimke, ali sa logotipom B. Niko ne dobija
+                zajednički fajl sa tuđim logotipima.
+              </p>
+            </div>
           </div>
         </div>
 
-        <div class="order-1 flex justify-center lg:order-2">
+        <!-- Summary table -->
+        <div class="mt-14">
           <div
-            class="relative w-[320px] overflow-hidden rounded-[2.5rem] border-4 border-[#111a11] bg-[#0a0f0a] shadow-2xl shadow-black/50 sm:w-[360px] lg:w-[400px]"
+            class="overflow-hidden rounded-xl border border-[#1a2e1a] bg-[#0a0f0a]"
           >
             <div
-              class="absolute top-0 left-1/2 z-10 h-6 w-32 -translate-x-1/2 rounded-b-2xl bg-[#111a11]"
+              class="grid grid-cols-3 border-b border-[#1a2e1a] bg-[#0f140f] text-sm font-medium tracking-[0.1em] text-[#c9a227] uppercase"
             >
+              <div class="p-4 text-left">Šta dobijate</div>
+              <div class="border-l border-[#1a2e1a] p-4 text-center">
+                Jedinstveno za vas
+              </div>
+              <div class="border-l border-[#1a2e1a] p-4 text-center">
+                Isto dobijaju svi partneri
+              </div>
             </div>
-            <video
-              src={`${BASE}ZenCarpPhone.mp4`}
-              loop
-              muted
-              playsinline
-              autoplay
-              class="aspect-[9/16] h-auto w-full object-cover"></video>
+            {
+              deliveryTable.map((row, i) => (
+                <div
+                  class={`grid grid-cols-3 text-[15px] ${i !== deliveryTable.length - 1 ? "border-b border-[#1a2e1a]" : ""}`}
+                >
+                  <div class="p-4 text-[#e8e8e8]">{row.item}</div>
+                  <div class="border-l border-[#1a2e1a] p-4 text-center font-medium text-[#c9a227]">
+                    {row.unique}
+                  </div>
+                  <div class="border-l border-[#1a2e1a] p-4 text-center font-medium text-[#c9a227]">
+                    {row.shared}
+                  </div>
+                </div>
+              ))
+            }
           </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- BEST CLIPS DETAIL -->
-    <section class="reveal border-y border-[#111a11] bg-[#080c08] px-5 py-24">
-      <div class="mx-auto max-w-4xl text-center">
-        <div
-          class={`mb-4 text-xs font-semibold uppercase tracking-[0.25em] text-[#c9a227] ${fontData}`}
-        >
-          Kompletan izbor
-        </div>
-        <h2
-          class={`mb-6 text-3xl font-bold leading-tight text-[#f0f0f0] sm:text-4xl ${fontHeading}`}
-        >
-          Svi najbolji snimci sa turnira.
-        </h2>
-        <p
-          class="mx-auto mb-10 max-w-xl text-[15px] leading-relaxed text-[#aaa]"
-        >
-          Tokom turnira snimamo ulove, borbu sa ribom, merenje, vraćanje ribe u
-          vodu, reakcije takmičara, atmosferu i snimke dronom. Nakon turnira od
-          tog materijala pravimo <strong class="text-[#e8e8e8]"
-            >izbor najboljih video snimaka</strong
-          >.
-        </p>
-
-        <div
-          class="rounded-xl border border-[#1a2e1a] bg-[#0a0f0a] p-8 text-left"
-        >
-          <p class="text-[15px] leading-relaxed text-[#ccc]">
-            <strong class="text-[#c9a227]">Primer isporuke:</strong> Ako nakon turnira
-            odaberemo 20 najboljih kratkih video snimaka, kompanija A dobija svih
-            20 snimaka sa logotipom A. Kompanija B takođe dobija svih 20 snimaka,
-            ali sa logotipom B.
-            <span class="mt-3 block text-[#888]"
-              >Niko ne dobija zajednički fajl sa logotipovima drugih partnera.
-              Dobijate isključivo verziju sa vašim logotipom.</span
-            >
+          <p class="mt-4 text-sm text-[#888]">
+            Oba video materijala uvek sadrže isključivo vaš logotip — nikada
+            logotip drugog partnera.
           </p>
         </div>
-      </div>
-    </section>
 
-    <!-- DELIVERY TABLE -->
-    <section class="reveal px-5 py-24">
-      <div class="mx-auto max-w-4xl">
-        <div
-          class={`mb-8 text-center text-xs font-semibold uppercase tracking-[0.25em] text-[#c9a227] ${fontData}`}
-        >
-          Pregled isporuke
-        </div>
-        <div
-          class="overflow-hidden rounded-xl border border-[#1a2e1a] bg-[#0a0f0a]"
-        >
-          <div
-            class="grid grid-cols-3 border-b border-[#1a2e1a] bg-[#0f140f] text-sm font-medium tracking-[0.1em] text-[#c9a227] uppercase"
-          >
-            <div class="p-4 text-left">Šta dobijate</div>
-            <div class="border-l border-[#1a2e1a] p-4 text-center">
-              Posebno za vas
-            </div>
-            <div class="border-l border-[#1a2e1a] p-4 text-center">
-              Dobijaju svi partneri
-            </div>
-          </div>
-          {
-            deliveryTable.map((row, i) => (
-              <div
-                class={`grid grid-cols-3 text-[15px] ${i !== deliveryTable.length - 1 ? "border-b border-[#1a2e1a]" : ""}`}
-              >
-                <div class="p-4 text-[#e8e8e8]">{row.item}</div>
-                <div class="border-l border-[#1a2e1a] p-4 text-center font-medium text-[#c9a227]">
-                  {row.unique}
-                </div>
-                <div class="border-l border-[#1a2e1a] p-4 text-center font-medium text-[#c9a227]">
-                  {row.shared}
-                </div>
-              </div>
-            ))
-          }
-        </div>
+        <p class="mt-10 text-sm text-[#888]">
+          Uz oba videa, vaš logo je vidljiv i tokom samog turnira — u YouTube
+          prenosu i na rezultatima uživo. <a
+            href="#live"
+            class="text-[#c9a227] underline underline-offset-2 hover:text-[#d4b43a]"
+            >Pogledajte kako</a
+          >.
+        </p>
       </div>
     </section>
 
     <!-- USAGE -->
-    <section class="reveal border-y border-[#111a11] bg-[#080c08] px-5 py-24">
+    <section class="reveal px-5 py-24">
       <div class="mx-auto max-w-4xl">
         <div
           class={`mb-4 text-xs font-semibold uppercase tracking-[0.25em] text-[#c9a227] ${fontData}`}
@@ -441,7 +419,7 @@ const eventInfo = [
       </div>
     </section>
 
-    <!-- ADDITIONAL & HOW IT'S MADE -->
+    <!-- BONUS: LOGO DURING THE LIVE BROADCAST & HOW IT'S MADE -->
     <section
       id="live"
       class="reveal border-y border-[#111a11] bg-[#080c08] px-5 py-24"
@@ -451,17 +429,18 @@ const eventInfo = [
           <div
             class={`mb-4 text-xs font-semibold uppercase tracking-[0.25em] text-[#c9a227] ${fontData}`}
           >
-            Dodatno tokom turnira
+            Bonus tokom turnira
           </div>
           <h2
             class={`mb-5 text-3xl font-bold leading-tight text-[#f0f0f0] sm:text-4xl ${fontHeading}`}
           >
-            Vaš logotip u prenosu.
+            Vaš logotip u prenosu — uz oba videa.
           </h2>
           <p class="text-[15px] leading-relaxed text-[#999]">
-            Iako je glavni proizvod video sadržaj koji dobijate nakon turnira,
-            vaš logotip će biti vidljiv i tokom samog događaja u traci partnera
-            tokom YouTube prenosa i na stranici sa rezultatima uživo.
+            Osim video materijala koje dobijate posle turnira, vaš logotip će
+            biti vidljiv i tokom samog događaja — u traci partnera tokom YouTube
+            prenosa i na stranici sa rezultatima uživo. Ovo je dodatak uz dva
+            videa iz ponude, ne zamena za njih.
           </p>
         </div>
 
@@ -658,7 +637,7 @@ const eventInfo = [
         </p>
         <div class="flex flex-wrap items-center justify-center gap-4">
           <a
-            href="mailto:partnerstvo@zencarp.rs?subject=ZenCarp%20partnerstvo"
+            href="mailto:zencarp@outlook.com?subject=ZenCarp%20partnerstvo"
             class={`rounded-full bg-[#c9a227] px-8 py-4 text-sm font-medium text-[#0a0f0a] transition-colors hover:bg-[#d4b43a] ${fontHeading}`}
           >
             Postani partner
