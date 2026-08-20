@@ -399,7 +399,7 @@ export default function ZenCarpLanding() {
                                 <div className="relative">
                                     <div className="absolute -inset-3 rounded-4xl bg-linear-to-br from-[#c9a227]/10 via-transparent to-[#7cb87c]/10 blur-xl" />
                                     <div className="relative overflow-hidden rounded-2xl border border-[#1a2e1a] bg-[#0d140d]/90 p-3 shadow-2xl">
-                                        <img src={`${import.meta.env.BASE_URL}mapa_jezera.png`} alt="Mapa jezera sa pozicijama ekipa i ulazom za publiku" className="h-auto w-full rounded-xl" style={{ objectFit: "contain" }} />
+                                        <img src={`${import.meta.env.BASE_URL}final_lake.png`} alt="Mapa jezera sa pozicijama ekipa i ulazom za publiku" className="h-auto w-full rounded-xl" style={{ objectFit: "contain" }} />
                                     </div>
                                 </div>
                             </FadeIn>
