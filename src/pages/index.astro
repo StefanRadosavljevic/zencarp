@@ -1,126 +1,101 @@
 ---
 // index.astro — ZenCarp landing page
-// Broadcast-first redesign: F1 timing-tower graphics meet a lake in Banat.
 import Layout from "@/layouts/main.astro"
 
 const BASE = import.meta.env.BASE_URL
-const fontHeading = "font-[family-name:var(--font-poppins)]" // brand voice — headlines, statements
-const fontBody = "font-[family-name:var(--font-inter)]" // reading voice — paragraphs
-const fontData = "font-[family-name:var(--font-oswald)]" // broadcast voice — labels, numbers, live data
+const fontHeading = "font-[family-name:var(--font-poppins)]"
+const fontBody = "font-[family-name:var(--font-inter)]"
+const fontData = "font-[family-name:var(--font-oswald)]"
 
 const tickerItems = [
-  "ČETIRI EKIPE, JEDNO JEZERO",
-  "SVAKI ULOV MENJA PLASMAN",
-  "IDEJA U NASTAJANJU",
   "VOJVODA STEPA, BANAT",
+  "ČETIRI EKIPE",
   "PET SATI NA VODI",
+  "ŠARAN I AMUR",
+  "PRVI PUT OVE GODINE",
 ]
 
 const heroStats = [
-  { label: "EKIPE", value: "04" },
-  { label: "POZICIJE", value: "FIKSNE" },
-  { label: "NA VODI", value: "05H" },
-  { label: "POBEDNIK NOSI", value: "€200" },
+  { label: "EKIPE", value: "4" },
+  { label: "TRAJANJE", value: "5H" },
+  { label: "KOTIZACIJA", value: "50€" },
+  { label: "NAGRADA", value: "200€" },
 ]
 
-const conceptFacts = [
+const kakoIde = [
   {
-    label: "Ekipe",
-    value: "4",
-    detail: "Po dva takmičara u ekipi, jedna pozicija za ceo dan.",
+    n: "01",
+    title: "Žreb pozicija",
+    desc: "Svaka ekipa izvuče poziciju na jezeru pre početka. Tu ostaje do kraja — nema premeštanja.",
   },
   {
-    label: "Kamere",
-    value: "5",
-    detail:
-      "Plan je da postoje četiri stalne pozicije i jedna terenska kamera u pokretu.",
+    n: "02",
+    title: "Pet sati pecanja",
+    desc: "Dvoje po ekipi, jedna stolica do druge. Ko šta ulovi, meri se na licu mesta.",
   },
   {
-    label: "Plasman",
-    value: "Uživo",
-    detail: "Svaki ulov trebalo bi odmah da menja poredak na tabeli.",
+    n: "03",
+    title: "Vaganje i povratak",
+    desc: "Šaran ili amur — izvuče se, izmeri pred svima, i odmah nazad u vodu.",
   },
   {
-    label: "Komentar",
-    value: "Uživo",
-    detail: "Komentator bi pratio svaku promenu i objašnjavao šta se dešava.",
-  },
-  {
-    label: "Produkcija",
-    value: "U pripremi",
-    detail:
-      "Grafika, ponovljeni snimci i smena kadrova — dok se turnir dešava.",
-  },
-  {
-    label: "Objave na mrežama",
-    value: "Tokom dana",
-    detail: "Sadržaj bi išao na mreže direktno sa jezera, dok turnir traje.",
+    n: "04",
+    title: "Tabela do poslednjeg minuta",
+    desc: "Pobeđuje ekipa sa najvećom ukupnom težinom. Sve se broji, do samog kraja.",
   },
 ]
 
-const liveFeed = [
+const uzivo = [
   {
-    title: "Pozicije kamera",
-    desc: "Plan je da četiri stalne kamere, po jedna za svaku ekipu, prate i čekanje i borbu s ribom.",
+    title: "Kamera po ekipi",
+    desc: "Ideja je da svaka pozicija ima svoju kameru — da se vidi i čekanje, ne samo ulov.",
   },
   {
-    title: "Terenski reporter",
-    desc: "Kamera i mikrofon bi obilazili pozicije i hvatali reakcije i izjave sa terena.",
+    title: "Neko sa mikrofonom",
+    desc: "Obilazi jezero, pita ekipe kako im ide, hvata to dok se dešava.",
   },
   {
-    title: "Ulovi uživo",
-    desc: "Svaka riba se izvadi mrežom, izmeri pred kamerom i vrati u vodu.",
-  },
-  {
-    title: "Grafika plasmana",
-    desc: "Plasman i zaostatak za prvim mestom bili bi prikazani na ekranu tokom prenosa.",
+    title: "Tabela uživo",
+    desc: "Ko vodi, za koliko, i ko je poslednji ulovio — vidi se odmah.",
   },
   {
     title: "Komentar",
-    desc: "Komentator bi objašnjavao taktiku, pozicioniranje i tok igre u toku dešavanja.",
-  },
-  {
-    title: "Najave promena",
-    desc: "Svaka promena lidera trebalo bi odmah da se najavi tokom prenosa.",
+    desc: "Neko prati ceo dan i objašnjava šta se menja i zašto.",
   },
 ]
 
 const contentFormats = [
   "REELS",
-  "KRATKI VIDEO",
-  "NAJZANIMLJIVIJI TRENUCI",
+  "KRATAK VIDEO",
+  "NAJBOLJI TRENUCI",
   "IZA KULISA",
   "SNIMCI DRONOM",
-  "TRENUCI SA EKIPAMA",
-  "SPONZORSKI SADRŽAJ",
-  "PONOVLJENI ULOVI",
+  "EKIPE IZBLIZA",
 ]
 
 const sponsorTouchpoints = [
   "Prenos uživo",
   "Grafike turnira",
   "Društvene mreže",
-  "Kratki video sadržaj",
-  "Vidljivost na licu mesta",
-  "Brendirani sadržaj",
+  "Video sadržaj",
+  "Vidljivost na jezeru",
 ]
 
 const audienceTags = [
   "Ljubitelji ribolova",
   "Porodice",
-  "Lokalni posetioci",
-  "Takmičari",
+  "Ljudi iz okoline",
   "Ljubitelji sporta",
-  "Gledaoci koji prvi put prate",
+  "Radoznali",
 ]
 
 const eventInfo = [
   { label: "Lokacija", value: "Vojvoda Stepa, Banat" },
-  { label: "Format", value: "4 ekipe · po 2 takmičara" },
+  { label: "Format", value: "4 ekipe, po 2 takmičara" },
   { label: "Trajanje", value: "5 sati na vodi" },
-  { label: "Vrste ribe", value: "Šaran i amur" },
+  { label: "Riba", value: "Šaran i amur" },
   { label: "Kotizacija", value: "50 € po ekipi" },
-  { label: "Nagrada", value: "200 € pobedničkoj ekipi" },
+  { label: "Nagrada", value: "200 € pobedniku" },
 ]
 
 const leaderboard = [
@@ -133,8 +108,8 @@ const maxWeight = Math.max(...leaderboard.map((t) => t.weight))
 ---
 
 <Layout
-  title="ZEN CARP — Takmičenje u pecanju šarana uživo"
-  description="Četiri ekipe. Jedno jezero. Ideja o prenosu uživo građenom oko svakog ulova. ZenCarp je ribolovno takmičenje sa jezera Vojvoda Stepa, Banat."
+  title="ZEN CARP — turnir u pecanju šarana, Banat"
+  description="Četiri ekipe, jedno jezero, pet sati. ZenCarp je turnir u pecanju šarana i amura na jezeru Vojvoda Stepa u Banatu."
 >
   <div class={`min-h-screen bg-[#060a06] ${fontBody} text-[#e8e8e8]`}>
     <!-- Ticker -->
@@ -165,6 +140,7 @@ const maxWeight = Math.max(...leaderboard.map((t) => t.weight))
         muted
         playsinline
         class="absolute inset-0 h-full w-full object-cover"
+        poster={`${BASE}final_lake.jpeg`}
       >
         <source src={`${BASE}fishing.mp4`} type="video/mp4" />
       </video>
@@ -179,7 +155,7 @@ const maxWeight = Math.max(...leaderboard.map((t) => t.weight))
           <span
             class={`text-xs font-semibold uppercase tracking-[0.3em] text-[#e8e8e8] ${fontData}`}
           >
-            Ideja za ribolovno takmičenje
+            Banat, Vojvoda Stepa
           </span>
         </div>
 
@@ -189,17 +165,14 @@ const maxWeight = Math.max(...leaderboard.map((t) => t.weight))
           ZEN<span class="text-[#c9a227]">CARP</span>
         </h1>
 
-        <p
-          class="mt-8 max-w-xl text-[15px] leading-relaxed text-[#ccc] sm:text-lg"
-        >
-          Četiri ekipe. Jedno jezero. Četiri sata borbe za svaki ulov, dok mi to
-          pratimo kamerama, komentarom i plasmanom uživo — kao pravi sportski
-          prenos.
+        <p class="mt-7 max-w-lg text-lg leading-relaxed text-[#ccc] sm:text-xl">
+          Četiri ekipe, jedno jezero, pet sati da uloviš najviše kilograma.
+          Turnir u pecanju šarana kakav u Banatu do sad nismo imali.
         </p>
 
         <div class="mt-9 flex flex-wrap items-center gap-4">
           <a
-            href="#live"
+            href="#kako-ide"
             class={`rounded-full bg-[#c9a227] px-8 py-3.5 text-sm font-medium text-[#0a0f0a] transition-colors hover:bg-[#d4b43a] ${fontHeading}`}
           >
             Kako funkcioniše
@@ -231,39 +204,35 @@ const maxWeight = Math.max(...leaderboard.map((t) => t.weight))
       </div>
     </section>
 
-    <!-- CONCEPT -->
+    <!-- PRIČA -->
     <section class="reveal px-5 py-24">
       <div class="mx-auto grid max-w-6xl gap-14 lg:grid-cols-[1fr_1fr]">
         <div>
           <div
             class={`mb-4 text-xs font-semibold uppercase tracking-[0.25em] text-[#c9a227] ${fontData}`}
           >
-            Koncept
+            Zašto ZenCarp
           </div>
           <h2
             class={`mb-6 text-3xl font-bold leading-tight text-[#f0f0f0] sm:text-4xl ${fontHeading}`}
           >
-            Ribolov predstavljen kao sportski prenos.
+            Pecanje je sport i kad niko to ne priznaje.
           </h2>
           <div class="space-y-4 text-[15px] leading-relaxed text-[#aaa]">
             <p>
-              Ribolov na šarana obično traži strpljenje i mir — dugo čekanje i
-              tih ambijent, sa malo toga za nekoga ko posmatra sa strane. Mi
-              želimo da probamo nešto drugačije: da to isto čekanje predstavimo
-              kao pravo takmičenje, sa kamerama, komentarom i plasmanom koji se
-              menja iz minuta u minut.
+              Ko je nekad pecao šarana zna — nije to samo sedenje pored vode.
+              Bira se pozicija, bira se mamac, bira se trenutak. Pogrešiš jedno
+              od toga i dan prođe bez ijednog ulova.
             </p>
             <p>
-              Ne pokušavamo da izmislimo novi sport, već da postojeći format
-              ribolovnog takmičenja opremimo alatima koje ljudi prepoznaju iz
-              sportskih prenosa — praćenje uživo, jasan plasman i komentar koji
-              objašnjava šta se dešava, u trenutku kad se dešava.
+              ZenCarp uzima to isto pecanje i stavlja ga u format takmičenja.
+              Fiksna pozicija, ograničeno vreme, jedna vaga koja odlučuje ko je
+              bolji tog dana. Nema mesta za izgovore.
             </p>
             <p>
-              Zašto ovo radimo? Zato što mislimo da ribolov ima potencijal da
-              bude zanimljiv i onima koji ne pecaju — samo mu treba format koji
-              to pokaže. ZenCarp je naš pokušaj da tu ideju isprobamo, počev od
-              jednog turnira na jednom jezeru.
+              Prvi put se organizuje na jezeru Vojvoda Stepa u Banatu, sa četiri
+              ekipe koje se bore za nagradu i, pre svega, za pravo da kažu da su
+              pobedile.
             </p>
           </div>
         </div>
@@ -273,16 +242,19 @@ const maxWeight = Math.max(...leaderboard.map((t) => t.weight))
         >
           <img
             src={`${BASE}final_lake.jpeg`}
-            alt="Mapa jezera"
+            alt="Jezero Vojvoda Stepa u Banatu, mesto održavanja ZenCarp turnira"
+            width="1200"
+            height="900"
+            loading="lazy"
             class="h-full w-full object-cover"
           />
         </div>
       </div>
     </section>
 
-    <!-- LIVE EXPERIENCE -->
+    <!-- KAKO IDE -->
     <section
-      id="live"
+      id="kako-ide"
       class="reveal border-y border-[#111a11] bg-[#080c08] px-5 py-24"
     >
       <div class="mx-auto max-w-6xl">
@@ -290,22 +262,61 @@ const maxWeight = Math.max(...leaderboard.map((t) => t.weight))
           <div
             class={`mb-4 text-xs font-semibold uppercase tracking-[0.25em] text-[#c9a227] ${fontData}`}
           >
-            Uživo
+            Format
           </div>
           <h2
             class={`mb-5 text-3xl font-bold leading-tight text-[#f0f0f0] sm:text-4xl ${fontHeading}`}
           >
-            Zamišljeno da se prati kao sport, ne samo da se peca.
+            Kako ide takmičenje.
+          </h2>
+        </div>
+
+        <div class="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+          {
+            kakoIde.map((k) => (
+              <div class="rounded-xl border border-[#1a2e1a] bg-[#0a0f0a] p-6">
+                <div
+                  class={`text-3xl font-semibold text-[#c9a227] ${fontData}`}
+                >
+                  {k.n}
+                </div>
+                <div
+                  class={`mt-3 text-sm font-medium tracking-[0.05em] text-[#e8e8e8] uppercase ${fontData}`}
+                >
+                  {k.title}
+                </div>
+                <div class="mt-2 text-sm leading-relaxed text-[#999]">
+                  {k.desc}
+                </div>
+              </div>
+            ))
+          }
+        </div>
+      </div>
+    </section>
+
+    <!-- UŽIVO -->
+    <section id="live" class="reveal px-5 py-24">
+      <div class="mx-auto max-w-6xl">
+        <div class="mb-14 max-w-2xl">
+          <div
+            class={`mb-4 text-xs font-semibold uppercase tracking-[0.25em] text-[#c9a227] ${fontData}`}
+          >
+            Prenos
+          </div>
+          <h2
+            class={`mb-5 text-3xl font-bold leading-tight text-[#f0f0f0] sm:text-4xl ${fontHeading}`}
+          >
+            Hoćemo da se ovo gleda, ne samo da se odigra.
           </h2>
           <p class="text-[15px] leading-relaxed text-[#999]">
-            ZenCarp je zamišljen kao sportski prenos — sa više kamera, plasmanom
-            koji se ažurira iz minuta u minut i komentatorom koji objašnjava šta
-            se dešava.
+            Ideja je jednostavna — kamera na svaku poziciju, tabela koja se
+            menja iz minuta u minut, i neko ko sve to prati i priča šta se
+            dešava.
           </p>
         </div>
 
         <div class="grid gap-10 lg:grid-cols-[1.1fr_1fr]">
-          <!-- broadcast frame mockup -->
           <div
             class="relative aspect-[16/9] overflow-hidden rounded-xl border border-[#1a2e1a] bg-[#060a06]"
           >
@@ -323,10 +334,9 @@ const maxWeight = Math.max(...leaderboard.map((t) => t.weight))
             </video>
           </div>
 
-          <!-- feed list -->
           <div class="divide-y divide-[#1a2e1a]">
             {
-              liveFeed.map((f) => (
+              uzivo.map((f) => (
                 <div class="flex items-start gap-4 py-4">
                   <span class="mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full bg-[#c9a227]" />
                   <div>
@@ -347,36 +357,39 @@ const maxWeight = Math.max(...leaderboard.map((t) => t.weight))
       </div>
     </section>
 
-    <!-- MOBILE -->
-    <section id="mobile" class="reveal px-5 py-24">
+    <!-- APLIKACIJA -->
+    <section
+      id="mobile"
+      class="reveal border-y border-[#111a11] bg-[#080c08] px-5 py-24"
+    >
       <div class="mx-auto grid max-w-6xl items-center gap-14 lg:grid-cols-2">
         <div class="order-2 lg:order-1">
           <div
             class={`mb-4 text-xs font-semibold uppercase tracking-[0.25em] text-[#c9a227] ${fontData}`}
           >
-            U tvom džepu
+            Ako nisi na jezeru
           </div>
           <h2
             class={`mb-6 text-3xl font-bold leading-tight text-[#f0f0f0] sm:text-4xl ${fontHeading}`}
           >
-            Turnir na dlanu.
+            Prati tabelu sa telefona.
           </h2>
           <p class="mb-6 max-w-md text-[15px] leading-relaxed text-[#aaa]">
-            Plasman želimo da učinimo dostupnim i van jezera — kroz aplikaciju
-            koja bi pratila pozicije ekipa i svaki ulov čim se riba izmeri.
+            Ne moraš da budeš pored vode da bi znao ko vodi. Aplikacija bi se
+            ažurirala čim se neki ulov izmeri i potvrdi.
           </p>
           <ul class="space-y-2 text-sm text-[#999]">
             <li class="flex items-center gap-2">
-              <span class="h-1 w-1 rounded-full bg-[#c9a227]"></span>Plasman po
-              težini ulova
+              <span class="h-1 w-1 rounded-full bg-[#c9a227]"></span>Trenutni
+              plasman
             </li>
             <li class="flex items-center gap-2">
-              <span class="h-1 w-1 rounded-full bg-[#c9a227]"></span>Istorija
-              ulova po ekipama
+              <span class="h-1 w-1 rounded-full bg-[#c9a227]"></span>Svaki ulov,
+              po ekipi
             </li>
             <li class="flex items-center gap-2">
-              <span class="h-1 w-1 rounded-full bg-[#c9a227]"></span>Ažuriranje
-              čim se ulov potvrdi
+              <span class="h-1 w-1 rounded-full bg-[#c9a227]"></span>Ažurno, bez
+              čekanja
             </li>
           </ul>
         </div>
@@ -389,7 +402,6 @@ const maxWeight = Math.max(...leaderboard.map((t) => t.weight))
               class="absolute top-0 left-1/2 z-10 h-6 w-32 -translate-x-1/2 rounded-b-2xl bg-[#111a11]"
             >
             </div>
-
             <video
               src={`${BASE}ZenCarpPhone.mp4`}
               loop
@@ -402,33 +414,34 @@ const maxWeight = Math.max(...leaderboard.map((t) => t.weight))
       </div>
     </section>
 
-    <!-- COMPETITION / LEADERBOARD -->
-    <section
-      id="competition"
-      class="reveal border-y border-[#111a11] bg-[#080c08] px-5 py-24"
-    >
+    <!-- TABELA -->
+    <section id="competition" class="reveal px-5 py-24">
       <div class="mx-auto max-w-4xl">
         <div class="mb-4 flex items-center justify-between">
           <div
             class={`text-xs font-semibold uppercase tracking-[0.25em] text-[#c9a227] ${fontData}`}
           >
-            Primer plasmana
+            Primer tabele
           </div>
           <div
             class={`text-[10px] uppercase tracking-[0.2em] text-[#666] ${fontData}`}
           >
-            Primer prikaza iz prenosa
+            Ovako bi izgledao prikaz
           </div>
         </div>
         <h2
-          class={`mb-12 text-3xl font-bold leading-tight text-[#f0f0f0] sm:text-4xl ${fontHeading}`}
+          class={`mb-3 text-3xl font-bold leading-tight text-[#f0f0f0] sm:text-4xl ${fontHeading}`}
         >
-          Svaki ulov pomera tabelu.
+          Kilogrami odlučuju, ništa drugo.
         </h2>
+        <p class="mb-12 max-w-xl text-[15px] leading-relaxed text-[#999]">
+          Sabira se ukupna težina svih ulova po ekipi. Ko ima najviše na kraju
+          petog sata, taj je pobednik.
+        </p>
 
         <div class="space-y-3">
           {
-            leaderboard.map((t, i) => (
+            leaderboard.map((t) => (
               <div class="leaderboard-row grid grid-cols-[3rem_1fr_5rem] items-center gap-4 sm:grid-cols-[3.5rem_1fr_6rem]">
                 <div
                   class={`text-2xl font-semibold text-[#c9a227] ${fontData}`}
@@ -450,31 +463,62 @@ const maxWeight = Math.max(...leaderboard.map((t) => t.weight))
             ))
           }
         </div>
-        <p class="mt-8 text-sm leading-relaxed text-[#777]">
-          Pobeđuje ekipa sa najvećom ukupnom težinom ulova. Nema poena ni
-          hendikepa — plasman se menja čim se ulov potvrdi na vagi.
-        </p>
       </div>
     </section>
 
-    <!-- CONTENT / SOCIAL -->
+    <!-- JEZERO -->
+    <section
+      id="jezero"
+      class="reveal border-y border-[#111a11] bg-[#080c08] px-5 py-24"
+    >
+      <div class="mx-auto grid max-w-6xl items-center gap-14 lg:grid-cols-2">
+        <div>
+          <div
+            class={`mb-4 text-xs font-semibold uppercase tracking-[0.25em] text-[#c9a227] ${fontData}`}
+          >
+            Lokacija
+          </div>
+          <h2
+            class={`mb-6 text-3xl font-bold leading-tight text-[#f0f0f0] sm:text-4xl ${fontHeading}`}
+          >
+            Vojvoda Stepa, Banat.
+          </h2>
+          <p class="text-[15px] leading-relaxed text-[#aaa]">
+            Tu se igra sve. Četiri fiksne pozicije oko jednog jezera, gde ima i
+            šarana i amura, i gde svako mora sam da smisli kako da pretekne
+            ostale.
+          </p>
+        </div>
+        <div class="overflow-hidden rounded-xl border border-[#1a2e1a]">
+          <img
+            src={`${BASE}final_lake.jpeg`}
+            alt="Pogled na jezero Vojvoda Stepa u Banatu, mesto ZenCarp turnira"
+            width="1200"
+            height="900"
+            loading="lazy"
+            class="h-full w-full object-cover"
+          />
+        </div>
+      </div>
+    </section>
+
+    <!-- SADRŽAJ -->
     <section class="reveal py-24">
       <div class="mx-auto max-w-6xl px-5">
         <div class="mb-10 max-w-2xl">
           <div
             class={`mb-4 text-xs font-semibold uppercase tracking-[0.25em] text-[#c9a227] ${fontData}`}
           >
-            Više od jezera
+            Posle turnira
           </div>
           <h2
             class={`mb-5 text-3xl font-bold leading-tight text-[#f0f0f0] sm:text-4xl ${fontHeading}`}
           >
-            Turnir se nastavlja i kad jezero utihne.
+            Snimamo sve, ne samo ulove.
           </h2>
           <p class="text-[15px] leading-relaxed text-[#999]">
-            Želimo da ZenCarp ne bude samo prenos uživo, već čitav dan
-            snimljenog materijala — pozicije, izjave i ulovi koji posle mogu da
-            se dele na društvenim mrežama.
+            Ceo dan ide na kameru — ekipe, jezero, momenti pre i posle ulova. To
+            posle deo po deo izlazi na mreže.
           </p>
         </div>
       </div>
@@ -496,7 +540,7 @@ const maxWeight = Math.max(...leaderboard.map((t) => t.weight))
       </div>
     </section>
 
-    <!-- SPONSORS -->
+    <!-- SPONZORI -->
     <section
       id="sponsors"
       class="reveal border-y border-[#111a11] bg-[#080c08] px-5 py-24"
@@ -505,19 +549,18 @@ const maxWeight = Math.max(...leaderboard.map((t) => t.weight))
         <div
           class={`mb-4 text-xs font-semibold uppercase tracking-[0.25em] text-[#c9a227] ${fontData}`}
         >
-          Partnerstvo
+          Sponzori
         </div>
         <h2
           class={`mb-6 text-3xl font-bold leading-tight text-[#f0f0f0] sm:text-4xl ${fontHeading}`}
         >
-          Prostor za brend u okviru turnira.
+          Ima mesta i za tvoj brend.
         </h2>
         <p
           class="mx-auto mb-10 max-w-xl text-[15px] leading-relaxed text-[#aaa]"
         >
-          ZenCarp planira prenos uživo, praćenje rezultata u realnom vremenu i
-          sadržaj za društvene mreže. Partnerima želimo da ponudimo vidljivost
-          kroz sve ove kanale, od samog starta projekta.
+          Prenos, tabela, objave na mrežama, prisustvo na samom jezeru — sve to
+          nudimo onima koji požele da podrže turnir.
         </p>
 
         <div class="mb-10 flex flex-wrap justify-center gap-3">
@@ -536,12 +579,12 @@ const maxWeight = Math.max(...leaderboard.map((t) => t.weight))
           href="mailto:zencarp@outlook.com"
           class={`inline-flex items-center gap-2 rounded-full bg-[#c9a227] px-8 py-3.5 text-sm font-medium text-[#0a0f0a] transition-colors hover:bg-[#d4b43a] ${fontHeading}`}
         >
-          Postani partner
+          Javi se
         </a>
       </div>
     </section>
 
-    <!-- AUDIENCE -->
+    <!-- ZA KOGA JE -->
     <section class="reveal px-5 py-24">
       <div class="mx-auto max-w-4xl">
         <div
@@ -552,13 +595,11 @@ const maxWeight = Math.max(...leaderboard.map((t) => t.weight))
         <h2
           class={`mb-6 max-w-2xl text-3xl font-bold leading-tight text-[#f0f0f0] sm:text-4xl ${fontHeading}`}
         >
-          Ne moraš da pecaš da bi pratio.
+          Ne moraš da pecaš da bi došao.
         </h2>
         <p class="mb-8 max-w-xl text-[15px] leading-relaxed text-[#aaa]">
-          Ulaz je besplatan i svi su dobrodošli da gledaju uživo na licu mesta —
-          ima parkinga, deca su dobrodošla, a komentar je zamišljen tako da ga
-          razume i neko ko nikad nije držao štap u ruci. Isti plasman moći će da
-          se prati i od kuće.
+          Ulaz je slobodan, ima gde da se parkira, deca su dobrodošla. Ko ne
+          može da dođe, prati tabelu i prenos od kuće.
         </p>
         <div class="flex flex-wrap gap-3">
           {
@@ -572,7 +613,7 @@ const maxWeight = Math.max(...leaderboard.map((t) => t.weight))
       </div>
     </section>
 
-    <!-- EVENT INFO -->
+    <!-- DETALJI -->
     <section
       id="info"
       class="reveal border-y border-[#111a11] bg-[#080c08] px-5 py-24"
@@ -581,12 +622,12 @@ const maxWeight = Math.max(...leaderboard.map((t) => t.weight))
         <div
           class={`mb-4 text-xs font-semibold uppercase tracking-[0.25em] text-[#c9a227] ${fontData}`}
         >
-          Podaci o turniru
+          Detalji
         </div>
         <h2
           class={`mb-10 text-3xl font-bold leading-tight text-[#f0f0f0] sm:text-4xl ${fontHeading}`}
         >
-          Detalji turnira.
+          Sve što treba da znaš.
         </h2>
         <div class="divide-y divide-[#1a2e1a] border-y border-[#1a2e1a]">
           {
@@ -605,16 +646,16 @@ const maxWeight = Math.max(...leaderboard.map((t) => t.weight))
           }
         </div>
         <p class="mt-6 text-xs text-[#666]">
-          Kompletna pravila i način bodovanja nalaze se u <a
+          Pravila i način bodovanja su u <a
             href={`${BASE}pravilnik`}
             class="text-[#c9a227] underline underline-offset-4 hover:text-[#e8c94a]"
-            >pravilniku takmičenja</a
+            >pravilniku turnira</a
           >.
         </p>
       </div>
     </section>
 
-    <!-- FINAL CTA -->
+    <!-- CTA -->
     <section id="enter" class="reveal relative overflow-hidden px-5 py-28">
       <div
         class="absolute inset-0 bg-gradient-to-b from-[#080c08] to-[#060a06]"
@@ -624,23 +665,23 @@ const maxWeight = Math.max(...leaderboard.map((t) => t.weight))
         <div
           class={`mb-4 text-xs font-semibold uppercase tracking-[0.25em] text-[#c9a227] ${fontData}`}
         >
-          Sledeći turnir
+          Prvi ZenCarp
         </div>
         <h2
           class={`mb-4 text-3xl font-bold leading-tight text-[#f0f0f0] sm:text-5xl ${fontHeading}`}
         >
-          Pridruži se prvom ZenCarp turniru.
+          Vidimo se na vodi.
         </h2>
         <p class="mb-10 text-[15px] leading-relaxed text-[#999] sm:text-lg">
-          Prijavi ekipu, prati prenos ili se javi ako želiš da podržiš turnir
-          kao partner.
+          Prijavi ekipu, prati kako ide, ili se javi ako hoćeš da podržiš
+          turnir.
         </p>
         <div class="flex flex-wrap items-center justify-center gap-4">
           <a
-            href="#live"
+            href="#kako-ide"
             class={`rounded-full bg-[#c9a227] px-7 py-3.5 text-sm font-medium text-[#0a0f0a] transition-colors hover:bg-[#d4b43a] ${fontHeading}`}
           >
-            Pogledaj koncept
+            Pogledaj format
           </a>
           <a
             href="mailto:zencarp@outlook.com"
@@ -680,7 +721,6 @@ const maxWeight = Math.max(...leaderboard.map((t) => t.weight))
       box-shadow: 0 0 0 0 rgba(224, 71, 58, 0);
     }
   }
-
   .ticker {
     animation: scroll-left 28s linear infinite;
   }
@@ -695,7 +735,6 @@ const maxWeight = Math.max(...leaderboard.map((t) => t.weight))
       transform: translateX(-50%);
     }
   }
-
   .bar {
     width: 0%;
     transition: width 1.1s cubic-bezier(0.16, 1, 0.3, 1);
@@ -703,7 +742,6 @@ const maxWeight = Math.max(...leaderboard.map((t) => t.weight))
   .leaderboard-row.is-visible .bar {
     width: var(--bar-width);
   }
-
   .reveal {
     opacity: 0;
     transform: translateY(16px);
@@ -715,7 +753,6 @@ const maxWeight = Math.max(...leaderboard.map((t) => t.weight))
     opacity: 1;
     transform: translateY(0);
   }
-
   @media (prefers-reduced-motion: reduce) {
     .live-dot,
     .ticker,
