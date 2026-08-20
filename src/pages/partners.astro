@@ -206,7 +206,7 @@ const cta = { label: "Postani partner", href: "#partnerstvo" }
                 class="h-auto w-full"
                 style="aspect-ratio: 16/9; object-fit: cover;"
               >
-                <source src={`${BASE}rendered_overlay.mp4`} type="video/mp4" />
+                <source src={`${BASE}ZenCarpOverlay.mp4`} type="video/mp4" />
               </video>
             </div>
             <h3 class={`mt-4 text-sm font-semibold text-[#ddd] ${fontHeading}`}>
@@ -218,11 +218,16 @@ const cta = { label: "Postani partner", href: "#partnerstvo" }
           </div>
           <div>
             <div class="overflow-hidden rounded-2xl bg-[#0a0f0a] p-3">
-              <img
-                src={`${BASE}results_mobile.png`}
-                alt="ZenCarp rezultati"
+              <video
+                autoplay
+                loop
+                muted
+                playsinline
                 class="h-auto w-full rounded-xl"
-              />
+                style="aspect-ratio: 9/16; object-fit: cover;"
+              >
+                <source src={`${BASE}ZenCarpPhone.mp4`} type="video/mp4" />
+              </video>
             </div>
             <h3 class={`mt-4 text-sm font-semibold text-[#ddd] ${fontHeading}`}>
               Stranica sa rezultatima

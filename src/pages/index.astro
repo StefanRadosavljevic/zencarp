@@ -18,9 +18,9 @@ const cta = { label: "Prijavi ekipu", href: "#enter" }
 const tickerItems = [
   "ČETIRI EKIPE, JEDNO JEZERO",
   "SVAKI ULOV MENJA PLASMAN",
-  "PRATI TAKMIČENJE UŽIVO",
+  "IDEJA U NASTAJANJU",
   "VOJVODA STEPA, BANAT",
-  "PET SATI BORBE ZA PRVO MESTO",
+  "PET SATI NA VODI",
 ]
 
 const heroStats = [
@@ -37,40 +37,42 @@ const conceptFacts = [
     detail: "Po dva takmičara u ekipi, jedna pozicija za ceo dan.",
   },
   {
-    label: "Kamere uživo",
+    label: "Kamere",
     value: "5",
-    detail: "Četiri stalne pozicije, jedna terenska kamera u pokretu.",
+    detail:
+      "Plan je da postoje četiri stalne pozicije i jedna terenska kamera u pokretu.",
   },
   {
     label: "Plasman",
     value: "Uživo",
-    detail: "Svaki ulov odmah menja poredak na tabeli.",
+    detail: "Svaki ulov trebalo bi odmah da menja poredak na tabeli.",
   },
   {
     label: "Komentar",
     value: "Uživo",
-    detail: "Komentator prati svaku promenu i objašnjava šta se dešava.",
+    detail: "Komentator bi pratio svaku promenu i objašnjavao šta se dešava.",
   },
   {
     label: "Produkcija",
-    value: "Puna režija",
-    detail: "Grafika, ponovljeni snimci i smena kadrova — sve dok se dešava.",
+    value: "U pripremi",
+    detail:
+      "Grafika, ponovljeni snimci i smena kadrova — dok se turnir dešava.",
   },
   {
-    label: "Pokrivenost na mrežama",
-    value: "Ceo dan",
-    detail: "Sadržaj ide na mreže direktno sa jezera, dok turnir traje.",
+    label: "Objave na mrežama",
+    value: "Tokom dana",
+    detail: "Sadržaj bi išao na mreže direktno sa jezera, dok turnir traje.",
   },
 ]
 
 const liveFeed = [
   {
     title: "Pozicije kamera",
-    desc: "Četiri stalne kamere, po jedna za svaku ekipu, prate i čekanje i borbu s ribom.",
+    desc: "Plan je da četiri stalne kamere, po jedna za svaku ekipu, prate i čekanje i borbu s ribom.",
   },
   {
     title: "Terenski reporter",
-    desc: "Kamera i mikrofon obilaze pozicije i hvataju reakcije i izjave direktno sa terena.",
+    desc: "Kamera i mikrofon bi obilazili pozicije i hvatali reakcije i izjave sa terena.",
   },
   {
     title: "Ulovi uživo",
@@ -78,15 +80,15 @@ const liveFeed = [
   },
   {
     title: "Grafika plasmana",
-    desc: "Plasman, zaostatak za prvim mestom i lični rekordi — stalno na ekranu.",
+    desc: "Plasman i zaostatak za prvim mestom bili bi prikazani na ekranu tokom prenosa.",
   },
   {
     title: "Komentar",
-    desc: "Taktika, pozicioniranje i tok igre, objašnjeni u trenutku kad se dešavaju.",
+    desc: "Komentator bi objašnjavao taktiku, pozicioniranje i tok igre u toku dešavanja.",
   },
   {
-    title: "Upozorenja uživo",
-    desc: "Čim se promeni lider, prenos to odmah javlja.",
+    title: "Najave promena",
+    desc: "Svaka promena lidera trebalo bi odmah da se najavi tokom prenosa.",
   },
 ]
 
@@ -139,7 +141,7 @@ const maxWeight = Math.max(...leaderboard.map((t) => t.weight))
 
 <Layout
   title="ZEN CARP — Ribolovno takmičenje uživo"
-  description="Četiri ekipe. Jedno jezero. Prenos uživo građen oko svakog ulova. ZenCarp je ribolovno takmičenje uživo sa jezera Vojvoda Stepa, Banat."
+  description="Četiri ekipe. Jedno jezero. Ideja o prenosu uživo građenom oko svakog ulova. ZenCarp je ribolovno takmičenje sa jezera Vojvoda Stepa, Banat."
   {navLinks}
   {cta}
 >
@@ -186,7 +188,7 @@ const maxWeight = Math.max(...leaderboard.map((t) => t.weight))
           <span
             class={`text-xs font-semibold uppercase tracking-[0.3em] text-[#e8e8e8] ${fontData}`}
           >
-            Ribolovno takmičenje uživo
+            Ideja za ribolovno takmičenje
           </span>
         </div>
 
@@ -199,9 +201,9 @@ const maxWeight = Math.max(...leaderboard.map((t) => t.weight))
         <p
           class="mt-8 max-w-xl text-[15px] leading-relaxed text-[#ccc] sm:text-lg"
         >
-          Četiri ekipe, četiri fiksne pozicije, jedno jezero. Svaki ulov se
-          izvaga pred kamerom i odmah upiše u plasman — dok kamere, komentar i
-          grafika uživo pretvaraju ceo dan u pravi sportski prenos.
+          Četiri ekipe. Jedno jezero. Četiri sata borbe za svaki ulov, dok mi to
+          pratimo kamerama, komentarom i plasmanom uživo — kao pravi sportski
+          prenos.
         </p>
 
         <div class="mt-9 flex flex-wrap items-center gap-4">
@@ -209,7 +211,7 @@ const maxWeight = Math.max(...leaderboard.map((t) => t.weight))
             href="#live"
             class={`rounded-full bg-[#c9a227] px-8 py-3.5 text-sm font-medium text-[#0a0f0a] transition-colors hover:bg-[#d4b43a] ${fontHeading}`}
           >
-            Prati prenos
+            Kako funkcioniše
           </a>
           <a
             href="#enter"
@@ -250,23 +252,27 @@ const maxWeight = Math.max(...leaderboard.map((t) => t.weight))
           <h2
             class={`mb-6 text-3xl font-bold leading-tight text-[#f0f0f0] sm:text-4xl ${fontHeading}`}
           >
-            Ribolov u formatu pravog sportskog prenosa.
+            Ribolov predstavljen kao sportski prenos.
           </h2>
           <div class="space-y-4 text-[15px] leading-relaxed text-[#aaa]">
             <p>
-              Ribolov na šarana odvajkada traži strpljenje i mir. ZenCarp tu
-              istu igru čekanja pretvara u napet sportski spektakl — sa
-              kamerama, komentarom i plasmanom koji se menja iz minuta u minut.
+              Ribolov na šarana obično traži strpljenje i mir — dugo čekanje i
+              tih ambijent, sa malo toga za nekoga ko posmatra sa strane. Mi
+              želimo da probamo nešto drugačije: da to isto čekanje predstavimo
+              kao pravo takmičenje, sa kamerama, komentarom i plasmanom koji se
+              menja iz minuta u minut.
             </p>
             <p>
-              Produkcijska ekipa prati svaki trenutak: pripremu, čekanje, borbu,
-              merenje. Publika sve gleda uživo, bez montaže i kašnjenja —
-              plasman se menja pred njima, u istom trenutku kad i pred
-              takmičarima.
+              Ne pokušavamo da izmislimo novi sport, već da postojeći format
+              ribolovnog takmičenja opremimo alatima koje ljudi prepoznaju iz
+              sportskih prenosa — praćenje uživo, jasan plasman i komentar koji
+              objašnjava šta se dešava, u trenutku kad se dešava.
             </p>
             <p>
-              Jedno popodne na vodi tako postaje sati prenosa uživo i dani
-              sadržaja koji turnir drže živim dugo nakon što se jezero utiša.
+              Zašto ovo radimo? Zato što mislimo da ribolov ima potencijal da
+              bude zanimljiv i onima koji ne pecaju — samo mu treba format koji
+              to pokaže. ZenCarp je naš pokušaj da tu ideju isprobamo, počev od
+              jednog turnira na jednom jezeru.
             </p>
           </div>
         </div>
@@ -298,26 +304,26 @@ const maxWeight = Math.max(...leaderboard.map((t) => t.weight))
           <h2
             class={`mb-5 text-3xl font-bold leading-tight text-[#f0f0f0] sm:text-4xl ${fontHeading}`}
           >
-            Da se prati kao sport, ne samo da se peca.
+            Zamišljeno da se prati kao sport, ne samo da se peca.
           </h2>
           <p class="text-[15px] leading-relaxed text-[#999]">
-            ZenCarp se realizuje kao pravi sportski prenos — više kamera,
-            plasman koji se menja iz minuta u minut i komentator koji objašnjava
-            zašto je svaki trenutak važan.
+            ZenCarp je zamišljen kao sportski prenos — sa više kamera, plasmanom
+            koji se ažurira iz minuta u minut i komentatorom koji objašnjava šta
+            se dešava.
           </p>
         </div>
 
         <div class="grid gap-10 lg:grid-cols-[1.1fr_1fr]">
           <!-- broadcast frame mockup -->
           <div
-            class="relative aspect-[16/10] overflow-hidden rounded-xl border border-[#1a2e1a] bg-[#060a06]"
+            class="relative aspect-[16/9] overflow-hidden rounded-xl border border-[#1a2e1a] bg-[#060a06]"
           >
             <video
               autoplay
               loop
               muted
               playsinline
-              class="h-full w-full object-cover"
+              class="h-full w-full object-contain"
             >
               <source src={`${BASE}ZenCarpOverlay.mp4`} type="video/mp4" />
             </video>
@@ -362,20 +368,20 @@ const maxWeight = Math.max(...leaderboard.map((t) => t.weight))
             Turnir na dlanu.
           </h2>
           <p class="mb-6 max-w-md text-[15px] leading-relaxed text-[#aaa]">
-            Gde god da si, plasman je uvek uz tebe. ZenCarp aplikacija prati
-            pozicije ekipa i svaki ulov u realnom vremenu, čim se riba izmeri.
+            Plasman želimo da učinimo dostupnim i van jezera — kroz aplikaciju
+            koja bi pratila pozicije ekipa i svaki ulov čim se riba izmeri.
           </p>
           <ul class="space-y-2 text-sm text-[#999]">
             <li class="flex items-center gap-2">
-              <span class="h-1 w-1 rounded-full bg-[#c9a227]"></span>Plasman
-              uživo po težini
+              <span class="h-1 w-1 rounded-full bg-[#c9a227]"></span>Plasman po
+              težini ulova
             </li>
             <li class="flex items-center gap-2">
               <span class="h-1 w-1 rounded-full bg-[#c9a227]"></span>Istorija
               ulova po ekipama
             </li>
             <li class="flex items-center gap-2">
-              <span class="h-1 w-1 rounded-full bg-[#c9a227]"></span>Ažurira se
+              <span class="h-1 w-1 rounded-full bg-[#c9a227]"></span>Ažuriranje
               čim se ulov potvrdi
             </li>
           </ul>
@@ -396,7 +402,7 @@ const maxWeight = Math.max(...leaderboard.map((t) => t.weight))
               src={`${BASE}ZenCarpPhone.mp4`}
               loop
               muted
-              playsInline
+              playsinline
               autoplay
               class="aspect-[9/16] h-auto w-full object-cover"></video>
           </div>
@@ -414,7 +420,7 @@ const maxWeight = Math.max(...leaderboard.map((t) => t.weight))
           <div
             class={`text-xs font-semibold uppercase tracking-[0.25em] text-[#c9a227] ${fontData}`}
           >
-            Trenutni plasman
+            Primer plasmana
           </div>
           <div
             class={`text-[10px] uppercase tracking-[0.2em] text-[#666] ${fontData}`}
@@ -454,7 +460,7 @@ const maxWeight = Math.max(...leaderboard.map((t) => t.weight))
         </div>
         <p class="mt-8 text-sm leading-relaxed text-[#777]">
           Pobeđuje ekipa sa najvećom ukupnom težinom ulova. Nema poena ni
-          hendikepa — plasman se menja u sekundi kad se riba potvrdi na vagi.
+          hendikepa — plasman se menja čim se ulov potvrdi na vagi.
         </p>
       </div>
     </section>
@@ -474,9 +480,9 @@ const maxWeight = Math.max(...leaderboard.map((t) => t.weight))
             Turnir se nastavlja i kad jezero utihne.
           </h2>
           <p class="text-[15px] leading-relaxed text-[#999]">
-            ZenCarp nije samo prenos uživo — to je čitav dan produkcije. Svaka
-            pozicija, svaka izjava i svaki ulov ostaju zabeleženi i spremni da
-            žive dalje na društvenim mrežama.
+            Želimo da ZenCarp ne bude samo prenos uživo, već čitav dan
+            snimljenog materijala — pozicije, izjave i ulovi koji posle mogu da
+            se dele na društvenim mrežama.
           </p>
         </div>
       </div>
@@ -512,14 +518,14 @@ const maxWeight = Math.max(...leaderboard.map((t) => t.weight))
         <h2
           class={`mb-6 text-3xl font-bold leading-tight text-[#f0f0f0] sm:text-4xl ${fontHeading}`}
         >
-          Brend u centru akcije, ne na ivici terena.
+          Prostor za brend u okviru turnira.
         </h2>
         <p
           class="mx-auto mb-10 max-w-xl text-[15px] leading-relaxed text-[#aaa]"
         >
-          ZenCarp nije baner okačen na ogradu — to je prenos uživo, aplikacija
-          sa rezultatima u realnom vremenu i sadržaj koji kruži danima nakon
-          turnira. Partneri se pojavljuju tačno tamo gde publika zaista gleda.
+          ZenCarp planira prenos uživo, praćenje rezultata u realnom vremenu i
+          sadržaj za društvene mreže. Partnerima želimo da ponudimo vidljivost
+          kroz sve ove kanale, od samog starta projekta.
         </p>
 
         <div class="mb-10 flex flex-wrap justify-center gap-3">
@@ -557,10 +563,10 @@ const maxWeight = Math.max(...leaderboard.map((t) => t.weight))
           Ne moraš da pecaš da bi pratio.
         </h2>
         <p class="mb-8 max-w-xl text-[15px] leading-relaxed text-[#aaa]">
-          Ulaz je besplatan i svako je dobrodošao da gleda uživo — ima parkinga,
-          deca su dobrodošla, a komentar je napravljen tako da ga razume i neko
-          ko nikad nije držao štap u ruci. Za sve ostale, isti taj plasman prati
-          se i od kuće.
+          Ulaz je besplatan i svi su dobrodošli da gledaju uživo na licu mesta —
+          ima parkinga, deca su dobrodošla, a komentar je zamišljen tako da ga
+          razume i neko ko nikad nije držao štap u ruci. Isti plasman moći će da
+          se prati i od kuće.
         </p>
         <div class="flex flex-wrap gap-3">
           {
@@ -583,7 +589,7 @@ const maxWeight = Math.max(...leaderboard.map((t) => t.weight))
         <div
           class={`mb-4 text-xs font-semibold uppercase tracking-[0.25em] text-[#c9a227] ${fontData}`}
         >
-          Zvanični podaci
+          Podaci o turniru
         </div>
         <h2
           class={`mb-10 text-3xl font-bold leading-tight text-[#f0f0f0] sm:text-4xl ${fontHeading}`}
@@ -631,18 +637,18 @@ const maxWeight = Math.max(...leaderboard.map((t) => t.weight))
         <h2
           class={`mb-4 text-3xl font-bold leading-tight text-[#f0f0f0] sm:text-5xl ${fontHeading}`}
         >
-          Sledeći ulov može sve da promeni.
+          Pridruži se prvom ZenCarp turniru.
         </h2>
         <p class="mb-10 text-[15px] leading-relaxed text-[#999] sm:text-lg">
-          Prati ZenCarp uživo, izvedi ekipu na vodu ili stavi svoj brend pred
-          publiku koja stvarno obraća pažnju.
+          Prijavi ekipu, prati prenos ili se javi ako želiš da podržiš turnir
+          kao partner.
         </p>
         <div class="flex flex-wrap items-center justify-center gap-4">
           <a
             href="#live"
             class={`rounded-full bg-[#c9a227] px-7 py-3.5 text-sm font-medium text-[#0a0f0a] transition-colors hover:bg-[#d4b43a] ${fontHeading}`}
           >
-            Gledaj uživo
+            Pogledaj koncept
           </a>
           <a
             href="mailto:prijava@zencarp.rs"
